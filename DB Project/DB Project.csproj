@@ -19,4 +19,9 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Assets\LandingPageBg.png" />
+      <AvaloniaResource Include="Assets\LandingPageBg.png" />
+    </ItemGroup>
 </Project>
