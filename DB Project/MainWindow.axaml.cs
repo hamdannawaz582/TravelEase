@@ -41,7 +41,8 @@ public partial class MainWindow : Window
 
     private void Signup_OnClick(object? sender, RoutedEventArgs e)
     {
-        
+        this.Hide();
+        new ChartPageTemplate();
     }
 
     private void TravellerButton_OnTapped(object? sender, TappedEventArgs e)
