@@ -14,7 +14,7 @@ namespace DB_Project
         {
             InitializeComponent();
             DataContext = this;
-            SwitchToHomePageCommand = new RelayCommand(SwitchToHomePage);
+            //SwitchToHomePageCommand = new RelayCommand(SwitchToHomePage);
             CurrentPage = new MainWindow();
         }
         public bool IsPaneOpen

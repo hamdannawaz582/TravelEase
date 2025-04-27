@@ -11,7 +11,7 @@
                 <Button Command="{Binding TriggerPaneCommand}">
                     -
                 </Button> 
-                <ListBox Background="DarkSlateGray" Foreground="White">
+                <ListBox Background="DarkGray" Foreground="White">
                     <ListBoxItem>Items</ListBoxItem>
                     <ListBoxItem>Items</ListBoxItem>
                     <ListBoxItem>Items</ListBoxItem>
