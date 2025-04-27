@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DB_Project"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DB_Project.MainWindow"
         Title="TravelEase">
@@ -21,8 +22,9 @@
                 <TextBlock Name="EntryText"/>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
                             Width="250">
-                <TextBox Name="UsernameBox" Text="" Watermark="Username" TextChanged="UsernameBox_OnTextChanged" Margin="5, 10, 5, 10"/>
-                <TextBox Name="PasswordBox" PasswordChar="*" Text="" Watermark="Password" TextChanged="PasswordBox_OnTextChanged" Margin="5, 10, 5, 10"/>
+                        <local:TravelEaseLogo Width="150" Height="34"/>
+                        <TextBox Name="UsernameBox" Text="" Watermark="Username" TextChanged="UsernameBox_OnTextChanged" Margin="5, 10, 5, 10"/>
+                        <TextBox Name="PasswordBox" PasswordChar="*" Text="" Watermark="Password" TextChanged="PasswordBox_OnTextChanged" Margin="5, 10, 5, 10"/>
                 
                 <Grid>
                         <Grid.RowDefinitions>

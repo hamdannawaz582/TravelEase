@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DB_Project"
+
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="DB_Project.ChartPageTemplate"
+        Title="ChartPageTemplate">
+        <Grid>
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" Grid.Row="0" Background="#FF2C2D4A" Name="NavPanel" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <local:TravelEaseLogo Width="150" Height="34" Margin="5, 10, 5, 10"/>
+                        <!-- NavPanel Entries -->
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1" Grid.Row="0" Background="#FF1E1F31" Name="MainPanel">
+                        
+                </StackPanel>
+        </Grid>
+</Window>
