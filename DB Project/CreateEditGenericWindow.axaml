@@ -21,7 +21,8 @@
         <!-- Main Content Area -->
         <SplitView.Content>
             <Border CornerRadius="12 0 0 0" Background="#2d2d2d" >
-                <TransitioningContentControl Content="{Binding CurrentPage}"/>
+                
+                <!-- <TransitioningContentControl Content="{Binding }"/> -->
             </Border>
         </SplitView.Content>
     </SplitView>

@@ -15,7 +15,7 @@ namespace DB_Project
             InitializeComponent();
             DataContext = this;
             //SwitchToHomePageCommand = new RelayCommand(SwitchToHomePage);
-            CurrentPage = new MainWindow();
+           // CurrentPage = new MainWindow();
         }
         public bool IsPaneOpen
         {
@@ -29,18 +29,18 @@ namespace DB_Project
                 }
             }
         }
-        public object CurrentPage
-        {
-            get { return _currentPage; }
-            set
-            {
-                if (_currentPage != value)
-                {
-                    _currentPage = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        // public object CurrentPage
+        // {
+        //     get { return _currentPage; }
+        //     set
+        //     {
+        //         if (_currentPage != value)
+        //         {
+        //             _currentPage = value;
+        //             OnPropertyChanged();
+        //         }
+        //     }
+        // }
        
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -49,16 +49,16 @@ namespace DB_Project
         }
        // Command to trigger the pane open/close
         public ICommand TriggerPaneCommand { get; }
-        public ICommand SwitchToHomePageCommand { get; }
+        //public ICommand SwitchToHomePageCommand { get; }
         
         private void TriggerPane()
         {
             IsPaneOpen = !IsPaneOpen;
         }
         
-        public void SwitchToHomePage()
-        {
-            CurrentPage = new MainWindow();
-        }
+        // public void SwitchToHomePage()
+        // {
+        //     CurrentPage = new MainWindow();
+        // }
     }
 }
