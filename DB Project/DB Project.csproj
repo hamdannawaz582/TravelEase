@@ -23,5 +23,9 @@
     <ItemGroup>
       <None Remove="Assets\LandingPageBg.png" />
       <AvaloniaResource Include="Assets\LandingPageBg.png" />
+      <None Remove="Assets\suitcase.png" />
+      <AvaloniaResource Include="Assets\suitcase.png" />
+      <None Remove="Assets\Fonts\IBMPlexSans-Regular.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\IBMPlexSans-Regular.ttf" />
     </ItemGroup>
 </Project>
