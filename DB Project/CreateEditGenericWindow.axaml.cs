@@ -1,7 +1,9 @@
+using System;
 using Avalonia.Controls;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Avalonia.Interactivity;
 
 namespace DB_Project
@@ -9,17 +11,29 @@ namespace DB_Project
     public partial class CreateEditGenericWindow : Window, INotifyPropertyChanged
     {   private bool _isPaneOpen = true;
         private object _currentPage;
+        public ObservableCollection<Tuple<string, Action>> Items { get; set; }
         
         public CreateEditGenericWindow()
         {
             InitializeComponent();
             DataContext = this;
-            //SwitchToHomePageCommand = new RelayCommand(SwitchToHomePage);
-           // CurrentPage = new MainWindow();
+
+            Items = new ObservableCollection<Tuple<string, Action>>
+            {
+                new Tuple<string, Action>("Home", () =>
+                {
+                    var mainWindow = new MainWindow();
+                    this.Content = mainWindow.Content;
+                }),
+                new Tuple<string, Action>("Settings", () => Console.WriteLine("Settings selected")),
+                new Tuple<string, Action>("About", () => Console.WriteLine("About selected"))
+            };
         }
+        //=================================================================================
+        //To close the nav pane
         public bool IsPaneOpen
         {
-            get { return _isPaneOpen; }
+            get => _isPaneOpen;
             set
             {
                 if (_isPaneOpen != value)
@@ -29,36 +43,28 @@ namespace DB_Project
                 }
             }
         }
-        // public object CurrentPage
-        // {
-        //     get { return _currentPage; }
-        //     set
-        //     {
-        //         if (_currentPage != value)
-        //         {
-        //             _currentPage = value;
-        //             OnPropertyChanged();
-        //         }
-        //     }
-        // }
-       
+        private void OnTogglePaneClick(object sender, RoutedEventArgs e)
+        {
+            IsPaneOpen = !IsPaneOpen;
+            Console.WriteLine($"IsPaneOpen: {IsPaneOpen}");
+
+
+        }
+        //=================================================================================
+        //To change the page
+        private void OnItemSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Tuple<string, Action> selectedItem)
+            {
+                selectedItem.Item2.Invoke();
+            }
+        }
+        //=================================================================================
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-       // Command to trigger the pane open/close
-        public ICommand TriggerPaneCommand { get; }
-        //public ICommand SwitchToHomePageCommand { get; }
         
-        private void TriggerPane()
-        {
-            IsPaneOpen = !IsPaneOpen;
-        }
-        
-        // public void SwitchToHomePage()
-        // {
-        //     CurrentPage = new MainWindow();
-        // }
     }
 }
