@@ -8,56 +8,19 @@ using Avalonia.Interactivity;
 
 namespace DB_Project
 {
-    public partial class CreateEditGenericWindow : Window, INotifyPropertyChanged
-    {   private bool _isPaneOpen = true;
+    public partial class CreateEditGenericWindow : UserControl, INotifyPropertyChanged
+    {  
         private object _currentPage;
-        public ObservableCollection<Tuple<string, Action>> Items { get; set; }
         
         public CreateEditGenericWindow()
         {
             InitializeComponent();
             DataContext = this;
-
-            Items = new ObservableCollection<Tuple<string, Action>>
-            {
-                new Tuple<string, Action>("Home", () =>
-                {
-                    var mainWindow = new MainWindow();
-                    this.Content = mainWindow.Content;
-                }),
-                new Tuple<string, Action>("Settings", () => Console.WriteLine("Settings selected")),
-                new Tuple<string, Action>("About", () => Console.WriteLine("About selected"))
-            };
-        }
-        //=================================================================================
-        //To close the nav pane
-        public bool IsPaneOpen
-        {
-            get => _isPaneOpen;
-            set
-            {
-                if (_isPaneOpen != value)
-                {
-                    _isPaneOpen = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private void OnTogglePaneClick(object sender, RoutedEventArgs e)
-        {
-            IsPaneOpen = !IsPaneOpen;
-            Console.WriteLine($"IsPaneOpen: {IsPaneOpen}");
-
-
-        }
-        //=================================================================================
-        //To change the page
-        private void OnItemSelected(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Tuple<string, Action> selectedItem)
-            {
-                selectedItem.Item2.Invoke();
-            }
+            Sidebar.SetSplitView(SplitView);
+            Sidebar.SetPageHost(MainContent);
+            Sidebar.AddTab("Home", new LoginPage());
+            Sidebar.AddTab("Settings", new UserControl());
+            Sidebar.AddTab("About", new UserControl());
         }
         //=================================================================================
         public event PropertyChangedEventHandler PropertyChanged;

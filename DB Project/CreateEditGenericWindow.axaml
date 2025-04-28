@@ -1,53 +1,21 @@
-<Window xmlns:local="clr-namespace:DB_Project"
+<UserControl xmlns:local="clr-namespace:DB_Project"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="DB_Project.CreateEditGenericWindow"
         x:DataType="local:CreateEditGenericWindow"
-        Title="TravelCode Dashboard" Width="1200" Height="700" Foreground="AliceBlue" >
+        Width="1200" Height="700" Foreground="AliceBlue" >
 
     <!-- SplitView for Navigation -->
-    <SplitView IsPaneOpen="{Binding IsPaneOpen}" OpenPaneLength="250" CompactPaneLength="45" DisplayMode="CompactInline" Background="#1e1e1e" PaneBackground="#1e1e1e"> 
-        <!-- Left Pane (Navigation Menu) -->
+    <SplitView x:Name="SplitView" OpenPaneLength="250" CompactPaneLength="45" DisplayMode="CompactInline" Background="#1e1e1e" PaneBackground="#1e1e1e"> 
+        <!-- Sidebar -->
         <SplitView.Pane>
-            <StackPanel Spacing="5" Margin="5" >
-                <Button Click="OnTogglePaneClick"  VerticalContentAlignment="Center">
-                    <Button.Styles>
-                        <Style Selector="Button">
-                            <Setter Property="Background" Value="#106ebe"/>
-                            <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="FontSize" Value="16"/>
-                            <Style.Animations>
-                                <Animation Duration="0:0:0.5" >
-                                    <KeyFrame>
-                                        <Setter Property="Background" Value="DarkBlue"/>
-                                    </KeyFrame>
-                                </Animation>
-                            </Style.Animations>
-                        </Style>
-                    </Button.Styles>
-                    -
-                </Button> 
-                <ListBox ItemsSource="{Binding Items}" SelectionChanged="OnItemSelected">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Item1}" />
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <!-- <ListBox Background="DarkGray"
-                 Foreground="White"> -->
-                <!--     <ListBoxItem>Items</ListBoxItem> -->
-                <!--     <ListBoxItem>Items</ListBoxItem> -->
-                <!--     <ListBoxItem>Items</ListBoxItem> -->
-                <!-- </ListBox> -->
-            </StackPanel>
+                <local:SidebarControl x:Name="Sidebar" />
         </SplitView.Pane>
         <!-- Main Content Area -->
         <SplitView.Content>
             <Border CornerRadius="12 0 0 0" Background="#2d2d2d" >
-                
-                <!-- <TransitioningContentControl Content="{Binding }"/> -->
+                <ContentControl x:Name="MainContent" />
             </Border>
         </SplitView.Content>
     </SplitView>
-</Window>
+</UserControl>
