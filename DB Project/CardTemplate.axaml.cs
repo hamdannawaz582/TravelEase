@@ -4,6 +4,27 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using System.Windows.Input;
 
+
+//  To use Cards in your page
+//  1) Add the following in your axaml file
+//       <DockPanel>
+//          <Button DockPanel.Dock="Top" 
+//                  Content="Create Card" 
+//                  Click="OnCreateCardClick"
+//                  Margin="15" 
+//                  Height="30" 
+//                  Background="Beige" 
+//                  Foreground="Black" />
+//          <ScrollViewer>
+//              <StackPanel x:Name="CardsContainer" Margin="10" Spacing="10" />
+//          </ScrollViewer>
+//      </DockPanel>
+//  2) Add this function in your axaml.cs file
+//      private void OnCreateCardClick(object sender, RoutedEventArgs e)
+//          {
+//              var card = CardControl.Create(CardsContainer);
+//          }
+
 namespace DB_Project
 {
     public partial class CardControl : UserControl
