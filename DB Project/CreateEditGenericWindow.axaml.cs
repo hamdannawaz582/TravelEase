@@ -28,6 +28,10 @@ namespace DB_Project
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
+        private void OnCreateCardClick(object sender, RoutedEventArgs e)
+        {
+              var card = CardControl.Create(CardsContainer);
+          }
+
     }
 }
