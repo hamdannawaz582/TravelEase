@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:local="clr-namespace:DB_Project"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DB_Project.SidebarControl">
+    <StackPanel Spacing="5" Margin="5">
+        <!-- Collapse Button -->
+        <Button Click="OnTogglePaneClick" VerticalContentAlignment="Center">
+            <Button.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Background" Value="#106ebe"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontSize" Value="16"/>
+                </Style>
+            </Button.Styles>
+            -
+        </Button>
+        <!-- TravelEase Logo -->
+        <local:TravelEaseLogo x:Name="TravelEaseLogo" Width="150" Height="34" Margin="5, 10, 5, 10"/>
+        <!-- Tabs -->
+        <StackPanel x:Name="TabPanel" Background="DarkSlateGray" Width="200"/>
+        </StackPanel>
+</UserControl>
