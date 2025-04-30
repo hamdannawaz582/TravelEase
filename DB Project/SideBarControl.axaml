@@ -21,5 +21,5 @@
         <local:TravelEaseLogo x:Name="TravelEaseLogo" Width="150" Height="34" Margin="5, 10, 5, 10"/>
         <!-- Tabs -->
         <StackPanel x:Name="TabPanel" Background="DarkSlateGray" Width="200"/>
-    </StackPanel>
+        </StackPanel>
 </UserControl>

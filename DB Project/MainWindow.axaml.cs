@@ -12,7 +12,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        MainContent.Content = new LoginPage();
+        MainContent.Content = new CreateEditGenericWindow();
     }
 
     
