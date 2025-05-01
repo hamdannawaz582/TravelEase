@@ -30,5 +30,7 @@
       <AvaloniaResource Include="Assets\suitcase.png" />
       <None Remove="Assets\Fonts\IBMPlexSans-Regular.ttf" />
       <AvaloniaResource Include="Assets\Fonts\IBMPlexSans-Regular.ttf" />
+      <None Remove="Assets\User.png" />
+      <AvaloniaResource Include="Assets\User.png" />
     </ItemGroup>
 </Project>
