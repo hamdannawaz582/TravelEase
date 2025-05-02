@@ -56,7 +56,7 @@ namespace DB_Project
             tab.Clicked += (s, e) => 
             {
                 if (_pageHost != null)
-                {
+                {   _pageHost.Content = null;//clears the page first
                     _pageHost.Content = page;
                 }
             };
