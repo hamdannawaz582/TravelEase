@@ -13,7 +13,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        MainContent.Content = new AdminAnalytics();
+        MainContent.Content = new LoginPage();
     }
     public void NavigateToUserDashboard(string userType, string username)
     {

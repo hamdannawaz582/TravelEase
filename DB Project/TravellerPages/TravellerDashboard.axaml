@@ -45,10 +45,9 @@
                         
                         <TextBlock Grid.Row="0" Text="Upcoming Trips" 
                                    FontSize="24" Margin="0,0,0,10"/>
-                        <ItemsControl Grid.Row="1" Name="UpcomingTripsControl" 
-                                      d:DataContext="{d:DesignInstance pages:TripItem}">
+                        <ItemsControl Grid.Row="1" Name="UpcomingTripsControl">
                             <ItemsControl.ItemTemplate>
-                                <DataTemplate>
+                                <DataTemplate DataType="{x:Type pages:TripItem}">
                                     <!-- Trip item template -->
                                     <Border Background="#353545" Margin="5" 
                                             CornerRadius="4" Padding="10">

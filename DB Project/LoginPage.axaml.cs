@@ -34,7 +34,7 @@ public partial class LoginPage : UserControl
             //finding the main window
             Login.Background = Brushes.Blue;
             if (this.VisualRoot is Window mainWindow)
-            {
+            {   Console.WriteLine("Loginned");
                 ((MainWindow)mainWindow).NavigateToUserDashboard(Entry, UserName);
             }
         }

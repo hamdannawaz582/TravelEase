@@ -62,9 +62,9 @@
         
         <!-- Search Results -->
         <ScrollViewer Grid.Row="2">
-            <ItemsControl Name="SearchResultsControl" Margin="10" d:DataContext="{d:DesignInstance local:TripSearchResult}">
+            <ItemsControl Name="SearchResultsControl" Margin="10">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate  DataType="{x:Type local:TripSearchResult}">
                         <Border Background="#2a2a3a" Margin="0,0,0,10" 
                                 CornerRadius="8" Padding="15">
                             <Grid>

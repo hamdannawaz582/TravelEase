@@ -10,16 +10,32 @@ namespace DB_Project.TravellerPages
         {
             InitializeComponent();
             _username = username;
-            
             WelcomeMessage.Text = $"Welcome, {username}!";
             
             // Set profile information
             UsernameBlock.Text = $"Username: {username}";
-            TripCountBlock.Text = "Total Trips: 5"; // Replace with actual data
+            TripCountBlock.Text = "Total Trips: 5"; // with actual data
             MemberSinceBlock.Text = "Member Since: January 2025"; // Replace with actual data
             
             // Load upcoming trips (replace with database queries)
-            LoadUpcomingTrips();
+            var trips = new ObservableCollection<TripItem>
+            {
+                new TripItem { 
+                    Destination = "Paris Adventure", 
+                    Date = "May 15-20, 2025", 
+                    Status = "Confirmed", 
+                    ImagePath = "../Assets/User.png" 
+                },
+                new TripItem { 
+                    Destination = "Tokyo Explorer", 
+                    Date = "June 8-15, 2025", 
+                    Status = "Pending", 
+                    ImagePath = "../Assets/User.png" 
+                }
+            };
+
+            UpcomingTripsControl.ItemsSource = trips;
+            DataContext = this;
         }
         
         private void LoadUpcomingTrips()
@@ -30,13 +46,13 @@ namespace DB_Project.TravellerPages
                     Destination = "Paris Adventure", 
                     Date = "May 15-20, 2025", 
                     Status = "Confirmed", 
-                    ImagePath = "../Assets/paris.png" 
+                    ImagePath = "../Assets/User.png" 
                 },
                 new TripItem { 
                     Destination = "Tokyo Explorer", 
                     Date = "June 8-15, 2025", 
                     Status = "Pending", 
-                    ImagePath = "../Assets/tokyo.png" 
+                    ImagePath = "../Assets/User.png" 
                 }
                 // Add more trips as needed
             };
