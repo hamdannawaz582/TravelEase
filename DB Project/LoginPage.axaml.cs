@@ -24,10 +24,25 @@ public partial class LoginPage : UserControl
 
     private void Login_OnClick(object? sender, RoutedEventArgs e)
     {
-        Login.Background = Brushes.Red;
         Console.WriteLine($"Name: {UserName}");
         Console.WriteLine($"Password: {Password}");
         Console.WriteLine($"Login: {Entry}");
+        bool isAuthenticated = true;
+    
+        if (isAuthenticated)
+        {
+            //finding the main window
+            Login.Background = Brushes.Blue;
+            if (this.VisualRoot is Window mainWindow)
+            {
+                ((MainWindow)mainWindow).NavigateToUserDashboard(Entry, UserName);
+            }
+        }
+        else
+        {
+            // Display authentication error
+            Login.Background = Brushes.Red;
+        }
     }
 
     private void UsernameBox_OnTextChanged(object? sender, TextChangedEventArgs e)

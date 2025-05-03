@@ -15,6 +15,26 @@ public partial class MainWindow : Window
         InitializeComponent();
         MainContent.Content = new AdminAnalytics();
     }
-
+    public void NavigateToUserDashboard(string userType, string username)
+    {
+        switch (userType)
+        {
+            case "Admin":
+                //MainContent.Content = new AdminShell(username);
+                break;
+            case "Traveller":
+                MainContent.Content = new TravellerShell(username);
+                break;
+            case "Operator":
+                //MainContent.Content = new OperatorShell(username);
+                break;
+            case "Hotel":
+                //MainContent.Content = new HotelShell(username);
+                break;
+            default:
+                MainContent.Content = new LoginPage();
+                break;
+        }
+    }
     
 }

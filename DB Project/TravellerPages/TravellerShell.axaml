@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dbProject="clr-namespace:DB_Project"
+             x:Class="DB_Project.TravellerShell">
+    <SplitView x:Name="SplitView" OpenPaneLength="250" CompactPaneLength="45" DisplayMode="CompactInline"
+               Background="#1e1e1e" PaneBackground="#1e1e1e">
+        <SplitView.Pane>
+            <dbProject:SidebarControl x:Name="Sidebar" />
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Border CornerRadius="12 0 0 0" Background="#2d2d2d">
+                <ContentControl x:Name="MainContent" />
+            </Border>
+        </SplitView.Content>
+    </SplitView>
+</UserControl>
