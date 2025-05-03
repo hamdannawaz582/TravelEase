@@ -20,16 +20,16 @@ public partial class MainWindow : Window
         switch (userType)
         {
             case "Admin":
-                //MainContent.Content = new AdminShell(username);
+                MainContent.Content = new AdminShell(username);
                 break;
             case "Traveller":
                 MainContent.Content = new TravellerShell(username);
                 break;
             case "Operator":
-                //MainContent.Content = new OperatorShell(username);
+                MainContent.Content = new OperatorShell(username);
                 break;
             case "Hotel":
-                //MainContent.Content = new HotelShell(username);
+                MainContent.Content = new HotelShell(username);
                 break;
             default:
                 MainContent.Content = new LoginPage();

@@ -5,60 +5,32 @@
              xmlns:dbProject="clr-namespace:DB_Project"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DB_Project.AdminPages.AdminAnalytics"
-             x:DataType="dbProject:CreateEditGenericWindow">
-    <!-- SplitView for Navigation -->
-    <SplitView x:Name="SplitView" OpenPaneLength="250" CompactPaneLength="45" DisplayMode="CompactInline"
-               Background="#1e1e1e" PaneBackground="#1e1e1e">
-        <!-- Sidebar -->
-        <SplitView.Pane>
-            <dbProject:SidebarControl x:Name="Sidebar" />
-        </SplitView.Pane>
-        <!-- Main Content Area -->
-        <SplitView.Content>
-            <Border CornerRadius="12 0 0 0" Background="#2d2d2d">
-                <Grid>
-                    <DockPanel>
-                    <ContentControl x:Name="MainContent" />
-                        <Grid DockPanel.Dock="Top">
-                        <Rectangle IsHitTestVisible="False">
-                        <Rectangle.Fill>
+             >
+    
+        <Grid>
+            <Rectangle IsHitTestVisible="False">
+                    <Rectangle.Fill>
                             <SolidColorBrush Color="#1E1F31"></SolidColorBrush>
-                        </Rectangle.Fill>
-                    </Rectangle>
+                    </Rectangle.Fill>
+            </Rectangle>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
+                <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text=""
+                           FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="32"  Name="GreeterText" Margin = "5 5 5 5"/>
+                <Image Grid.Column="1" Grid.Row="0" Source="../Assets/User.png" Width="32" Height="32"
+                           HorizontalAlignment="Right" Margin="5 5 5 5" />
+            </Grid>
 
-                    <Grid>
-
-                        <!-- <DockPanel> -->
-                        <!--     <Button DockPanel.Dock="Top"  -->
-                        <!--             Content="Create Card"  -->
-                        <!--             Click="OnCreateCardClick" -->
-                        <!--             Margin="15"  -->
-                        <!--             Height="30"  -->
-                        <!--             Background="Beige"  -->
-                        <!--             Foreground="Black" /> -->
-                        <!--     <ScrollViewer> -->
-                        <!--         <StackPanel x:Name="CardsContainer" Margin="10" Spacing="10" /> -->
-                        <!--     </ScrollViewer> -->
-                        <!-- </DockPanel> -->
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="5*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Text=""
-                                   FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="32"  Name="GreeterText" Margin = "5 5 5 5"/>
-                        <Image Grid.Column="1" Grid.Row="0" Source="../Assets/User.png" Width="32" Height="32"
-                               HorizontalAlignment="Right" Margin="5 5 5 5" />
-                    </Grid>
-
-                    <ScrollViewer Margin="0 48 0 0">
-                        <StackPanel>
-                            <Grid Name="UserGrid" Height="700">
+            <ScrollViewer Margin="0 48 0 0">
+                <StackPanel>
+                    <Grid Name="UserGrid" Height="700">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -94,9 +66,8 @@
                                     <dbProject:ChartControl Name="UserTrafficChart" Margin="15 30 15 30" />
                                 </Grid>
                             </Grid>
-
-                            <!-- Revenue Analytics -->
-                            <Grid Name="RevenueGrid" Height="700">
+                    <!-- Revenue Analytics -->
+                    <Grid Name="RevenueGrid" Height="700">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -132,9 +103,9 @@
                                     <dbProject:ChartControl Name="RevenueChart" Margin="15 30 15 30" />
                                 </Grid>
                             </Grid>
-                            
-                            <!-- Booking Trends -->
-                            <Grid Name="BookingGrid" Height="700">
+                    
+                    <!-- Booking Trends -->
+                    <Grid Name="BookingGrid" Height="700">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -170,14 +141,7 @@
                                     <dbProject:ChartControl Name="BookingChart" Margin="15 30 15 30" />
                                 </Grid>
                             </Grid>
-
-
-                        </StackPanel>
-                    </ScrollViewer>
-                        </Grid>
-                    </DockPanel>
-                </Grid>
-            </Border>
-        </SplitView.Content>
-    </SplitView>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
 </UserControl>

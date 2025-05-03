@@ -30,21 +30,15 @@ namespace DB_Project
                     if (MainContent == null)
                         throw new InvalidOperationException("MainContent control not found");
                     
-                    // Set up sidebar manually instead of using InitializeSidebar()
                     Sidebar.SetSplitView(SplitView);
                     Sidebar.SetPageHost(MainContent);
-                    
-                    // Create pages
                     var dashboardPage = new TravellerDashboard(username);
                     var searchPage = new TripSearchPage();
                     var reviewsPage = new TravellerReview();
-                    
-                    // Add traveler-specific tabs
                     Sidebar.AddTab("Dashboard", dashboardPage);
                     Sidebar.AddTab("Search Trips", searchPage);
                     Sidebar.AddTab("My Reviews", reviewsPage);
                     ConfigureCommonTabs();
-                    // Set default page
                     MainContent.Content = dashboardPage;
                 }
                 catch (Exception ex)

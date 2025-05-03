@@ -18,13 +18,7 @@ public partial class AdminAnalytics : UserControl
     {
         InitializeComponent();
         DataContext = this;
-       
-        Sidebar.SetSplitView(SplitView);
-        Sidebar.SetPageHost(MainContent);
-        Sidebar.AddTab("Home", new LoginPage());
-        Sidebar.AddTab("Settings", new UserControl());
-        Sidebar.AddTab("About", new UserControl());
-
+        
         GreeterText.Text = "Welcome Admin!";
         
         UserTrafficChart.SetLabel("User Traffic Over Time");
