@@ -2,8 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:DB_Project"
              xmlns:pages="clr-namespace:DB_Project.TravellerPages"
-             x:Class="DB_Project.TravellerPages.TravellerDashboard"
-             >
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="DB_Project.TravellerPages.TravellerDashboard">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -43,7 +45,8 @@
                         
                         <TextBlock Grid.Row="0" Text="Upcoming Trips" 
                                    FontSize="24" Margin="0,0,0,10"/>
-                        <ItemsControl Grid.Row="1" Name="UpcomingTripsControl">
+                        <ItemsControl Grid.Row="1" Name="UpcomingTripsControl" 
+                                      d:DataContext="{d:DesignInstance pages:TripItem}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <!-- Trip item template -->
