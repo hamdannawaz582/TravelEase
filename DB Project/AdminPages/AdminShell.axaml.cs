@@ -17,25 +17,28 @@ namespace DB_Project
                 try
                 {
                     //find controls
-                    SplitView = this.FindControl<SplitView>("SplitView");
-                    Sidebar = this.FindControl<SidebarControl>("Sidebar");
-                    MainContent = this.FindControl<ContentControl>("MainContent");
+                    var splitView = this.FindControl<SplitView>("SplitView");
+                    var sidebar = this.FindControl<SidebarControl>("Sidebar");
+                    var mainContent = this.FindControl<ContentControl>("MainContent");
+
+                    // Verify controls were found
+                    if (splitView == null)
+                        throw new InvalidOperationException("SplitView control not found in AdminShell");
+                    if (sidebar == null)
+                        throw new InvalidOperationException("Sidebar control not found in AdminShell");
+                    if (mainContent == null)
+                        throw new InvalidOperationException("MainContent control not found in AdminShell");
                     
-                    if (SplitView == null)
-                        throw new InvalidOperationException("SplitView control not found");
-                    if (Sidebar == null)
-                        throw new InvalidOperationException("Sidebar control not found");
-                    if (MainContent == null)
-                        throw new InvalidOperationException("MainContent control not found");
-                    
-                    InitializeSidebar();
+                    //Sidebar.SetSplitView(SplitView);
+                    //Sidebar.SetPageHost(MainContent);
+                    InitializeSidebar(splitView, sidebar, mainContent);
                     var analyticsPage = new AdminAnalytics();
                     var managementPage = new AdminManagement();
                     var reviewsPage = new AdminReviews();
-                    Sidebar.AddTab("Dashboard", analyticsPage);
+                    Sidebar.AddTab("Analytics", analyticsPage);
                     Sidebar.AddTab("Management", managementPage);
                     Sidebar.AddTab("Reviews", reviewsPage);
-                    ConfigureCommonTabs();
+                    ConfigureCommonTabs(sidebar);
                     MainContent.Content = analyticsPage;
                 }
                 catch (Exception ex)

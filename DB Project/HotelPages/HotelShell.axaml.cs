@@ -11,31 +11,36 @@ namespace DB_Project
         public HotelShell(string username) : base(username)
         {
             InitializeComponent();
-            
+
             // Defer initialization until after component initialization is fully complete
             Dispatcher.UIThread.Post(() =>
             {
                 try
                 {
-                    //find controls
-                    SplitView = this.FindControl<SplitView>("SplitView");
-                    Sidebar = this.FindControl<SidebarControl>("Sidebar");
-                    MainContent = this.FindControl<ContentControl>("MainContent");
-                    
-                    if (SplitView == null)
-                        throw new InvalidOperationException("SplitView control not found");
-                    if (Sidebar == null)
-                        throw new InvalidOperationException("Sidebar control not found");
-                    if (MainContent == null)
-                        throw new InvalidOperationException("MainContent control not found");
-                    
-                    InitializeSidebar();
+                    // Find controls as local variables
+                    var splitView = this.FindControl<SplitView>("SplitView");
+                    var sidebar = this.FindControl<SidebarControl>("Sidebar");
+                    var mainContent = this.FindControl<ContentControl>("MainContent");
+
+                    if (splitView == null)
+                        throw new InvalidOperationException("SplitView control not found in HotelShell");
+                    if (sidebar == null)
+                        throw new InvalidOperationException("Sidebar control not found in HotelShell");
+                    if (mainContent == null)
+                        throw new InvalidOperationException("MainContent control not found in HotelShell");
+
+                    // Use base class functions with parameters
+                    InitializeSidebar(splitView, sidebar, mainContent);
+
                     var analyticsPage = new HotelAnalytics();
                     var managementPage = new HotelManagement();
-                    Sidebar.AddTab("Analytics", analyticsPage);
-                    Sidebar.AddTab("Room Management", managementPage);
-                    ConfigureCommonTabs();
-                    MainContent.Content = analyticsPage;
+
+                    sidebar.AddTab("Analytics", analyticsPage);
+                    sidebar.AddTab("Room Management", managementPage);
+
+                    ConfigureCommonTabs(sidebar);
+
+                    mainContent.Content = analyticsPage;
                 }
                 catch (Exception ex)
                 {

@@ -11,35 +11,34 @@ namespace DB_Project
         public TravellerShell(string username) : base(username)
         {
             InitializeComponent();
-            
-            // Defer initialization until after component initialization is fully complete
             Dispatcher.UIThread.Post(() =>
             {
                 try
                 {
-                    // Find controls
-                    SplitView = this.FindControl<SplitView>("SplitView");
-                    Sidebar = this.FindControl<SidebarControl>("Sidebar");
-                    MainContent = this.FindControl<ContentControl>("MainContent");
-                    
-                    // Verify controls were found
-                    if (SplitView == null)
-                        throw new InvalidOperationException("SplitView control not found");
-                    if (Sidebar == null)
-                        throw new InvalidOperationException("Sidebar control not found");
-                    if (MainContent == null)
-                        throw new InvalidOperationException("MainContent control not found");
-                    
-                    Sidebar.SetSplitView(SplitView);
-                    Sidebar.SetPageHost(MainContent);
+                    var splitView = this.FindControl<SplitView>("SplitView");
+                    var sidebar = this.FindControl<SidebarControl>("Sidebar");
+                    var mainContent = this.FindControl<ContentControl>("MainContent");
+
+                    if (splitView == null)
+                        throw new InvalidOperationException("SplitView control not found in TravellerShell");
+                    if (sidebar == null)
+                        throw new InvalidOperationException("Sidebar control not found in TravellerShell");
+                    if (mainContent == null)
+                        throw new InvalidOperationException("MainContent control not found in TravellerShell");
+
+                    InitializeSidebar(splitView, sidebar, mainContent);
+
                     var dashboardPage = new TravellerDashboard(username);
                     var searchPage = new TripSearchPage();
                     var reviewsPage = new TravellerReview();
-                    Sidebar.AddTab("Dashboard", dashboardPage);
-                    Sidebar.AddTab("Search Trips", searchPage);
-                    Sidebar.AddTab("My Reviews", reviewsPage);
-                    ConfigureCommonTabs();
-                    MainContent.Content = dashboardPage;
+
+                    sidebar.AddTab("Dashboard", dashboardPage);
+                    sidebar.AddTab("Search Trips", searchPage);
+                    sidebar.AddTab("My Reviews", reviewsPage);
+
+                    ConfigureCommonTabs(sidebar);
+
+                    mainContent.Content = dashboardPage;
                 }
                 catch (Exception ex)
                 {

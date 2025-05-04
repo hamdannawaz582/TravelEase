@@ -17,7 +17,7 @@ namespace DB_Project
         public SidebarControl()
         {
             InitializeComponent();
-            _splitView = this.FindControl<SplitView>("SplitView");
+            //_splitView = this.FindControl<SplitView>("SplitView");
         }
 
         public void SetPageHost(ContentControl pageHost)
@@ -56,7 +56,7 @@ namespace DB_Project
             tab.Clicked += (s, e) => 
             {
                 if (_pageHost != null)
-                {   _pageHost.Content = null;//clears the page first
+                {   //_pageHost.Content = null;//clears the page first
                     _pageHost.Content = page;
                 }
             };

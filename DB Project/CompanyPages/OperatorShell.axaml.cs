@@ -11,34 +11,36 @@ namespace DB_Project
         public OperatorShell(string username) : base(username)
         {
             InitializeComponent();
-            // Defer initialization until after component initialization is fully complete
             Dispatcher.UIThread.Post(() =>
             {
                 try
                 {
-                    //find controls
-                    SplitView = this.FindControl<SplitView>("SplitView");
-                    Sidebar = this.FindControl<SidebarControl>("Sidebar");
-                    MainContent = this.FindControl<ContentControl>("MainContent");
-                    
-                    if (SplitView == null)
-                        throw new InvalidOperationException("SplitView control not found");
-                    if (Sidebar == null)
-                        throw new InvalidOperationException("Sidebar control not found");
-                    if (MainContent == null)
-                        throw new InvalidOperationException("MainContent control not found");
-                    
-                    InitializeSidebar();
+                    var splitView = this.FindControl<SplitView>("SplitView");
+                    var sidebar = this.FindControl<SidebarControl>("Sidebar");
+                    var mainContent = this.FindControl<ContentControl>("MainContent");
+
+                    if (splitView == null)
+                        throw new InvalidOperationException("SplitView control not found in OperatorShell");
+                    if (sidebar == null)
+                        throw new InvalidOperationException("Sidebar control not found in OperatorShell");
+                    if (mainContent == null)
+                        throw new InvalidOperationException("MainContent control not found in OperatorShell");
+
+                    InitializeSidebar(splitView, sidebar, mainContent);
+
                     var analyticsPage = new CompanyAnalytics();
                     var createTripPage = new CompanyCreate();
                     var manageTripsPage = new CompanyViewEdit();
                     var hotelPartnersPage = new CompanyHotel();
-                    Sidebar.AddTab("Analytics", analyticsPage);
-                    Sidebar.AddTab("Create Trip", createTripPage);
-                    Sidebar.AddTab("Manage Trips", manageTripsPage);
-                    Sidebar.AddTab("Hotel Partners", hotelPartnersPage);
-                    ConfigureCommonTabs();
-                    MainContent.Content = analyticsPage;
+
+                    sidebar.AddTab("Analytics", analyticsPage);
+                    sidebar.AddTab("Create Trip", createTripPage);
+                    sidebar.AddTab("Manage Trips", manageTripsPage);
+                    sidebar.AddTab("Hotel Partners", hotelPartnersPage);
+
+                    ConfigureCommonTabs(sidebar);
+
+                    mainContent.Content = analyticsPage;
                 }
                 catch (Exception ex)
                 {
