@@ -16,6 +16,4 @@ AREEB:
 
 HAMDAN:
 //TODO: trip creation and management-company create axaml
-//TODO: Performance analytics- Company Analytics axaml
 //TODO: integ listing- Hotel management
-//TODO: performance- Hotel
