@@ -1,6 +1,5 @@
 SAIM:
 //TODO: trip search and booking
-//TODO: reviews and ratings
 //TODO: sign up page
 //TODO: operator reg and log
 
