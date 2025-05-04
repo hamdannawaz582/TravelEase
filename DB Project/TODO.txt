@@ -1,8 +1,4 @@
 SAIM:
-//TODO: dashboard
-    trip dashboard
-    digital travel pass
-    profile management
 //TODO: trip search and booking
 //TODO: reviews and ratings
 //TODO: sign up page
