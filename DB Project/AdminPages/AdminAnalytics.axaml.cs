@@ -1,14 +1,7 @@
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
-using LiveChartsCore.Defaults;
-using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.Painting;
-using SkiaSharp;
 
 namespace DB_Project.AdminPages;
 
@@ -18,15 +11,16 @@ public partial class AdminAnalytics : UserControl
     {
         InitializeComponent();
         DataContext = this;
-        
+
         GreeterText.Text = "Welcome Admin!";
-        
+
         UserTrafficChart.SetLabel("User Traffic Over Time");
         RevenueChart.SetLabel("Revenue Over Time");
         BookingChart.SetLabel("Booking Over Time");
     }
-    
+
     public event PropertyChangedEventHandler PropertyChanged;
+
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
