@@ -2,7 +2,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="DB_Project.TravellerPages.TravellerReview">
-    Welcome to Avalonia!
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             xmlns:local="clr-namespace:DB_Project.TravellerPages"
+             xmlns:pages="clr-namespace:DB_Project.TravellerPages"
+             x:Class="DB_Project.TravellerPages.TravellerReview"
+             x:DataType="pages:TravellerReview"
+             x:Name="TravellerReviewControl">
+    <ScrollViewer>
+        <!-- <DataTemplate DataType="pages:TravellerReview"> -->
+        <StackPanel Margin="20">
+            <!-- Header -->
+            <TextBlock Text="Reviews and Ratings" FontSize="32" FontWeight="Bold" Margin="0,0,0,20"/>
+
+            <!-- Trip Reviews Section -->
+            <TextBlock Text="Rate a Trip" FontSize="24" Margin="0,0,0,10"/>
+            <ComboBox Name="TripSelector" Width="300" Margin="0,0,0,10" 
+                      SelectedItem="{Binding SelectedTrip}" 
+                      PlaceholderText="Select a Trip"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Rating: " VerticalAlignment="Center"/>
+                <ComboBox Name="TripRatingSelector" Width="100" Margin="10,0,0,0"
+                          SelectedItem="{Binding SelectedTripRating}"/>
+            </StackPanel>
+            <TextBox Name="TripFeedbackBox" Width="400" Height="100" 
+                     Text="{Binding TripFeedback}" 
+                     Watermark="Write your feedback here..." 
+                     AcceptsReturn="True" Margin="0,0,0,10"/>
+            <Button Content="Submit Trip Review" Width="200" 
+                    Click="SubmitTripReview_Click" 
+                    HorizontalAlignment="Left"/>
+
+            <!-- Hotel Reviews Section -->
+            <TextBlock Text="Rate a Hotel" FontSize="24" Margin="20,20,0,10"/>
+            <ComboBox Name="HotelSelector" Width="300" Margin="0,0,0,10" 
+                      SelectedItem="{Binding SelectedHotel}" 
+                      PlaceholderText="Select a Hotel"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Rating: " VerticalAlignment="Center"/>
+                <ComboBox Name="HotelRatingSelector" Width="100" Margin="10,0,0,0"
+                          SelectedItem="{Binding SelectedHotelRating}"/>
+            </StackPanel>
+            <TextBox Name="HotelFeedbackBox" Width="400" Height="100" 
+                     Text="{Binding HotelFeedback}" 
+                     Watermark="Write your feedback here..." 
+                     AcceptsReturn="True" Margin="0,0,0,10"/>
+            <Button Content="Submit Hotel Review" Width="200" 
+                    Click="SubmitHotelReview_Click" 
+                    HorizontalAlignment="Left"/>
+        </StackPanel>
+        <!-- </DataTemplate> -->
+    </ScrollViewer>
 </UserControl>
