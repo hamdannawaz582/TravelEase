@@ -6,7 +6,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DB_Project.AdminPages.AdminAnalytics"
              >
-    
+    <Border CornerRadius="20 0 0 0" Background="#2d2d2d">
         <Grid>
             <Rectangle IsHitTestVisible="False">
                     <Rectangle.Fill>
@@ -31,117 +31,116 @@
             <ScrollViewer Margin="0 48 0 0">
                 <StackPanel>
                     <Grid Name="UserGrid" Height="700">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock HorizontalAlignment="Left" Text="User Traffic"
-                                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="20"
-                                               Margin="20 0 20 0" VerticalAlignment="Center" />
-                                    <ComboBox Name="UserTrafficComboBox" Grid.Column="1" SelectedIndex="0"
-                                              HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center">
-                                        <ComboBoxItem>Daily</ComboBoxItem>
-                                        <ComboBoxItem>Weekly</ComboBoxItem>
-                                        <ComboBoxItem>Monthly</ComboBoxItem>
-                                        <ComboBoxItem>Yearly</ComboBoxItem>
-                                    </ComboBox>
-                                    <Button Grid.Column="2" Name="UserTrafficButton" Click="UserTrafficButton_OnClick"
-                                            HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center">
-                                        Filter
-                                    </Button>
-                                </Grid>
-                                <Grid Margin="10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <dbProject:ChartControl Name="UserTrafficChart" Margin="15 30 15 30" />
-                                </Grid>
-                            </Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock HorizontalAlignment="Left" Text="User Traffic"
+                                       FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="20"
+                                       Margin="20 0 20 0" VerticalAlignment="Center" />
+                            <ComboBox Name="UserTrafficComboBox" Grid.Column="1" SelectedIndex="0"
+                                      HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center">
+                                <ComboBoxItem>Daily</ComboBoxItem>
+                                <ComboBoxItem>Weekly</ComboBoxItem>
+                                <ComboBoxItem>Monthly</ComboBoxItem>
+                                <ComboBoxItem>Yearly</ComboBoxItem>
+                            </ComboBox>
+                            <Button Grid.Column="2" Name="UserTrafficButton" Click="UserTrafficButton_OnClick"
+                                    HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center">
+                                Filter
+                            </Button>
+                        </Grid>
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <dbProject:ChartControl Name="UserTrafficChart" Margin="15 30 15 30" />
+                        </Grid>
+                    </Grid>
                     <!-- Revenue Analytics -->
                     <Grid Name="RevenueGrid" Height="700">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock HorizontalAlignment="Left" Text="Revenue"
-                                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="20"
-                                               Margin="10" VerticalAlignment="Center" />
-                                    <ComboBox Name="RevenueComboBox" Grid.Column="1" SelectedIndex="0"
-                                              HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center">
-                                        <ComboBoxItem>Daily</ComboBoxItem>
-                                        <ComboBoxItem>Weekly</ComboBoxItem>
-                                        <ComboBoxItem>Monthly</ComboBoxItem>
-                                        <ComboBoxItem>Yearly</ComboBoxItem>
-                                    </ComboBox>
-                                    <Button Grid.Column="2" Name="RevenueButton" Click="RevenueButton_OnClick"
-                                            HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center">
-                                        Filter
-                                    </Button>
-                                </Grid>
-                                <Grid Margin="10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <dbProject:ChartControl Name="RevenueChart" Margin="15 30 15 30" />
-                                </Grid>
-                            </Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock HorizontalAlignment="Left" Text="Revenue"
+                                       FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="20"
+                                       Margin="10" VerticalAlignment="Center" />
+                            <ComboBox Name="RevenueComboBox" Grid.Column="1" SelectedIndex="0"
+                                      HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center">
+                                <ComboBoxItem>Daily</ComboBoxItem>
+                                <ComboBoxItem>Weekly</ComboBoxItem>
+                                <ComboBoxItem>Monthly</ComboBoxItem>
+                                <ComboBoxItem>Yearly</ComboBoxItem>
+                            </ComboBox>
+                            <Button Grid.Column="2" Name="RevenueButton" Click="RevenueButton_OnClick"
+                                    HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center">
+                                Filter
+                            </Button>
+                        </Grid>
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <dbProject:ChartControl Name="RevenueChart" Margin="15 30 15 30" />
+                        </Grid>
+                    </Grid>
                     
                     <!-- Booking Trends -->
                     <Grid Name="BookingGrid" Height="700">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="10*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock HorizontalAlignment="Left" Text="Booking"
-                                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="20"
-                                               Margin="10" VerticalAlignment="Center" />
-                                    <ComboBox Name="BookingComboBox" Grid.Column="1" SelectedIndex="0"
-                                              HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center">
-                                        <ComboBoxItem>Daily</ComboBoxItem>
-                                        <ComboBoxItem>Weekly</ComboBoxItem>
-                                        <ComboBoxItem>Monthly</ComboBoxItem>
-                                        <ComboBoxItem>Yearly</ComboBoxItem>
-                                    </ComboBox>
-                                    <Button Grid.Column="2" Name="BookingButton" Click="BookingButton_OnClick"
-                                            HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center">
-                                        Filter
-                                    </Button>
-                                </Grid>
-                                <Grid Margin="10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <dbProject:ChartControl Name="BookingChart" Margin="15 30 15 30" />
-                                </Grid>
-                            </Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock HorizontalAlignment="Left" Text="Booking"
+                                       FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="20"
+                                       Margin="10" VerticalAlignment="Center" />
+                            <ComboBox Name="BookingComboBox" Grid.Column="1" SelectedIndex="0"
+                                      HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center">
+                                <ComboBoxItem>Daily</ComboBoxItem>
+                                <ComboBoxItem>Weekly</ComboBoxItem>
+                                <ComboBoxItem>Monthly</ComboBoxItem>
+                                <ComboBoxItem>Yearly</ComboBoxItem>
+                            </ComboBox>
+                            <Button Grid.Column="2" Name="BookingButton" Click="BookingButton_OnClick"
+                                    HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center">
+                                Filter
+                            </Button>
+                        </Grid>
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <dbProject:ChartControl Name="BookingChart" Margin="15 30 15 30" />
+                        </Grid>
+                    </Grid>
                 </StackPanel>
             </ScrollViewer>
         </Grid>
+    </Border>
 </UserControl>
