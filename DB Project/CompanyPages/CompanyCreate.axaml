@@ -2,7 +2,218 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:DB_Project.CompanyPages"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DB_Project.CompanyPages.CompanyCreate">
-    Welcome to Avalonia!
+    <Border CornerRadius="20 0 0 0" Background="#2d2d2d" Name="MainBorder">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="Itineraries"
+                           FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="24"
+                           VerticalAlignment="Center" Margin="10" />
+                <Grid Grid.Row="1">
+                    <Border Background="#2a2a3a" Margin="10"
+                            CornerRadius="8" Padding="15">
+                        <Grid Name="ItineraryGrid" MaxHeight="350">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="Date/Time"
+                                       FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                                       VerticalAlignment="Center" />
+                            <!-- <TextBox Grid.Row="1" Grid.Column="0" Margin="5" Name="ItineraryTextBox" VerticalAlignment="Center"/> -->
+                            <DatePicker Grid.Row="1" Grid.Column="0" Margin="5" Name="ItineraryDatePicker"
+                                        VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                            <TimePicker Grid.Row="2" Grid.Column="0" Margin="5" Name="ItineraryTimePicker"
+                                        VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Text="Action"
+                                       FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                                       VerticalAlignment="Center" Margin="5" />
+                            <TextBox Grid.Row="4" Grid.Column="0" Margin="5" Name="ActionTextBox"
+                                     VerticalAlignment="Center" />
+
+                            <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Name="ItineraryButton"
+                                    Click="ItineraryButton_OnClick"
+                                    Margin="5" Padding="5 2" VerticalAlignment="Center">
+                                +
+                            </Button>
+
+                            <Grid Margin="10" Grid.Row="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ScrollViewer>
+                                    <ItemsControl Name="ItineraryItemsControl" Margin="10">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type local:ItineraryEntry}">
+                                                <Border Background="#2a2a3a" Margin="0,0,0,10"
+                                                        CornerRadius="8" Padding="15">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="1">
+                                                            <TextBlock Text="{Binding DateTime}"
+                                                                       FontSize="20" FontWeight="Bold" />
+                                                            <TextBlock Text="{Binding Action}"
+                                                                       Margin="0,5,0,0" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="Inclusions"
+                           FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="24"
+                           VerticalAlignment="Center" Margin="10" />
+                <Grid Grid.Row="1" Grid.Column="1" Name="InclusionsGrid">
+                    <Border Background="#2a2a3a" Margin="10"
+                            CornerRadius="8" Padding="15">
+                        <Grid  MaxHeight="350">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="Date/Time"
+                                       FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                                       VerticalAlignment="Center" />
+                            <!-- <TextBox Grid.Row="1" Grid.Column="0" Margin="5" Name="ItineraryTextBox" VerticalAlignment="Center"/> -->
+                            <DatePicker Grid.Row="1" Grid.Column="0" Margin="5" Name="InclusionsDatePicker"
+                                        VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                            <TimePicker Grid.Row="2" Grid.Column="0" Margin="5" Name="InclusionsTimePicker"
+                                        VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Text="Action"
+                                       FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                                       VerticalAlignment="Center" Margin="5" />
+                            <TextBox Grid.Row="4" Grid.Column="0" Margin="5" Name="InclusionTextBox"
+                                     VerticalAlignment="Center" />
+
+                            <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Name="InclusionButton"
+                                    Click="InclusionButton_OnClick"
+                                    Margin="5" Padding="5 2" VerticalAlignment="Center">
+                                +
+                            </Button>
+
+                            <Grid Margin="10" Grid.Row="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ScrollViewer>
+                                    <ItemsControl Name="InclusionsItemsControl" Margin="10">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type local:InclusionsEntry}">
+                                                <Border Background="#2a2a3a" Margin="0,0,0,10"
+                                                        CornerRadius="8" Padding="15">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="1">
+                                                            <TextBlock Text="{Binding DateTime}"
+                                                                       FontSize="20" FontWeight="Bold" />
+                                                            <TextBlock Text="{Binding Action}"
+                                                                       Margin="0,5,0,0" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+            <Border Background="#2a2a3a" Margin="10"
+                    CornerRadius="8" Padding="15" Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="Duration"
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" />
+                    <!-- This will bite us in the ass shortly -->
+                    <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Name="DurationTextBox"
+                             VerticalAlignment="Center" Margin="10" />
+
+                    <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Text="GroupSize"
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" />
+                    <!-- This will bite us in the ass shortly -->
+                    <TextBox Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" Name="GroupSizeTextBox"
+                             VerticalAlignment="Center" Margin="10" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Text="Destination"
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" />
+                    <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Name="CityTextBox"
+                             VerticalAlignment="Center" Margin="10" Watermark="City" />
+                    <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Name="LocationTextBox"
+                             VerticalAlignment="Center" Margin="10" Watermark="Location" />
+                    <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" Name="CountryTextBox"
+                             VerticalAlignment="Center" Margin="10" Watermark="Country" />
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Border>
 </UserControl>
