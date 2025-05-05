@@ -75,4 +75,5 @@ namespace DB_Project.TravellerPages
         public string Price { get; set; }
         public string ImagePath { get; set; }
     }
+    
 }

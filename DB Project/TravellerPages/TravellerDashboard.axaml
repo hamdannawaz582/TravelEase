@@ -1,122 +1,208 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:DB_Project"
              xmlns:pages="clr-namespace:DB_Project.TravellerPages"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="DB_Project.TravellerPages.TravellerDashboard">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <!-- Header -->
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock Grid.Column="0" Name="WelcomeMessage" 
-                       FontSize="32" Margin="15"/>
-            <Image Grid.Column="1" Source="../Assets/User.png" 
-                   Width="32" Height="32" Margin="15"/>
-        </Grid>
-        
-        <!-- Dashboard content -->
-        <ScrollViewer Grid.Row="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                
-                <!-- Upcoming Trips -->
-                <Border Grid.Row="0" Background="#2a2a3a" Margin="10" 
-                        CornerRadius="8" Padding="15">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        
-                        <TextBlock Grid.Row="0" Text="Upcoming Trips" 
-                                   FontSize="24" Margin="0,0,0,10"/>
-                        <ItemsControl Grid.Row="1" Name="UpcomingTripsControl">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="{x:Type pages:TripItem}">
-                                    <!-- Trip item template -->
-                                    <Border Background="#353545" Margin="5" 
-                                            CornerRadius="4" Padding="10">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            
-                                            <Image Grid.Column="0" Width="80"
-                                                   Height="60" Margin="0,0,10,0"
-                                                   Source="{Binding ImagePath}"/>
-                                            <StackPanel Grid.Column="1">
-                                                <TextBlock Text="{Binding Destination}"
-                                                           FontSize="18" FontWeight="Bold"/>
-                                                <TextBlock Text="{Binding Date}"
-                                                           Opacity="0.7"/>
-                                                <TextBlock Text="{Binding Status}"
-                                                           Foreground="Green"/>
-                                            </StackPanel>
-                                            <Button Grid.Column="2" Content="Details"
-                                                    VerticalAlignment="Center"/>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Grid>
-                </Border>
-                
-                <!-- Travel Pass -->
-                <Border Grid.Row="1" Background="#2a2a3a" Margin="10" 
-                        CornerRadius="8" Padding="15">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        
-                        <TextBlock Grid.Row="0" Text="Digital Travel Pass" 
-                                   FontSize="24" Margin="0,0,0,10"/>
-                        <TextBlock Grid.Row="1" 
-                                   Text="Access your e-tickets and passes here" 
-                                   Margin="0,15" Opacity="0.7"/>
-                    </Grid>
-                </Border>
-                
-                <!-- Profile Summary -->
-                <Border Grid.Row="2" Background="#2a2a3a" Margin="10" 
-                        CornerRadius="8" Padding="15">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        
-                        <TextBlock Grid.Row="0" Text="Profile Summary" 
-                                   FontSize="24" Margin="0,0,0,10"/>
-                        <StackPanel Grid.Row="1">
-                            <TextBlock Name="UsernameBlock" Margin="0,5"/>
-                            <TextBlock Name="TripCountBlock" Margin="0,5"/>
-                            <TextBlock Name="MemberSinceBlock" Margin="0,5"/>
-                            <Button Content="Edit Profile" 
-                                    HorizontalAlignment="Left" Margin="0,10"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Name="WelcomeMessage"
+                           FontSize="32" Margin="15"/>
+                <Image Grid.Column="1" Source="../Assets/User.png"
+                       Width="32" Height="32" Margin="15"/>
             </Grid>
-        </ScrollViewer>
-    </Grid>
+
+            <!-- Upcoming Trips -->
+            <Border Grid.Row="1" Background="#2a2a3a" Margin="10"
+                    CornerRadius="8" Padding="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Upcoming Trips"
+                               FontSize="24" Margin="0,0,0,10"/>
+                    <ItemsControl Grid.Row="1" Name="UpcomingTripsControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type pages:TripItem}">
+                                <Border Background="#353545" Margin="5"
+                                        CornerRadius="4" Padding="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Grid.Column="0" Width="80"
+                                               Height="60" Margin="0,0,10,0"
+                                               Source="{Binding ImagePath}"/>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding Destination}"
+                                                       FontSize="18" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Date}"
+                                                       Opacity="0.7"/>
+                                            <TextBlock Text="{Binding Status}"
+                                                       Foreground="Green"/>
+                                            <TextBlock Text="{Binding CancellationPolicy}" Foreground="Red" Margin="0,5,0,0"/>
+                                        </StackPanel>
+                                        <Button Grid.Column="2" Content="Details"
+                                                VerticalAlignment="Center"
+                                                Click="ViewDetails_Click"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+            <!-- Trip Itinerary -->
+            <Border Grid.Row="2" Background="#2a2a3a" Margin="10" CornerRadius="8" Padding="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Trip Itineraries" FontSize="24" Margin="0,0,0,10"/>
+                    <ItemsControl Grid.Row="1" Name="ItinerariesControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type pages:ItineraryItem}">
+                                <Border Background="#353545" Margin="5" CornerRadius="4" Padding="10">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Event}" FontSize="18" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding EventStartDate}" Opacity="0.7"/>
+                                        <TextBlock Text="{Binding EventEndDate}" Opacity="0.7"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+            <!-- Digital Travel Pass -->
+            <Border Grid.Row="2" Background="#2a2a3a" Margin="10"
+                    CornerRadius="8" Padding="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Digital Travel Pass"
+                               FontSize="24" Margin="0,0,0,10"/>
+                    <ItemsControl Grid.Row="1" Name="TravelPassesControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type pages:TravelPass}">
+                                <Border Background="#353545" Margin="5"
+                                        CornerRadius="4" Padding="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="{Binding TripName}"
+                                                       FontSize="18" FontWeight="Bold"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Valid: "/>
+                                                <TextBlock Text="{Binding ValidFrom}"/>
+                                                <TextBlock Text=" to "/>
+                                                <TextBlock Text="{Binding ValidTo}"/>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding PassCode}" Opacity="0.7"/>
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding HotelVoucher}" FontSize="16" Margin="0,5"/>
+                                                <TextBlock Text="{Binding ActivityPass}" FontSize="16" Margin="0,5"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Button Grid.Column="1" Content="View Pass"
+                                                VerticalAlignment="Center"
+                                                Click="ViewPass_Click"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+
+            <!-- Profile Summary -->
+            <Border Grid.Row="3" Background="#2a2a3a" Margin="10"
+                    CornerRadius="8" Padding="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Profile Summary"
+                               FontSize="24" Margin="0,0,0,10"/>
+                    
+                    <StackPanel Grid.Row="1" Grid.Column="0">
+                        <TextBlock Name="UsernameBlock" Margin="0,5"/>
+                        <TextBlock Name="EmailBlock" Margin="0,5"/>
+                        <TextBlock Name="FNameBlock" Margin="0,5"/>
+                        <TextBlock Name="LNameBlock" Margin="0,5"/>
+                        <TextBlock Name="NationalityBlock" Margin="0,5"/>
+                        <TextBlock Name="AgeBlock" Margin="0,5"/>
+                        <TextBlock Name="BudgetBlock" Margin="0,5"/>
+                        <TextBlock Name="JoinDateBlock" Margin="0,5"/>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Row="1" Grid.Column="1">
+                        <Button Content="Edit Profile" Margin="0,5"
+                                Click="EditProfile_Click"/>
+                        <Button Content="Save Profile" Margin="0,5"
+                                Click="SaveProfile_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <!-- Travel History -->
+            <Border Grid.Row="4" Background="#2a2a3a" Margin="10" CornerRadius="8" Padding="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Travel History" FontSize="24" Margin="0,0,0,10"/>
+                    <ItemsControl Grid.Row="1" Name="TravelHistoryControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type pages:TravelHistoryItem}">
+                                <Border Background="#353545" Margin="5" CornerRadius="4" Padding="10">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding TripName}" FontSize="18" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding StartDate}" Opacity="0.7"/>
+                                        <TextBlock Text="{Binding EndDate}" Opacity="0.7"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
