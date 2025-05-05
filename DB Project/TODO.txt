@@ -1,5 +1,4 @@
 SAIM:
-//TODO: trip search and booking
 //TODO: sign up page
 //TODO: operator reg and log
 

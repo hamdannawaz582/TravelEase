@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DB_Project.HotelSignupPage">
+    <StackPanel Margin="20">
+        <TextBlock Text="Hotel Signup" FontSize="20" Margin="0,0,0,20"/>
+        <TextBox Name="UsernameBox" Watermark="Hotel Username" Margin="0,5"/>
+        <TextBox Name="NameBox" Watermark="Hotel Name" Margin="0,5"/>
+        <TextBox Name="PasswordBox" Watermark="Password" PasswordChar="*" Margin="0,5"/>
+        <Button Content="Submit" Click="OnSubmit" Margin="0,10"/>
+    </StackPanel>
+</UserControl>

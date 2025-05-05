@@ -57,7 +57,49 @@ public partial class LoginPage : UserControl
 
     private void Signup_OnClick(object? sender, RoutedEventArgs e)
     {
-        
+        Console.WriteLine($"Signup clicked for: {Entry}");
+    
+        try
+        {
+            // Find the main window
+            if (this.VisualRoot is Window mainWindow)
+            {
+                Console.WriteLine("Found main window");
+            
+                // Create the appropriate signup page based on user type
+                Control signupPage;
+                switch (Entry)
+                {
+                    case "Traveller":
+                        signupPage = new TravellerSignupPage();
+                        break;
+                    case "Operator":
+                        signupPage = new OperatorSignupPage();
+                        break;
+                    case "Hotel":
+                        signupPage = new HotelSignupPage();
+                        break;
+                    case "Admin":
+                        signupPage = new AdminSignupPage();
+                        break;
+                    default:
+                        signupPage = new TravellerSignupPage();
+                        break;
+                }
+            
+                // Navigate to the signup page using the MainWindow's ContentControl
+                ((MainWindow)mainWindow).MainContent.Content = signupPage;
+                Console.WriteLine("Navigation complete");
+            }
+            else
+            {
+                Console.WriteLine("Could not find main window");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error during signup navigation: {ex.Message}");
+        }
     }
 
     private void TravellerButton_OnTapped(object? sender, TappedEventArgs e)

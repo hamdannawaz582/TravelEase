@@ -36,5 +36,5 @@ public partial class MainWindow : Window
                 break;
         }
     }
-    
+    public Control PreviousPage { get; set; }
 }
