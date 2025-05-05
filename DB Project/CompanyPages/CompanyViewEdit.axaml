@@ -3,6 +3,65 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="DB_Project.CompanyPages.CompanyViewEdit">
-    Welcome to Avalonia!
+             xmlns:local="clr-namespace:DB_Project.CompanyPages"
+             x:Class="DB_Project.CompanyPages.CompanyViewEdit"
+             Background="#2d2d2d">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="15">
+            <TextBlock Text="My Trips"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="White"/>
+            <TextBlock Text="View and manage your listed trips"
+                       Foreground="#aaaaaa"
+                       Margin="0 5 0 15"/>
+        </StackPanel>
+
+        <ScrollViewer>
+            <ItemsControl x:Name="TripsContainer" Margin="10">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:Trip}">
+                        <Border Background="#3a3a3a"
+                                CornerRadius="8"
+                                Padding="15"
+                                Margin="0 0 0 10">
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                                  ColumnDefinitions="120,*,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Title:" Foreground="#bbb" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Title}" />
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Price:" Foreground="#bbb" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Price}"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Category:" Foreground="#bbb" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Category}" />
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Cancel Status:" Foreground="#bbb" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CancelStatus}" />
+
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Group Size:" Foreground="#bbb" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding GroupSize}" />
+
+                                <TextBlock Grid.Row="5" Grid.Column="0" Text="Start Date:" Foreground="#bbb" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding StartDate}" />
+
+                                <TextBlock Grid.Row="6" Grid.Column="0" Text="End Date:" Foreground="#bbb" VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding EndDate}"/>
+
+                                <Button Grid.Row="0" Grid.Column="2"
+                                        Content="Update"
+                                        Click="OnEditTripClick"
+                                        Tag="{Binding}"
+                                        VerticalAlignment="Top"
+                                        Padding="10 5"
+                                        Background="DarkGray"
+                                        Foreground="White"
+                                        Margin="5"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
 </UserControl>
