@@ -3,55 +3,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:local="clr-namespace:DB_Project.AdminPages"
-             x:Class="DB_Project.AdminPages.AdminManagement"
+             xmlns:local="clr-namespace:DB_Project.CompanyPages"
+             x:Class="DB_Project.CompanyPages.CompanyManage"
              Background="#2d2d2d">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Margin="15">
-            <TextBlock Text="User and Operator Management"
+            <TextBlock Text="Booking Management"
                        FontSize="20"
                        FontWeight="Bold"
                        Foreground="White"/>
-            <TextBlock Text="Approve or reject pending registrations"
+            <TextBlock Text="Manage reservations and actions"
                        Foreground="#aaaaaa"
                        Margin="0 5 0 15"/>
         </StackPanel>
 
         <ScrollViewer>
-            <ItemsControl x:Name="RegistrationsContainer" Margin="10">
+            <ItemsControl x:Name="BookingsContainer" Margin="10">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type local:RegistrationRequest}">
+                    <DataTemplate DataType="{x:Type local:Booking}">
                         <Border Background="#3a3a3a"
                                 CornerRadius="8"
                                 Padding="15"
                                 Margin="0 0 0 10">
                             <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
                                 <StackPanel Grid.Column="0" Grid.Row="0">
-                                    <TextBlock Text="{Binding Name}"
+                                    <TextBlock Text="{Binding TripTitle}"
                                                FontSize="16"
                                                FontWeight="Bold"
                                                Foreground="White"/>
-                                    <TextBlock Text="{Binding Email}"
+                                    <TextBlock Text="{Binding TravelerName}"
                                                Foreground="#cccccc"
                                                Margin="0 5 0 0"/>
-                                    <TextBlock Text="{Binding Role}"
-                                               Foreground="#bbbbbb"/>
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="1"
                                             Orientation="Horizontal"
                                             Spacing="10"
                                             VerticalAlignment="Center">
-                                    <Button Content="Approve"
-                                            Click="OnApproveClick"
+                                    <Button Content="Reminder"
+                                            Click="OnSendReminderClick"
                                             Tag="{Binding}"
-                                            Background="#cccccc"
+                                            Background="DarkGray"
                                             Foreground="White"
                                             Padding="10 5"/>
-                                    <Button Content="Reject"
-                                            Click="OnRejectClick"
+                                    <Button Content="Cancel"
+                                            Click="OnCancelBookingClick"
                                             Tag="{Binding}"
-                                            Background="#cccccc"
+                                            Background="DarkGray"
                                             Foreground="White"
                                             Padding="10 5"/>
                                 </StackPanel>

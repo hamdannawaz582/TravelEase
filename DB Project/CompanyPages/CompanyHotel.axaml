@@ -3,6 +3,80 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="DB_Project.CompanyPages.CompanyHotel">
-    Welcome to Avalonia!
+             xmlns:local="clr-namespace:DB_Project.CompanyPages"
+             x:Class="DB_Project.CompanyPages.CompanyHotel"
+             Background="#2d2d2d">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Margin="15">
+            <TextBlock Text="Traveler Assignments"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="White"/>
+            <TextBlock Text="Manage traveler hotel and service assignments"
+                       Foreground="#aaaaaa"
+                       Margin="0 5 0 15"/>
+        </StackPanel>
+
+        <ScrollViewer>
+            <ItemsControl x:Name="AssignmentsContainer" Margin="10">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type local:Assignment}">
+                        <Border Background="#3a3a3a"
+                                CornerRadius="8"
+                                Padding="15"
+                                Margin="0 0 0 10">
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto"
+                                  ColumnDefinitions="120,*,Auto">
+                                <TextBlock Grid.Row="0" Grid.Column="0" 
+                                          Text="Username:" 
+                                          Foreground="#bbb" 
+                                          VerticalAlignment="Center"
+                                          Margin="0,5,5,3"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" 
+                                           Text="{Binding Username}" 
+                                           Foreground="#bbb" 
+                                           VerticalAlignment="Center"
+                                           Margin="0,5,5,3"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" 
+                                          Text="Trip Title:" 
+                                          Foreground="#bbb" 
+                                          VerticalAlignment="Center"
+                                          Margin="0,3,5,20"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" 
+                                           Text="{Binding TripTitle}"
+                                           Foreground="#bbb" 
+                                           VerticalAlignment="Center"
+                                           Margin="0,3,5,20"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" 
+                                          Text="Hotel:" 
+                                          Foreground="#bbb" 
+                                          VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="2" Grid.Column="1" 
+                                        Watermark="Add Hotel" />
+
+                                <TextBlock Grid.Row="3" Grid.Column="0" 
+                                          Text="Service:" 
+                                          Foreground="#bbb" 
+                                          VerticalAlignment="Center"/>
+                                <TextBox Grid.Row="3" Grid.Column="1" 
+                                        Watermark="Add Service" />
+
+                                <Button Grid.Row="0" Grid.RowSpan="4" Grid.Column="2"
+                                        Content="Assign"
+                                        Click="OnAssignClick"
+                                        Tag="{Binding}"
+                                        VerticalAlignment="Top"
+                                        Padding="10 5"
+                                        Background="DarkGray"
+                                        Foreground="White"
+                                        Margin="7"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
 </UserControl>
