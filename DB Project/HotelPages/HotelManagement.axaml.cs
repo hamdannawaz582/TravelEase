@@ -26,12 +26,12 @@ public partial class HotelManagement : UserControl
 
     private void AcceptButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        
+        //TODO: stuff..
     }
 
     private void RejectButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        
+        //TODO: stuff..
     }
     
     private void LoadServices()
