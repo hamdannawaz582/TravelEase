@@ -18,5 +18,12 @@ public partial class AdminSignupPage : UserControl
 
         // Handle form submission logic here
         // Example: Save data to the database or validate input
+        
+        // Return to login page
+        if (this.VisualRoot is Window mainWindow)
+        {
+            // Create new login page
+            ((MainWindow)mainWindow).MainContent.Content = new LoginPage();
+        }
     }
 }

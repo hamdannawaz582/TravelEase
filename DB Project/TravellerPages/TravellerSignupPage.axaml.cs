@@ -25,10 +25,10 @@ public partial class TravellerSignupPage : UserControl
         // FIXME: Add validation and database registration logic here
         
         // Return to login page
-        if (this.VisualRoot is MainWindow mainWindow)
+        if (this.VisualRoot is Window mainWindow)
         {
-            // Create new login page or navigate back to previous one
-            mainWindow.MainContent.Content = new LoginPage();
+            // Create new login page
+            ((MainWindow)mainWindow).MainContent.Content = new LoginPage();
         }
     }
 }
