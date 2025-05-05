@@ -2,7 +2,235 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:DB_Project.HotelPages"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="DB_Project.HotelPages.HotelManagement">
-    Welcome to Avalonia!
+    <Border CornerRadius="20 0 0 0" Background="#2d2d2d" Name="MainBorder">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="Services"
+                           FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="24"
+                           VerticalAlignment="Center" Margin="10" />
+                <Grid Grid.Row="1">
+                    <Border Background="#2a2a3a" Margin="10"
+                            CornerRadius="8" Padding="15">
+                        <Grid Name="ServicesGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="Service Title"
+                                       FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                                       VerticalAlignment="Center" />
+                            <TextBox Grid.Row="1" Grid.Column="0" Margin="5" Name="TitleTextBox" VerticalAlignment="Center"/>
+                            <!-- <DatePicker Grid.Row="1" Grid.Column="0" Margin="5" Name="ItineraryDatePicker" -->
+                            <!--             VerticalAlignment="Center" HorizontalAlignment="Stretch" /> -->
+                            <!-- <TimePicker Grid.Row="2" Grid.Column="0" Margin="5" Name="ItineraryTimePicker" -->
+                            <!--             VerticalAlignment="Center" HorizontalAlignment="Stretch" /> -->
+                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Text="Service Description"
+                                       FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                                       VerticalAlignment="Center" Margin="5" />
+                            <TextBox Grid.Row="3" Grid.Column="0" Margin="5" Name="DescriptionTextBox"
+                                     VerticalAlignment="Center" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" Text="Service Pricing"
+                                       FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                                       VerticalAlignment="Center" Margin="5" />
+                            <TextBox Grid.Row="5" Grid.Column="0" Margin="5" Name="PricingTextBox"
+                                     VerticalAlignment="Center" />
+
+                            <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Name="ServiceButton"
+                                    Click="ServiceButton_OnClick"
+                                    Margin="5" Padding="5 2" VerticalAlignment="Center">
+                                +
+                            </Button>
+
+                            <Grid Margin="10" Grid.Row="6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ScrollViewer MaxHeight="140">
+                                    <ItemsControl Name="ServiceItemsControl" Margin="10">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type local:ServiceEntry}">
+                                                <Border Background="#2a2a3a" Margin="0,0,0,10"
+                                                        CornerRadius="8" Padding="15">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="1">
+                                                            <TextBlock Text="{Binding ServiceName}"
+                                                                       FontSize="20" FontWeight="Bold" />
+                                                            <TextBlock Text="{Binding ServicePrice}"
+                                                                       Margin="0,5,0,0" />
+                                                            <TextBlock Text="{Binding ServiceDescription}"
+                                                                       Margin="0,5,0,0" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="RequestedAssignments"
+                           FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="24"
+                           VerticalAlignment="Center" Margin="10" />
+                <Grid Grid.Row="1" Grid.Column="1" Name="InclusionsGrid">
+                    <Border Background="#2a2a3a" Margin="10"
+                            CornerRadius="8" Padding="15">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="Date/Time" -->
+                            <!--            FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18" -->
+                            <!--            VerticalAlignment="Center" /> -->
+                            <!-- ~1~ <TextBox Grid.Row="1" Grid.Column="0" Margin="5" Name="ItineraryTextBox" VerticalAlignment="Center"/> @1@ -->
+                            <!-- <DatePicker Grid.Row="1" Grid.Column="0" Margin="5" Name="InclusionsDatePicker" -->
+                            <!--             VerticalAlignment="Center" HorizontalAlignment="Stretch" /> -->
+                            <!-- <TimePicker Grid.Row="2" Grid.Column="0" Margin="5" Name="InclusionsTimePicker" -->
+                            <!--             VerticalAlignment="Center" HorizontalAlignment="Stretch" /> -->
+                            <!-- <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Text="Action" -->
+                            <!--            FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18" -->
+                            <!--            VerticalAlignment="Center" Margin="5" /> -->
+                            <!-- <TextBox Grid.Row="4" Grid.Column="0" Margin="5" Name="InclusionTextBox" -->
+                            <!--          VerticalAlignment="Center" /> -->
+
+                            <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Name="AssignmentButton"
+                                    Click="AssignmentButton_OnClick"
+                                    Margin="5" Padding="5 2" VerticalAlignment="Center">
+                                Load
+                            </Button>
+
+                            <Grid Margin="10" Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ScrollViewer MaxHeight="340">
+                                    <ItemsControl Name="AssignmentItemsControl" Margin="10">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type local:AssignmentEntry}">
+                                                <Border Background="#2a2a3a" Margin="0,0,0,10"
+                                                        CornerRadius="8" Padding="15">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <StackPanel Grid.Column="1">
+                                                            <TextBlock Text="{Binding ServiceName}"
+                                                                       FontSize="20" FontWeight="Bold" />
+                                                            <TextBlock Text="{Binding DateTime}"
+                                                                       Margin="0,5,0,0" />
+                                                            <TextBlock Text="{Binding RoomNumber}"
+                                                                       Margin="0,5,0,0" />
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <Button Name="AcceptButton" Padding="5 2" Margin="5" Click="AcceptButton_OnClick" Background="Green">Accept</Button>
+                                                                <Button Name="RejectButton" Padding="5 2" Margin="5" Click="RejectButton_OnClick" Background="Red">Reject</Button>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+            <Border Background="#2a2a3a" Margin="10"
+                    CornerRadius="8" Padding="15" Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="Available Rooms"
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text=""
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" Name="RoomCount"/>
+
+                    <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Text="Total Bookings"
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10"/>
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Left" Text=""
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" Name="TotalBookings"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Text="Total Rooms"
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Text=""
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" Name="TotalRooms"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="Total Revenue"
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" />
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text=""
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" Name="Revenue"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Border>
 </UserControl>
