@@ -89,22 +89,22 @@ namespace DB_Project.TravellerPages
 
         private void EditProfile_Click(object? sender, RoutedEventArgs e)
         {
-            // Logic for editing profile
+            //TODO: stuff..
         }
 
         private void SaveProfile_Click(object? sender, RoutedEventArgs e)
         {
-            // Logic for saving profile
+            //TODO: stuff..
         }
 
         private void ViewDetails_Click(object? sender, RoutedEventArgs e)
         {
-            // Logic for viewing trip details
+            //TODO: stuff..
         }
 
         private void ViewPass_Click(object? sender, RoutedEventArgs e)
         {
-            // Logic for viewing travel pass
+            //TODO: stuff..
         }
     }
 

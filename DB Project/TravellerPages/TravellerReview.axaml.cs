@@ -67,8 +67,7 @@ namespace DB_Project.TravellerPages
             LoadAvailableTrips();
             LoadAvailableHotels();
             LoadRatings();
-
-            // Directly assign collections to ComboBoxes
+            
             TripSelector.ItemsSource = _availableTrips;
             HotelSelector.ItemsSource = _availableHotels;
             TripRatingSelector.ItemsSource = _ratings;
@@ -102,16 +101,14 @@ namespace DB_Project.TravellerPages
         {
             if (SelectedTrip != null && SelectedTripRating > 0)
             {
-                // Create a review aligned with the Review table
                 var review = new ReviewItem
                 {
                     Stars = SelectedTripRating,
                     Feedback = TripFeedback,
                     ReviewTime = DateTime.Now,
-                    Reviewer = "currentUsername" // Would come from logged in user
+                    Reviewer = "currentUsername"
                 };
-
-                // Database integration logic would go here
+                
                 await ShowMessageDialog($"Trip Review Submitted:\nTrip: {SelectedTrip.Title}\nRating: {review.Stars}\nFeedback: {review.Feedback}");
             }
             else
@@ -124,16 +121,14 @@ namespace DB_Project.TravellerPages
         {
             if (SelectedHotel != null && SelectedHotelRating > 0)
             {
-                // Create a review aligned with the Review table
                 var review = new ReviewItem
                 {
                     Stars = SelectedHotelRating,
                     Feedback = HotelFeedback,
                     ReviewTime = DateTime.Now,
-                    Reviewer = "currentUsername" // Would come from logged in user
+                    Reviewer = "currentUsername"
                 };
-
-                // Database integration logic would go here
+                
                 await ShowMessageDialog($"Hotel Review Submitted:\nHotel: {SelectedHotel.Name}\nRating: {review.Stars}\nFeedback: {review.Feedback}");
             }
             else
@@ -165,8 +160,7 @@ namespace DB_Project.TravellerPages
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-
-    // Model classes aligned with the database
+    
     public class TripReviewItem
     {
         public int TripID { get; set; }

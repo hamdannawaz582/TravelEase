@@ -9,8 +9,6 @@ namespace DB_Project.TravellerPages
         public TripSearchPage()
         {
             InitializeComponent();
-            
-            // Set up price slider event
             PriceSlider.PropertyChanged += (sender, e) => {
                 if (e.Property.Name == "Value")
                 {
@@ -19,8 +17,6 @@ namespace DB_Project.TravellerPages
             };
             
             UpdatePriceLabel();
-            
-            // Load some initial results for demo
             LoadSearchResults();
         }
         
@@ -34,8 +30,7 @@ namespace DB_Project.TravellerPages
         
         private void OnSearchClicked(object sender, RoutedEventArgs e)
         {
-            // In a real app, this would query the database
-            // For now, just reload the same demo data
+            //TODO: stuff..
             LoadSearchResults();
         }
         
@@ -59,7 +54,6 @@ namespace DB_Project.TravellerPages
                     Price = "$1,599",
                     ImagePath = "../Assets/rome.png"
                 }
-                // Add more results as needed
             };
             
             SearchResultsControl.ItemsSource = results;
