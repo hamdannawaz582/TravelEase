@@ -11,7 +11,6 @@ namespace DB_Project
         public AdminShell(string username) : base(username)
         {
             InitializeComponent();
-            // Defer initialization until after component initialization is fully complete
             Dispatcher.UIThread.Post(() =>
             {
                 try
@@ -20,8 +19,7 @@ namespace DB_Project
                     var splitView = this.FindControl<SplitView>("SplitView");
                     var sidebar = this.FindControl<SidebarControl>("Sidebar");
                     var mainContent = this.FindControl<ContentControl>("MainContent");
-
-                    // Verify controls were found
+                    
                     if (splitView == null)
                         throw new InvalidOperationException("SplitView control not found in AdminShell");
                     if (sidebar == null)
@@ -29,8 +27,6 @@ namespace DB_Project
                     if (mainContent == null)
                         throw new InvalidOperationException("MainContent control not found in AdminShell");
                     
-                    //Sidebar.SetSplitView(SplitView);
-                    //Sidebar.SetPageHost(MainContent);
                     InitializeSidebar(splitView, sidebar, mainContent);
                     var analyticsPage = new AdminAnalytics();
                     var managementPage = new AdminManagement();

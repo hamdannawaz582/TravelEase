@@ -28,16 +28,16 @@ public partial class AdminAnalytics : UserControl
 
     private void UserTrafficButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        // Check ComboBox value and set chart data accordingly
+        //check ComboBox value and set chart data accordingly
     }
 
     private void RevenueButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        // Check ComboBox value and set chart data accordingly
+        //check ComboBox value and set chart data accordingly
     }
 
     private void BookingButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        // Check ComboBox value and set chart data accordingly
+        //check ComboBox value and set chart data accordingly
     }
 }

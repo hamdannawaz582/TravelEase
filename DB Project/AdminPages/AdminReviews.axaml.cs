@@ -14,44 +14,32 @@ namespace DB_Project.AdminPages
 {
     public partial class AdminReviews : UserControl
     {
-        // Collection to store review data
         private ObservableCollection<ReviewViewModel> _reviews;
-        
-        // Currently selected review
         private ReviewViewModel _selectedReview;
         
-        // List of inappropriate words to check for
+        //list of inappropriate words to check for
         private readonly List<string> _inappropriateWords = new List<string>
         {
             "awful", "terrible", "horrible", "stupid", "idiot", "hate", "crap", "garbage", 
-            "damn", "hell", "shit", "bitch", "bastard", "suck"
+            "damn", "hell", "shit","suck"
         };
 
         public AdminReviews()
         {
             InitializeComponent();
-            
-            // Initialize the reviews collection
             _reviews = new ObservableCollection<ReviewViewModel>();
             ReviewsDataGrid.ItemsSource = _reviews;
-            
-            // Load reviews when control is loaded
             this.AttachedToVisualTree += (s, e) => LoadReviews();
         }
 
         private async void LoadReviews()
         {
-            // Clear existing reviews
             _reviews.Clear();
-            
-            // In a real implementation, this would load from the database
-            // For now, we'll use some sample data
             await Task.Run(() =>
             {
-                // Simulate database delay
                 System.Threading.Thread.Sleep(500);
 
-                // FIXME: Replace this mock data with actual database queries using the TravelEase database schema
+                //TODO:replace with database connection
                 var sampleReviews = new List<ReviewViewModel>
                 {
                     CreateReview(1, "Traveller1", DateTime.Now.AddDays(-5), 4,
@@ -65,13 +53,10 @@ namespace DB_Project.AdminPages
                     CreateReview(5, "Traveller5", DateTime.Now.AddHours(-12), 5,
                         "Amazing hotel with wonderful staff!", "Hotel", 9)
                 };
-
-                // Add sample reviews to the collection
                 Dispatcher.UIThread.InvokeAsync(() =>
                 {
                     foreach (var review in sampleReviews)
                     {
-                        // Check for inappropriate content
                         review.FlaggedWords = CheckForInappropriateWords(review.Feedback);
                         review.FlagCount = review.FlaggedWords.Count.ToString();
                         review.Status = review.FlaggedWords.Count > 0 ? "Flagged" : "Pending";
@@ -82,8 +67,7 @@ namespace DB_Project.AdminPages
                 });
             });
         }
-
-        // Helper method to create review view model objects
+        
         private ReviewViewModel CreateReview(int id, string reviewer, DateTime date, int stars, string feedback, string type, int tripId)
         {
             return new ReviewViewModel
@@ -99,8 +83,7 @@ namespace DB_Project.AdminPages
                 RelatedEntityId = tripId
             };
         }
-
-        // Check for inappropriate words in a given text
+        
         private List<string> CheckForInappropriateWords(string text)
         {
             if (string.IsNullOrEmpty(text)) return new List<string>();
@@ -118,18 +101,14 @@ namespace DB_Project.AdminPages
             
             return foundWords;
         }
-
-        // Event handler for selection changes in the data grid
+        
         private void ReviewsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _selectedReview = ReviewsDataGrid.SelectedItem as ReviewViewModel;
             
             if (_selectedReview != null)
             {
-                // Show details for the selected review
                 DetailPanel.IsVisible = true;
-                
-                // Update the content in the detail panel
                 SelectedReviewContent.Text = $"Review ID: {_selectedReview.ReviewID}\n" +
                                           $"Reviewer: {_selectedReview.Reviewer}\n" +
                                           $"Date: {_selectedReview.FormattedDate}\n" +
@@ -137,8 +116,7 @@ namespace DB_Project.AdminPages
                                           $"Type: {_selectedReview.ReviewType}\n\n" +
                                           $"Content: {_selectedReview.Feedback}\n\n" +
                                           $"Response: {_selectedReview.Response ?? "No response yet"}";
-
-                // Show flagged words if any
+                
                 if (_selectedReview.FlaggedWords.Count > 0)
                 {
                     FlaggedWordsText.Text = $"Flagged words: {string.Join(", ", _selectedReview.FlaggedWords)}";
@@ -149,8 +127,6 @@ namespace DB_Project.AdminPages
                     FlaggedWordsText.Text = "No inappropriate content detected";
                     FlaggedWordsText.Foreground = new SolidColorBrush(Color.Parse("#66aa66"));
                 }
-
-                // If review already has a response, show it in the response box
                 ResponseTextBox.Text = _selectedReview.Response ?? "";
             }
             else
@@ -158,20 +134,14 @@ namespace DB_Project.AdminPages
                 DetailPanel.IsVisible = false;
             }
         }
-
-        // Event handlers for review actions
+        
         private void ApproveReview_Click(object sender, RoutedEventArgs e)
         {
             if (_selectedReview == null) return;
 
-            // FIXME: Update the database to mark this review as approved
+            //TODO: will update the database to mark this review as approved
             _selectedReview.Status = "Approved";
             _selectedReview.StatusColor = new SolidColorBrush(Color.Parse("#66aa66"));
-
-            // Update the database (in a real implementation)
-            // UpdateReviewStatus(_selectedReview.ReviewID, "Approved");
-
-            // Refresh the data grid
             ReviewsDataGrid.ItemsSource = null;
             ReviewsDataGrid.ItemsSource = _reviews;
         }
@@ -180,14 +150,10 @@ namespace DB_Project.AdminPages
         {
             if (_selectedReview == null) return;
 
-            // FIXME: Update the database to mark this review as rejected
+            //TODO: will update the database to mark this review as rejected
             _selectedReview.Status = "Rejected";
             _selectedReview.StatusColor = new SolidColorBrush(Color.Parse("#ff3b3b"));
-
-            // Update the database (in a real implementation)
-            // UpdateReviewStatus(_selectedReview.ReviewID, "Rejected");
-
-            // Refresh the data grid
+            
             ReviewsDataGrid.ItemsSource = null;
             ReviewsDataGrid.ItemsSource = _reviews;
         }
@@ -198,18 +164,12 @@ namespace DB_Project.AdminPages
             string response = ResponseTextBox.Text?.Trim();
             if (string.IsNullOrEmpty(response))
             {
-                // Show error - response cannot be empty
                 return;
             }
-
-            // FIXME: Update the database with the response
+            
             _selectedReview.Response = response;
             _selectedReview.ResponseDate = DateTime.Now;
             
-            // In a real implementation, update the database:
-            // UpdateReviewResponse(_selectedReview.ReviewID, response);
-            
-            // Update the details panel
             SelectedReviewContent.Text = $"Review ID: {_selectedReview.ReviewID}\n" +
                                       $"Reviewer: {_selectedReview.Reviewer}\n" +
                                       $"Date: {_selectedReview.FormattedDate}\n" +
@@ -218,16 +178,12 @@ namespace DB_Project.AdminPages
                                       $"Content: {_selectedReview.Feedback}\n\n" +
                                       $"Response: {_selectedReview.Response}";
         }
-
-        // Filter and refresh handlers
         private void ApplyFilter_Click(object sender, RoutedEventArgs e)
         {
             var selectedFilter = (FilterComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
             string searchText = SearchTextBox.Text?.ToLower() ?? "";
             
             IEnumerable<ReviewViewModel> filteredReviews = _reviews;
-            
-            // Apply status filter
             switch (selectedFilter)
             {
                 case "Flagged Reviews":
@@ -242,10 +198,8 @@ namespace DB_Project.AdminPages
                 case "Rejected Reviews":
                     filteredReviews = filteredReviews.Where(r => r.Status == "Rejected");
                     break;
-                // "All Reviews" - no filtering needed
             }
             
-            // Apply text search if provided
             if (!string.IsNullOrEmpty(searchText))
             {
                 filteredReviews = filteredReviews.Where(r => 
@@ -253,7 +207,6 @@ namespace DB_Project.AdminPages
                     r.Reviewer.ToLower().Contains(searchText));
             }
             
-            // Update the data grid
             ReviewsDataGrid.ItemsSource = new ObservableCollection<ReviewViewModel>(filteredReviews);
         }
 
@@ -263,12 +216,11 @@ namespace DB_Project.AdminPages
             DetailPanel.IsVisible = false;
         }
 
-        // FIXME: The following methods would connect to the database in a real implementation
+        // TODO: methods for database operations
         private void UpdateReviewStatus(int reviewId, string status)
         {
-            // Using the database schema provided in the class diagram:
             /*
-            string connectionString = "your_connection_string_here";
+            string connectionString = "";
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -285,9 +237,8 @@ namespace DB_Project.AdminPages
 
         private void UpdateReviewResponse(int reviewId, string response)
         {
-            // Using the database schema provided in the class diagram:
             /*
-            string connectionString = "your_connection_string_here";
+            string connectionString = "";
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -303,8 +254,7 @@ namespace DB_Project.AdminPages
             */
         }
     }
-
-    // View model for reviews to be displayed in the data grid
+    
     public class ReviewViewModel
     {
         public int ReviewID { get; set; }

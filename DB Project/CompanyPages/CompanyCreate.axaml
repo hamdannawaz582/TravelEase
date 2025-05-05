@@ -191,17 +191,14 @@
                     <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="Duration"
                                FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
                                VerticalAlignment="Center" Margin="10" />
-                    <!-- This will bite us in the ass shortly -->
                     <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Name="DurationTextBox"
                              VerticalAlignment="Center" Margin="10" />
 
                     <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Text="GroupSize"
                                FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
                                VerticalAlignment="Center" Margin="10" />
-                    <!-- This will bite us in the ass shortly -->
                     <TextBox Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" Name="GroupSizeTextBox"
                              VerticalAlignment="Center" Margin="10" />
-
                     <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Text="Destination"
                                FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
                                VerticalAlignment="Center" Margin="10" />
