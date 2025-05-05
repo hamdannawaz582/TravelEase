@@ -15,5 +15,4 @@ AREEB:
 //TODO: Booking Management- Company Create axaml
 
 HAMDAN:
-//TODO: trip creation and management-company create axaml
 //TODO: integ listing- Hotel management
