@@ -39,7 +39,7 @@ namespace DB_Project.CompanyPages
             if (sender is Button button && button.Tag is Booking booking)
             {
                 Bookings.Remove(booking);
-                BookingsContainer.ItemsSource = new ObservableCollection<Booking>(Bookings); // refresh
+                BookingsContainer.ItemsSource = new ObservableCollection<Booking>(Bookings); //refresh
             }
         }
     }

@@ -48,7 +48,7 @@ namespace DB_Project.CompanyPages
         {
             if (sender is Button button && button.Tag is Trip trip)
             {
-                // Future: Add logic to edit the trip
+                //TODO: stuff..
             }
         }
     }

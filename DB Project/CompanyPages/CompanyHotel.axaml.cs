@@ -41,13 +41,7 @@ namespace DB_Project.CompanyPages
         {
             if (sender is Button button && button.Tag is Assignment assignment)
             {
-                // Add your assignment logic here
-                // Example: Save to database, update status, etc.
-                // You can access all fields:
-                // assignment.Username
-                // assignment.TripTitle
-                // assignment.Hotel
-                // assignment.Service
+                //TODO: stuff..
             }
         }
     }
