@@ -21,13 +21,9 @@ public partial class TravellerSignupPage : UserControl
         var nationality = this.FindControl<TextBox>("NationalityBox").Text;
         var age = this.FindControl<TextBox>("AgeBox").Text;
         var budget = this.FindControl<TextBox>("BudgetBox").Text;
-
-        // FIXME: Add validation and database registration logic here
         
-        // Return to login page
         if (this.VisualRoot is Window mainWindow)
         {
-            // Create new login page
             ((MainWindow)mainWindow).MainContent.Content = new LoginPage();
         }
     }
