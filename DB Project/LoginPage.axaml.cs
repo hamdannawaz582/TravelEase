@@ -6,6 +6,8 @@ using System;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using DB_Project.Repositories;
+using Microsoft.Data.SqlClient;
 
 namespace DB_Project;
 
@@ -22,28 +24,55 @@ public partial class LoginPage : UserControl
     public String UserName;
     public String Password;
 
-    private void Login_OnClick(object? sender, RoutedEventArgs e)
+    private async void Login_OnClick(object? sender, RoutedEventArgs e)
     {
         Console.WriteLine($"Name: {UserName}");
         Console.WriteLine($"Password: {Password}");
         Console.WriteLine($"Login: {Entry}");
-        bool isAuthenticated = true;
-    
+
+        var repo = new TravellerRepository();
+        bool isAuthenticated = false;
+        try
+        {
+            switch (Entry)
+            {
+                case "Traveller":
+                    isAuthenticated = await repo.AuthenticateUser(UserName, Password);
+                    break;
+                case "Operator":
+                    //isAuthenticated = repo.AuthenticateOperator(UserName, Password);
+                    break;
+                case "Hotel":
+                    //isAuthenticated = repo.AuthenticateHotel(UserName, Password);
+                    break;
+                case "Admin":
+                    //isAuthenticated = repo.AuthenticateAdmin(UserName, Password);
+                    break;
+                default:
+                    Console.WriteLine("Invalid entry type");
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+
         if (isAuthenticated)
         {
-            //finding the main window
             Login.Background = Brushes.Blue;
             if (this.VisualRoot is Window mainWindow)
-            {   Console.WriteLine("Loginned");
+            {
+                Console.WriteLine("Loginned");
                 ((MainWindow)mainWindow).NavigateToUserDashboard(Entry, UserName);
             }
         }
         else
         {
-            // Display authentication error
             Login.Background = Brushes.Red;
         }
     }
+
 
     private void UsernameBox_OnTextChanged(object? sender, TextChangedEventArgs e)
     {

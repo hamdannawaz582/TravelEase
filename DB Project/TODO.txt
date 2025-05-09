@@ -1,6 +1,5 @@
 SAIM:
-//TODO: sign up page
-//TODO: operator reg and log
+//TODO: change authenticateUser to authenticate traveller
 
 AREEB:
 //TODO: User & tour management- AdminManagement axaml
