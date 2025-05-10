@@ -90,12 +90,10 @@ public partial class LoginPage : UserControl
     
         try
         {
-            // Find the main window
             if (this.VisualRoot is Window mainWindow)
             {
                 Console.WriteLine("Found main window");
-            
-                // Create the appropriate signup page based on user type
+                
                 Control signupPage;
                 switch (Entry)
                 {
@@ -116,7 +114,6 @@ public partial class LoginPage : UserControl
                         break;
                 }
             
-                // Navigate to the signup page using the MainWindow's ContentControl
                 ((MainWindow)mainWindow).MainContent.Content = signupPage;
                 Console.WriteLine("Navigation complete");
             }
