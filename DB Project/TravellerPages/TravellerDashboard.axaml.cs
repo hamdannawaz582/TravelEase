@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System;
-using System.Threading.Tasks;
 using DB_Project.Models;
 using DB_Project.Repositories;
 
@@ -101,58 +100,84 @@ namespace DB_Project.TravellerPages
 
         private async void LoadTravelPassesAsync()
         {
+            if (TravelPassesControl == null)
+                return;
+
+            var repo = new TravellerRepository();
+
             try
-            {
-                // In a real implementation, this would fetch data from the database
-                // Since the repository doesn't have this method yet, using demo data
-                _travelPasses = new ObservableCollection<TravelPass>
-                {
-                    new TravelPass { TripName = "Paris Adventure", ValidFrom = "May 15, 2025", ValidTo = "May 20, 2025", PassCode = "PA-2025-12345", HotelVoucher = "Hotel Paris Voucher", ActivityPass = "Eiffel Tower Pass" },
-                    new TravelPass { TripName = "Tokyo Explorer", ValidFrom = "June 8, 2025", ValidTo = "June 15, 2025", PassCode = "TX-2025-67890", HotelVoucher = "Tokyo Hotel Voucher", ActivityPass = "Mt. Fuji Pass" }
-                };
-                
-                TravelPassesControl.ItemsSource = _travelPasses;
+            {   var passes = await repo.GetTravelPasses(_username);
+                var allDigitalPasses = new ObservableCollection<TravelPass>();
+                foreach (var pass in passes)
+                {  
+                    allDigitalPasses.Add(pass);
+                }
+                TravelPassesControl.ItemsSource = new ObservableCollection<TravelPass>(passes);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading travel passes: {ex.Message}");
+                TravelPassesControl.ItemsSource = new ObservableCollection<TravelPass>
+                {
+                    new TravelPass
+                    {
+                        TripName = "Indian Heritage Tour",
+                        ValidFrom = "Apr 20, 2025",
+                        ValidTo = "Apr 30, 2025",
+                        PassCode = "PASS-302-IND",
+                        HotelVoucher = "Taj Retreat - Check-in on Apr 20",
+                        ActivityPass = "Delhi Cultural Tour Pass"
+                    },
+                    new TravelPass
+                    {
+                        TripName = "Turkish Tour",
+                        ValidFrom = "Jul 10, 2025",
+                        ValidTo = "Jul 20, 2025",
+                        PassCode = "PASS-305-TUR",
+                        HotelVoucher = "Istanbul Palace - Check-in on Jul 10",
+                        ActivityPass = "Bosphorus Explorer Pass"
+                    }
+                };
             }
         }
 
         private async void LoadItinerariesAsync()
         {
+            if (ItinerariesControl == null)
+                return;
+            var repo = new TravellerRepository();
             try
             {
-                var upcomingTrips = await _repository.GetUpcomingTrips(_username);
-                _itineraries = new ObservableCollection<ItineraryItem>();
-                
-                if (upcomingTrips.Count > 0)
+                var upcomingTrips = await repo.GetUpcomingTrips(_username);
+                var allItineraries = new ObservableCollection<ItineraryItem>();
+                foreach (var trip in upcomingTrips)
                 {
-                    // Since GetTripItineraries is commented out in repository
-                    // Using demo data for now
-                    _itineraries = new ObservableCollection<ItineraryItem>
+                    var tripItineraries = await repo.GetTripItineraries(trip.TripID);
+                    foreach (var item in tripItineraries)
                     {
-                        new ItineraryItem { Event = "Flight to Paris", EventStartDate = "May 15, 2025", EventEndDate = "May 15, 2025" },
-                        new ItineraryItem { Event = "City Tour", EventStartDate = "May 16, 2025", EventEndDate = "May 16, 2025" },
-                        new ItineraryItem { Event = "Museum Visit", EventStartDate = "May 17, 2025", EventEndDate = "May 17, 2025" },
-                        new ItineraryItem { Event = "Free Day", EventStartDate = "May 18, 2025", EventEndDate = "May 18, 2025" },
-                        new ItineraryItem { Event = "Return Flight", EventStartDate = "May 20, 2025", EventEndDate = "May 20, 2025" }
-                    };
+                        allItineraries.Add(item);
+                    }
                 }
-                
-                ItinerariesControl.ItemsSource = _itineraries;
+                ItinerariesControl.ItemsSource = allItineraries;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading itineraries: {ex.Message}");
-                // Fallback to demo data
-                _itineraries = new ObservableCollection<ItineraryItem>
+                ItinerariesControl.ItemsSource = new ObservableCollection<ItineraryItem>
                 {
-                    new ItineraryItem { Event = "Flight to Paris", EventStartDate = "May 15, 2025", EventEndDate = "May 15, 2025" },
-                    new ItineraryItem { Event = "City Tour", EventStartDate = "May 16, 2025", EventEndDate = "May 16, 2025" }
+                    new ItineraryItem
+                    {
+                        Event = "City Tour",
+                        EventStartDate = "May 15, 2025 9:00 AM",
+                        EventEndDate = "May 15, 2025 4:00 PM"
+                    },
+                    new ItineraryItem
+                    {
+                        Event = "Museum Visit",
+                        EventStartDate = "May 16, 2025 10:00 AM",
+                        EventEndDate = "May 16, 2025 1:00 PM"
+                    }
                 };
-                
-                ItinerariesControl.ItemsSource = _itineraries;
             }
         }
 
@@ -248,24 +273,7 @@ namespace DB_Project.TravellerPages
         public string CancellationPolicy { get; set; }
         public string ImagePath { get; set; } = "../Assets/paris.png"; // Default image
     }
-
-    public class TravelPass
-    {
-        public string TripName { get; set; }
-        public string ValidFrom { get; set; }
-        public string ValidTo { get; set; }
-        public string PassCode { get; set; }
-        public string HotelVoucher { get; set; }
-        public string ActivityPass { get; set; }
-    }
-
-    public class ItineraryItem
-    {
-        public string Event { get; set; }
-        public string EventStartDate { get; set; }
-        public string EventEndDate { get; set; }
-    }
-
+    
     public class TravelHistoryItem
     {
         public string TripName { get; set; }

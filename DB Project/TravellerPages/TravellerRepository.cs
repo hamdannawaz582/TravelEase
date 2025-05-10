@@ -252,7 +252,48 @@ namespace DB_Project.Repositories
             
             return trips;
         }
+        public async Task<List<TravelPass>> GetTravelPasses(string username)
+        {
+            using var connection = DatabaseService.Instance.CreateConnection();
+            await connection.OpenAsync();
 
+            var command = new SqlCommand(@"
+        SELECT t.TripID, t.Title, t.StartDate, t.EndDate, 
+               d.City + ', ' + d.Country AS Destination,
+               h.Name AS HotelName
+        FROM Trip t
+        JOIN Trip_Booking tb ON t.TripID = tb.TripID
+        JOIN Trip_Destination td ON t.TripID = td.TripID
+        JOIN Destination d ON td.DestID = d.DestID
+        LEFT JOIN Trip_Hotels th ON t.TripID = th.TripID
+        LEFT JOIN Hotel h ON th.HUsername = h.HUsername
+        WHERE tb.Username = @Username AND t.StartDate > GETDATE()",
+                connection);
+    
+            command.Parameters.AddWithValue("@Username", username);
+
+            var passes = new List<TravelPass>();
+            using var reader = await command.ExecuteReaderAsync();
+    
+            while (await reader.ReadAsync())
+            {
+                string passCode = $"PASS-{Convert.ToInt32(reader["TripID"])}-{username.GetHashCode():X8}";
+        
+                passes.Add(new TravelPass
+                {
+                    TripName = reader["Title"].ToString(),
+                    ValidFrom = Convert.ToDateTime(reader["StartDate"]).ToString("MMM dd, yyyy"),
+                    ValidTo = Convert.ToDateTime(reader["EndDate"]).ToString("MMM dd, yyyy"),
+                    PassCode = passCode,
+                    HotelVoucher = !reader.IsDBNull(reader.GetOrdinal("HotelName")) 
+                        ? $"{reader["HotelName"]} - Check-in on {Convert.ToDateTime(reader["StartDate"]):MMM dd}" 
+                        : "No hotel booking",
+                    ActivityPass = $"{reader["Destination"]} Explorer Pass"
+                });
+            }
+    
+            return passes;
+        }
         public async Task<List<Trip>> GetTripHistory(string username)
         {
             using var connection = DatabaseService.Instance.CreateConnection();
@@ -293,33 +334,33 @@ namespace DB_Project.Repositories
         }
 
         // Get trip itineraries
-        // public async Task<List<ItineraryItem>> GetTripItineraries(int tripId)
-        // {
-        //     using var connection = DatabaseService.Instance.CreateConnection();
-        //     await connection.OpenAsync();
-        //
-        //     var command = new SqlCommand(
-        //         "SELECT Event, EventStartDate, EventEndDate FROM Trip_Itinerary " +
-        //         "WHERE TripID = @TripID ORDER BY EventStartDate",
-        //         connection);
-        //     
-        //     command.Parameters.AddWithValue("@TripID", tripId);
-        //
-        //     var itineraries = new List<ItineraryItem>();
-        //     using var reader = await command.ExecuteReaderAsync();
-        //     
-        //     while (await reader.ReadAsync())
-        //     {
-        //         itineraries.Add(new ItineraryItem
-        //         {
-        //             Event = reader["Event"].ToString(),
-        //             EventStartDate = reader["EventStartDate"].ToString(),
-        //             EventEndDate = reader["EventEndDate"].ToString()
-        //         });
-        //     }
-        //     
-        //     return itineraries;
-        // }
+        public async Task<List<ItineraryItem>> GetTripItineraries(int tripId)
+        {
+            using var connection = DatabaseService.Instance.CreateConnection();
+            await connection.OpenAsync();
+        
+            var command = new SqlCommand(
+                "SELECT Event, EventStartDate, EventEndDate FROM Trip_Itinerary " +
+                "WHERE TripID = @TripID ORDER BY EventStartDate",
+                connection);
+            
+            command.Parameters.AddWithValue("@TripID", tripId);
+        
+            var itineraries = new List<ItineraryItem>();
+            using var reader = await command.ExecuteReaderAsync();
+            
+            while (await reader.ReadAsync())
+            {
+                itineraries.Add(new ItineraryItem
+                {
+                    Event = reader["Event"].ToString(),
+                    EventStartDate = reader["EventStartDate"].ToString(),
+                    EventEndDate = reader["EventEndDate"].ToString()
+                });
+            }
+            
+            return itineraries;
+        }
 
         public async Task<bool> AddTripReview(string username, int tripId, int stars, string feedback)
         {

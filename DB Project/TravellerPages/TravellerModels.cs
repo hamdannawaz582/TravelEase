@@ -28,6 +28,19 @@ namespace DB_Project.Models
         public string OperatorUsername { get; set; }
         public string Destination { get; set; }
     }
-    
-    // Add other models
+    public class TravelPass
+    {
+        public string TripName { get; set; }
+        public string ValidFrom { get; set; }
+        public string ValidTo { get; set; }
+        public string PassCode { get; set; }
+        public string HotelVoucher { get; set; }
+        public string ActivityPass { get; set; }
+    }
+    public class ItineraryItem
+    {
+        public string Event { get; set; }
+        public string EventStartDate { get; set; }
+        public string EventEndDate { get; set; }
+    }
 }

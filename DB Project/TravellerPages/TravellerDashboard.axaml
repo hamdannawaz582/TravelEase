@@ -3,16 +3,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:DB_Project"
              xmlns:pages="clr-namespace:DB_Project.TravellerPages"
+             xmlns:model="clr-namespace:DB_Project.Models"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="DB_Project.TravellerPages.TravellerDashboard">
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/> <!-- Row 0: Header -->
+                <RowDefinition Height="Auto"/> <!-- Row 1: Upcoming Trips -->
+                <RowDefinition Height="Auto"/> <!-- Row 2: Trip Itinerary -->
+                <RowDefinition Height="Auto"/> <!-- Row 3: Digital Travel Pass -->
+                <RowDefinition Height="Auto"/> <!-- Row 4: Profile Summary -->
+                <RowDefinition Height="Auto"/> <!-- Row 5: Travel History -->
             </Grid.RowDefinitions>
 
             <!-- Header -->
@@ -73,6 +76,7 @@
                     </ItemsControl>
                 </Grid>
             </Border>
+            
             <!-- Trip Itinerary -->
             <Border Grid.Row="2" Background="#2a2a3a" Margin="10" CornerRadius="8" Padding="15">
                 <Grid>
@@ -84,7 +88,7 @@
                     <TextBlock Grid.Row="0" Text="Trip Itineraries" FontSize="24" Margin="0,0,0,10"/>
                     <ItemsControl Grid.Row="1" Name="ItinerariesControl">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type pages:ItineraryItem}">
+                            <DataTemplate DataType="{x:Type model:ItineraryItem}">
                                 <Border Background="#353545" Margin="5" CornerRadius="4" Padding="10">
                                     <StackPanel>
                                         <TextBlock Text="{Binding Event}" FontSize="18" FontWeight="Bold"/>
@@ -98,7 +102,7 @@
                 </Grid>
             </Border>
             <!-- Digital Travel Pass -->
-            <Border Grid.Row="2" Background="#2a2a3a" Margin="10"
+            <Border Grid.Row="3" Background="#2a2a3a" Margin="10"
                     CornerRadius="8" Padding="15">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -110,7 +114,7 @@
                                FontSize="24" Margin="0,0,0,10"/>
                     <ItemsControl Grid.Row="1" Name="TravelPassesControl">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type pages:TravelPass}">
+                            <DataTemplate DataType="{x:Type model:TravelPass}">
                                 <Border Background="#353545" Margin="5"
                                         CornerRadius="4" Padding="10">
                                     <Grid>
@@ -145,7 +149,7 @@
             </Border>
 
             <!-- Profile Summary -->
-            <Border Grid.Row="3" Background="#2a2a3a" Margin="10"
+            <Border Grid.Row="4" Background="#2a2a3a" Margin="10"
                     CornerRadius="8" Padding="15">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -180,7 +184,7 @@
                 </Grid>
             </Border>
             <!-- Travel History -->
-            <Border Grid.Row="4" Background="#2a2a3a" Margin="10" CornerRadius="8" Padding="15">
+            <Border Grid.Row="5" Background="#2a2a3a" Margin="10" CornerRadius="8" Padding="15">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
