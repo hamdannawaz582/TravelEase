@@ -113,5 +113,19 @@ VALUES
     (@IndianTour, 'Red Fort Tour', '2025-04-24 09:00', '2025-04-24 13:00'),
     (@IndianTour, 'Local Cuisine Experience', '2025-04-26 18:00', '2025-04-26 22:00'),
     (@IndianTour, 'Departure from Delhi', '2025-04-30 15:00', '2025-04-30 18:00');
+
+select* from Trip
+DECLARE @ChinaTour INT = 80;
+select * from Trip where TripID = @ChinaTour;
+INSERT INTO Trip_Itinerary (TripID, Event, EventStartDate, EventEndDate)
+VALUES
+-- Day 1: Arrival and Welcome
+(@ChinaTour, 'Airport Pickup nd HotelCheckin', '2025-05-10 10:00:00', '2025-05-10 14:00:00'),
+(@ChinaTour, 'Welcome Dinner', '2025-05-10 18:00:00', '2025-05-10 20:30:00'),
+(@ChinaTour, 'Great Wall of China Excursion', '2025-05-12 08:00:00', '2025-05-12 16:00:00'),
+(@ChinaTour, 'Farewell Dinner', '2025-05-19 18:00:00', '2025-05-19 21:00:00'),
+(@ChinaTour, 'HotelCheckout &AirportTransfer', '2025-05-20 09:00:00', '2025-05-20 12:00:00');
+select* from Trip_Itinerary where TripID = @ChinaTour;
+SELECT 'China Tour Itinerary created successfully.' AS Status;
 --====================================================================
 --====================================================================
