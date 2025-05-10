@@ -1,6 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System.Collections.ObjectModel;
+using Microsoft.Data.SqlClient;
+using System;
 
 namespace DB_Project.AdminPages
 {
@@ -18,12 +20,36 @@ namespace DB_Project.AdminPages
 
         private void LoadCategories()
         {
-            Categories = new ObservableCollection<Category>
+            Categories = new ObservableCollection<Category>();
+
+            string connectionString = "Server=localhost,1433;Database=TravelEase;User Id=sa;Password=Racseson1122;Encrypt=false;TrustServerCertificate=true;";
+            string query = "SELECT Type FROM Categories";
+
+            try
             {
-                new Category { Name = "Adventure Tours" },
-                new Category { Name = "Luxury Vacations" },
-                new Category { Name = "Business Travel" }
-            };
+                using (var connection = new SqlConnection(connectionString))
+                using (var command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Categories.Add(new Category
+                            {
+                                Name = reader["Type"].ToString()
+                            });
+                        }
+                    }
+                }
+
+                Console.WriteLine("Categories loaded successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading categories: {ex.Message}");
+            }
+
         }
 
         private void OnAddCategoryClick(object sender, RoutedEventArgs e)
@@ -35,14 +61,89 @@ namespace DB_Project.AdminPages
 
         private void OnAddSubcategoryClick(object sender, RoutedEventArgs e)
         {
+            if (sender is Button button && button.Tag is Category category)
+            {
+                string newCategoryName = category.Name?.Trim();
+
+                if (string.IsNullOrWhiteSpace(newCategoryName))
+                {
+                    Console.WriteLine("Category name cannot be empty.");
+                    return;
+                }
+
+                string connectionString = "Server=localhost,1433;Database=TravelEase;User Id=sa;Password=Racseson1122;Encrypt=false;TrustServerCertificate=true;";
+                string insertQuery = "INSERT INTO Categories (Type) VALUES (@Type)";
+
+                try
+                {
+                    using (var connection = new SqlConnection(connectionString))
+                    using (var command = new SqlCommand(insertQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Type", newCategoryName);
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine($"Category '{newCategoryName}' added successfully to the database.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Insert failed.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error inserting category: {ex.Message}");
+                }
+            }
 
         }
 
         private void OnDeleteCategoryClick(object sender, RoutedEventArgs e)
         {
+            // if (sender is Button button && button.Tag is Category category)
+            // {
+            //     Categories.Remove(category);
+            // }
             if (sender is Button button && button.Tag is Category category)
             {
-                Categories.Remove(category);
+                string categoryName = category.Name?.Trim();
+
+                if (string.IsNullOrWhiteSpace(categoryName))
+                {
+                    Console.WriteLine("Category name is empty. Cannot delete.");
+                    return;
+                }
+
+                string connectionString = "Server=localhost,1433;Database=TravelEase;User Id=sa;Password=Racseson1122;Encrypt=false;TrustServerCertificate=true;";
+                string deleteQuery = "DELETE FROM Categories WHERE Type = @Type";
+
+                try
+                {
+                    using (var connection = new SqlConnection(connectionString))
+                    using (var command = new SqlCommand(deleteQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Type", categoryName);
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine($"Category '{categoryName}' deleted from database.");
+                            Categories.Remove(category);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"No category named '{categoryName}' found in database.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error deleting category: {ex.Message}");
+                }
             }
         }
     }
