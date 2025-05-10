@@ -37,7 +37,7 @@ public partial class LoginPage : UserControl
             switch (Entry)
             {
                 case "Traveller":
-                    isAuthenticated = await repo.AuthenticateUser(UserName, Password);
+                    isAuthenticated = repo.AuthenticateTraveller(UserName, Password);
                     break;
                 case "Operator":
                     //isAuthenticated = repo.AuthenticateOperator(UserName, Password);
