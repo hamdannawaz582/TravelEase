@@ -129,3 +129,175 @@ select* from Trip_Itinerary where TripID = @ChinaTour;
 SELECT 'China Tour Itinerary created successfully.' AS Status;
 --====================================================================
 --====================================================================
+-- 1. Insert Room data
+INSERT INTO Room (HUsername, RoomNumber, Price)
+VALUES
+    ('ottoman_palace', 101, 150),
+    ('ottoman_palace', 102, 180),
+    ('pyramid_view', 201, 200),
+    ('pyramid_view', 202, 250),
+    ('taj_retreat', 301, 120),
+    ('taj_retreat', 302, 160),
+    ('forbidden_inn', 401, 180),
+    ('forbidden_inn', 402, 220),
+    ('medina_riad', 501, 140),
+    ('medina_riad', 502, 190);
+
+-- 2. Insert Room_Service data
+INSERT INTO Room_Service (HUsername, RoomNumber, ServiceType)
+VALUES
+    ('ottoman_palace', 101, 'WiFi'),
+    ('ottoman_palace', 101, 'Breakfast'),
+    ('pyramid_view', 201, 'WiFi'),
+    ('pyramid_view', 201, 'Room Service'),
+    ('taj_retreat', 301, 'WiFi'),
+    ('taj_retreat', 301, 'Pool Access'),
+    ('forbidden_inn', 401, 'WiFi'),
+    ('forbidden_inn', 401, 'Guided Tours'),
+    ('medina_riad', 501, 'WiFi'),
+    ('medina_riad', 501, 'Spa Access');
+
+-- 3. Insert Room_Booking data
+INSERT INTO Room_Booking (HUsername, RoomID, Username, StartDate, BookingDate, EndDate)
+VALUES
+    ('ottoman_palace', 101, 'IbnBatuta', '2023-03-10', '2023-02-15', '2023-03-17'),
+    ('pyramid_view', 201, 'IbnBatuta', '2023-06-15', '2023-05-20', '2023-06-22'),
+    ('medina_riad', 501, 'IbnBatuta', '2023-09-05', '2023-08-01', '2023-09-12'),
+    ('taj_retreat', 301, 'IbnBatuta', '2025-04-20', '2025-01-10', '2025-04-30'),
+    ('forbidden_inn', 401, 'IbnBatuta', '2025-07-10', '2025-03-05', '2025-07-20');
+
+-- 4. Insert Categories data
+INSERT INTO Categories (Type)
+VALUES
+    ('Beach'),
+    ('Mountain'),
+    ('Cultural'),
+    ('Historical'),
+    ('Adventure'),
+    ('Relaxation'),
+    ('Food & Wine');
+
+-- 5. Link Trips with Categories
+DECLARE @TurkishTour INT, @EgyptianTour INT, @MoroccanTour INT, @IndianTour INT, @ChinaTour INT;
+SELECT @TurkishTour = TripID FROM Trip WHERE Title = 'Turkish Delight Tour';
+SELECT @EgyptianTour = TripID FROM Trip WHERE Title = 'Egyptian Wonders';
+SELECT @MoroccanTour = TripID FROM Trip WHERE Title = 'Moroccan Magic';
+SELECT @IndianTour = TripID FROM Trip WHERE Title = 'Indian Heritage Tour';
+SELECT @ChinaTour = TripID FROM Trip WHERE Title = 'China Expedition';
+
+INSERT INTO Trip_Categories (TripID, CatID)
+VALUES
+    (@TurkishTour, 3), -- Cultural
+    (@TurkishTour, 4), -- Historical
+    (@EgyptianTour, 4), -- Historical
+    (@MoroccanTour, 5), -- Adventure
+    (@MoroccanTour, 3), -- Cultural
+    (@IndianTour, 3), -- Cultural
+    (@IndianTour, 4), -- Historical
+    (@ChinaTour, 5), -- Adventure
+    (@ChinaTour, 3); -- Cultural
+
+-- 6. Insert Accessibility_Options data
+INSERT INTO Accessibility_Options ([Option])
+VALUES
+    ('Wheelchair Accessible'),
+    ('Sign Language Available'),
+    ('Audio Descriptions'),
+    ('No Stairs'),
+    ('Dietary Accommodations');
+
+-- 7. Link Trips with Accessibility Options
+INSERT INTO Trip_Accessibility (TripID, AccessibilityID)
+VALUES
+    (@TurkishTour, 1), -- Wheelchair Accessible
+    (@TurkishTour, 5), -- Dietary Accommodations
+    (@EgyptianTour, 5), -- Dietary Accommodations
+    (@MoroccanTour, 5), -- Dietary Accommodations
+    (@IndianTour, 1), -- Wheelchair Accessible
+    (@IndianTour, 2), -- Sign Language Available
+    (@IndianTour, 5), -- Dietary Accommodations
+    (@ChinaTour, 1), -- Wheelchair Accessible
+    (@ChinaTour, 5); -- Dietary Accommodations
+
+-- 8. Insert Inclusions data
+INSERT INTO Inclusions ([Type], Price)
+VALUES
+    ('Guided Tours', 50),
+    ('Airport Transfer', 30),
+    ('Meals', 40),
+    ('Equipment Rental', 20),
+    ('Entry Tickets', 25);
+
+-- 9. Link Trips with Inclusions
+INSERT INTO Trip_Inclusions (TripID, IncType, IncPrice)
+VALUES
+    (@TurkishTour, 'Guided Tours', 50),
+    (@TurkishTour, 'Airport Transfer', 30),
+    (@TurkishTour, 'Meals', 40),
+    (@EgyptianTour, 'Guided Tours', 60),
+    (@EgyptianTour, 'Entry Tickets', 30),
+    (@MoroccanTour, 'Guided Tours', 45),
+    (@MoroccanTour, 'Meals', 35),
+    (@IndianTour, 'Guided Tours', 55),
+    (@IndianTour, 'Airport Transfer', 25),
+    (@IndianTour, 'Meals', 40),
+    (@ChinaTour, 'Guided Tours', 65),
+    (@ChinaTour, 'Equipment Rental', 20),
+    (@ChinaTour, 'Meals', 45);
+
+-- 10. Insert Trip_Transportation data
+INSERT INTO Trip_Transportation (TripID, TransportationType, EstimatedStart, EstimatedEnd, Start, [End])
+VALUES
+    (@TurkishTour, 'Flight', '2023-03-10 08:00', '2023-03-10 12:00', '2023-03-10 08:15', '2023-03-10 12:10'),
+    (@TurkishTour, 'Bus', '2023-03-17 14:00', '2023-03-17 16:00', '2023-03-17 14:00', '2023-03-17 15:45'),
+    (@EgyptianTour, 'Flight', '2023-06-15 09:00', '2023-06-15 13:00', '2023-06-15 09:10', '2023-06-15 13:20'),
+    (@MoroccanTour, 'Train', '2023-09-05 10:00', '2023-09-05 15:00', '2023-09-05 10:05', '2023-09-05 15:10'),
+    (@IndianTour, 'Flight', '2025-04-20 07:00', '2025-04-20 09:00', NULL, NULL),
+    (@ChinaTour, 'Flight', '2025-07-10 06:00', '2025-07-10 12:00', NULL, NULL);
+
+-- 11. Insert Reviews and Trip Reviews (for past trips)
+INSERT INTO Review (Stars, Feedback, ReviewTime, Reviewer)
+VALUES
+    (5, 'Excellent tour of Istanbul! The Blue Mosque was breathtaking.', '2023-03-20', 'IbnBatuta'),
+    (4, 'Great experience in Egypt. The pyramids were amazing.', '2023-07-01', 'IbnBatuta'),
+    (5, 'Loved Marrakech! The food and culture were fantastic.', '2023-09-20', 'IbnBatuta');
+
+DECLARE @Review1 INT, @Review2 INT, @Review3 INT;
+SET @Review1 = SCOPE_IDENTITY();
+SET @Review2 = @Review1 - 1;
+SET @Review3 = @Review1 - 2;
+
+INSERT INTO TripReview (ReviewID, TripID)
+VALUES
+    (@Review3, @TurkishTour),
+    (@Review2, @EgyptianTour),
+    (@Review1, @MoroccanTour);
+
+-- 12. Insert Hotel Reviews
+INSERT INTO Review (Stars, Feedback, ReviewTime, Reviewer)
+VALUES
+    (5, 'Ottoman Palace was luxurious and staff were very friendly.', '2023-03-18', 'IbnBatuta'),
+    (3, 'Pyramid View had great location but rooms need updating.', '2023-06-23', 'IbnBatuta'),
+    (4, 'Medina Riad was beautiful with excellent service.', '2023-09-15', 'IbnBatuta');
+
+DECLARE @HotelReview1 INT, @HotelReview2 INT, @HotelReview3 INT;
+SET @HotelReview1 = SCOPE_IDENTITY();
+SET @HotelReview2 = @HotelReview1 - 1;
+SET @HotelReview3 = @HotelReview1 - 2;
+
+INSERT INTO HotelReview (ReviewID, HUsername)
+VALUES
+    (@HotelReview3, 'ottoman_palace'),
+    (@HotelReview2, 'pyramid_view'),
+    (@HotelReview1, 'medina_riad');
+
+-- 13. Insert Traveller_Wishlist data
+INSERT INTO Traveller_Wishlist (Username, TripID)
+VALUES ('IbnBatuta', @ChinaTour);
+
+-- 14. Insert Admin user
+INSERT INTO [User] (Username, Email, Password, JoinDate)
+VALUES ('admin1', 'admin@travelease.com', 'adminpass123', '2022-01-01');
+
+INSERT INTO Admin (Username)
+VALUES ('admin1');
