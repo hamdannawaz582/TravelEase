@@ -494,5 +494,139 @@ namespace DB_Project.Repositories
         //     
         //     return hotels;
         // }
+        // Add this method to TravellerRepository class
+public async Task<List<Trip>> SearchTrips(string destination, DateTime? startDate, 
+    DateTime? endDate, string tripType, int maxPrice, int? minGroupSize = null, 
+    int? maxGroupSize = null, List<int> accessibilityIds = null)
+{
+    using var connection = DatabaseService.Instance.CreateConnection();
+    await connection.OpenAsync();
+
+    var query = @"
+        SELECT DISTINCT t.TripID, t.Title, t.Type, t.CancelStatus, t.CancellationPolicy, 
+               t.GroupSize, t.StartDate, t.EndDate, t.PriceRange, t.OperatorUsername,
+               d.City + ', ' + d.Country AS Destination
+        FROM Trip t
+        JOIN Trip_Destination td ON t.TripID = td.TripID
+        JOIN Destination d ON td.DestID = d.DestID";
+
+    if (accessibilityIds != null && accessibilityIds.Count > 0)
+    {
+        query += @"
+            JOIN Trip_Accessibility ta ON t.TripID = ta.TripID";
+    }
+
+    query += " WHERE 1=1";
+
+    if (!string.IsNullOrEmpty(destination))
+        query += " AND (d.City LIKE @Destination OR d.Country LIKE @Destination)";
+
+    if (startDate.HasValue)
+        query += " AND t.StartDate >= @StartDate";
+
+    if (endDate.HasValue)
+        query += " AND t.EndDate <= @EndDate";
+
+    if (!string.IsNullOrEmpty(tripType))
+        query += " AND t.Type = @TripType";
+
+    if (maxPrice > 0)
+        query += " AND t.PriceRange <= @MaxPrice";
+
+    if (minGroupSize.HasValue)
+        query += " AND t.GroupSize >= @MinGroupSize";
+
+    if (maxGroupSize.HasValue)
+        query += " AND t.GroupSize <= @MaxGroupSize";
+
+    if (accessibilityIds != null && accessibilityIds.Count > 0)
+    {
+        query += " AND ta.AccessibilityID IN (";
+        for (int i = 0; i < accessibilityIds.Count; i++)
+        {
+            query += $"@AccessID{i}";
+            if (i < accessibilityIds.Count - 1)
+                query += ", ";
+        }
+        query += ")";
+    }
+
+    var command = new SqlCommand(query, connection);
+
+    if (!string.IsNullOrEmpty(destination))
+        command.Parameters.AddWithValue("@Destination", $"%{destination}%");
+
+    if (startDate.HasValue)
+        command.Parameters.AddWithValue("@StartDate", startDate.Value);
+
+    if (endDate.HasValue)
+        command.Parameters.AddWithValue("@EndDate", endDate.Value);
+
+    if (!string.IsNullOrEmpty(tripType))
+        command.Parameters.AddWithValue("@TripType", tripType);
+
+    if (maxPrice > 0)
+        command.Parameters.AddWithValue("@MaxPrice", maxPrice);
+
+    if (minGroupSize.HasValue)
+        command.Parameters.AddWithValue("@MinGroupSize", minGroupSize.Value);
+
+    if (maxGroupSize.HasValue)
+        command.Parameters.AddWithValue("@MaxGroupSize", maxGroupSize.Value);
+
+    if (accessibilityIds != null)
+    {
+        for (int i = 0; i < accessibilityIds.Count; i++)
+        {
+            command.Parameters.AddWithValue($"@AccessID{i}", accessibilityIds[i]);
+        }
+    }
+
+    var trips = new List<Trip>();
+    using var reader = await command.ExecuteReaderAsync();
+    
+    while (await reader.ReadAsync())
+    {
+        trips.Add(new Trip
+        {
+            TripID = Convert.ToInt32(reader["TripID"]),
+            Title = reader["Title"].ToString(),
+            Type = reader["Type"].ToString(),
+            CancellationPolicy = reader["CancellationPolicy"].ToString(),
+            GroupSize = Convert.ToInt32(reader["GroupSize"]),
+            StartDate = Convert.ToDateTime(reader["StartDate"]),
+            EndDate = Convert.ToDateTime(reader["EndDate"]),
+            PriceRange = Convert.ToInt32(reader["PriceRange"]),
+            OperatorUsername = reader["OperatorUsername"].ToString(),
+            Destination = reader["Destination"].ToString()
+        });
+    }
+    
+    return trips;
+}
+
+public async Task<List<AccessibilityOption>> GetAccessibilityOptions()
+{
+    using var connection = DatabaseService.Instance.CreateConnection();
+    await connection.OpenAsync();
+    
+    var command = new SqlCommand(
+        "SELECT AccessibilityID, [Option] FROM Accessibility_Options", 
+        connection);
+    
+    var options = new List<AccessibilityOption>();
+    using var reader = await command.ExecuteReaderAsync();
+    
+    while (await reader.ReadAsync())
+    {
+        options.Add(new AccessibilityOption
+        {
+            AccessibilityID = Convert.ToInt32(reader["AccessibilityID"]),
+            Option = reader["Option"].ToString()
+        });
+    }
+    
+    return options;
+}
     }
 }

@@ -59,7 +59,7 @@ namespace DB_Project.TravellerPages
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public TravellerReview()
+        public TravellerReview(string username)
         {
             InitializeComponent();
             DataContext = this;
