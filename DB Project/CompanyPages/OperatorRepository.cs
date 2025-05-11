@@ -117,11 +117,11 @@ namespace DB_Project.CompanyPages
             while (await reader.ReadAsync())
             {
                 trips.Add(new Trip
-                {
-                    Title = reader["Title"].ToString(),
-                    GroupSize = Convert.ToInt32(reader["GroupSize"]),
-                    StartDate = Convert.ToDateTime(reader["StartDate"]),
-                    EndDate = Convert.ToDateTime(reader["EndDate"]),
+                {   //TODO: GetOperatorTrips()
+                    // Title = reader["Title"].ToString(),
+                    // GroupSize = Convert.ToInt32(reader["GroupSize"]),
+                    // StartDate = Convert.ToDateTime(reader["StartDate"]),
+                    // EndDate = Convert.ToDateTime(reader["EndDate"]),
                     
                 });
             }
