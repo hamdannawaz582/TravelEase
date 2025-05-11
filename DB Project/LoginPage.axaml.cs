@@ -29,24 +29,26 @@ public partial class LoginPage : UserControl
         Console.WriteLine($"Name: {UserName}");
         Console.WriteLine($"Password: {Password}");
         Console.WriteLine($"Login: {Entry}");
-
-        var repo = new TravellerRepository();
+        
         bool isAuthenticated = false;
         try
         {
             switch (Entry)
             {
                 case "Traveller":
-                    isAuthenticated = repo.AuthenticateTraveller(UserName, Password);
+                    var Travellerrepo = new TravellerRepository();
+                    isAuthenticated = Travellerrepo.AuthenticateTraveller(UserName, Password);
                     break;
                 case "Operator":
+                    //repo = new OperatorRepository();
                     //isAuthenticated = repo.AuthenticateOperator(UserName, Password);
                     break;
                 case "Hotel":
                     //isAuthenticated = repo.AuthenticateHotel(UserName, Password);
                     break;
                 case "Admin":
-                    //isAuthenticated = repo.AuthenticateAdmin(UserName, Password);
+                    var adminrepo = new AdminRepository();
+                    isAuthenticated = adminrepo.AuthenticateAdmin(UserName, Password);
                     break;
                 default:
                     Console.WriteLine("Invalid entry type");

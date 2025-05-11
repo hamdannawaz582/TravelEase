@@ -7,14 +7,14 @@ namespace DB_Project
 {
     public partial class TravellerSignupPage : UserControl
     {
-        private readonly TravellerRepository _repository = new TravellerRepository();
+        private TravellerRepository repo = new TravellerRepository();
 
         public TravellerSignupPage()
         {
             InitializeComponent();
         }
 
-        private async void OnSubmit(object? sender, RoutedEventArgs e)
+        private void OnSubmit(object? sender, RoutedEventArgs e)
         {
             var username = UsernameBox.Text;
             var email = EmailBox.Text;
@@ -25,7 +25,6 @@ namespace DB_Project
             int.TryParse(AgeBox.Text, out int age);
             int.TryParse(BudgetBox.Text, out int budget);
 
-            // Validate input
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) || 
                 string.IsNullOrEmpty(password) || string.IsNullOrEmpty(nationality))
             {
@@ -35,12 +34,11 @@ namespace DB_Project
 
             try
             {
-                bool success = _repository.RegisterTraveller(
+                bool success = repo.RegisterTraveller(
                     username, email, password, fname, lname, nationality, age, budget);
 
                 if (success)
                 {
-                    // Navigate back to login page
                     if (this.VisualRoot is Window mainWindow)
                     {
                         ((MainWindow)mainWindow).MainContent.Content = new LoginPage();
