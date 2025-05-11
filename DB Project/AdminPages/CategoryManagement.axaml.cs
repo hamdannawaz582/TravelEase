@@ -102,10 +102,6 @@ namespace DB_Project.AdminPages
 
         private void OnDeleteCategoryClick(object sender, RoutedEventArgs e)
         {
-            // if (sender is Button button && button.Tag is Category category)
-            // {
-            //     Categories.Remove(category);
-            // }
             if (sender is Button button && button.Tag is Category category)
             {
                 string categoryName = category.Name?.Trim();
