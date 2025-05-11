@@ -1,4 +1,5 @@
 using System;
+using DB_Project.Services;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System.Collections.ObjectModel;
@@ -22,12 +23,11 @@ namespace DB_Project.AdminPages
         {
             PendingRegistrations = new ObservableCollection<RegistrationRequest>();
 
-            string connectionString = "Server=localhost,1433;Database=TravelEase;User Id=sa;Password=Racseson1122;Encrypt=false;TrustServerCertificate=true;";
             string query = "SELECT Username, Email, JoinDate FROM [User] WHERE Status = 'Pending'";
 
             try
             {
-                using (var connection = new SqlConnection(connectionString))
+                using (var connection = DatabaseService.Instance.CreateConnection())
                 using (var command = new SqlCommand(query, connection))
                 {
                     connection.Open();
@@ -74,12 +74,11 @@ namespace DB_Project.AdminPages
 
         private void UpdateUserStatus(string username, string newStatus)
         {
-            string connectionString = "Server=localhost,1433;Database=TravelEase;User Id=sa;Password=Racseson1122;Encrypt=false;TrustServerCertificate=true;";
             string query = "UPDATE [User] SET Status = @Status WHERE Username = @Username";
 
             try
             {
-                using (var connection = new SqlConnection(connectionString))
+                using (var connection = DatabaseService.Instance.CreateConnection())
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Status", newStatus);

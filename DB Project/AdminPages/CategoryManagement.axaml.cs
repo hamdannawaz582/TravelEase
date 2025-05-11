@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using DB_Project.Services;
 using Avalonia.Interactivity;
 using System.Collections.ObjectModel;
 using Microsoft.Data.SqlClient;
@@ -22,12 +23,11 @@ namespace DB_Project.AdminPages
         {
             Categories = new ObservableCollection<Category>();
 
-            string connectionString = "Server=localhost,1433;Database=TravelEase;User Id=sa;Password=Racseson1122;Encrypt=false;TrustServerCertificate=true;";
             string query = "SELECT Type FROM Categories";
 
             try
             {
-                using (var connection = new SqlConnection(connectionString))
+                using (var connection = DatabaseService.Instance.CreateConnection())
                 using (var command = new SqlCommand(query, connection))
                 {
                     connection.Open();
@@ -71,12 +71,11 @@ namespace DB_Project.AdminPages
                     return;
                 }
 
-                string connectionString = "Server=localhost,1433;Database=TravelEase;User Id=sa;Password=Racseson1122;Encrypt=false;TrustServerCertificate=true;";
                 string insertQuery = "INSERT INTO Categories (Type) VALUES (@Type)";
 
                 try
                 {
-                    using (var connection = new SqlConnection(connectionString))
+                    using (var connection = DatabaseService.Instance.CreateConnection())
                     using (var command = new SqlCommand(insertQuery, connection))
                     {
                         command.Parameters.AddWithValue("@Type", newCategoryName);
@@ -117,12 +116,11 @@ namespace DB_Project.AdminPages
                     return;
                 }
 
-                string connectionString = "Server=localhost,1433;Database=TravelEase;User Id=sa;Password=Racseson1122;Encrypt=false;TrustServerCertificate=true;";
                 string deleteQuery = "DELETE FROM Categories WHERE Type = @Type";
 
                 try
                 {
-                    using (var connection = new SqlConnection(connectionString))
+                    using (var connection = DatabaseService.Instance.CreateConnection())
                     using (var command = new SqlCommand(deleteQuery, connection))
                     {
                         command.Parameters.AddWithValue("@Type", categoryName);
