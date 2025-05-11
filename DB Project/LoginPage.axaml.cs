@@ -44,7 +44,8 @@ public partial class LoginPage : UserControl
                     //isAuthenticated = repo.AuthenticateOperator(UserName, Password);
                     break;
                 case "Hotel":
-                    //isAuthenticated = repo.AuthenticateHotel(UserName, Password);
+                    var repo = new HotelRepository();
+                    isAuthenticated = repo.AuthenticateHotel(UserName, Password);
                     break;
                 case "Admin":
                     var adminrepo = new AdminRepository();
