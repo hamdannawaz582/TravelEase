@@ -3,9 +3,10 @@
 --for checking data
 SELECT * FROM [User];
 SELECT * FROM Traveller;
+select* from Operator;
 SELECT * FROM Trip_Booking;
 SELECT * FROM Trip_Itinerary;
---IbnBatuta's Password is 'worldtraveller123'
+--IbnBatuta's password = 'worldtraveller123'
 --===========================
 DECLARE @IndianTour INT = (SELECT TripID FROM Trip WHERE Title = 'Indian Heritage Tour');
 DECLARE @TurkishTour INT = (SELECT TripID FROM Trip WHERE Title = 'Turkish Tour');
