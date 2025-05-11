@@ -1,30 +1,60 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System;
+using DB_Project.Repositories;
 
-namespace DB_Project;
-
-public partial class TravellerSignupPage : UserControl
+namespace DB_Project
 {
-    public TravellerSignupPage()
+    public partial class TravellerSignupPage : UserControl
     {
-        InitializeComponent();
-    }
+        private readonly TravellerRepository _repository = new TravellerRepository();
 
-    private void OnSubmit(object? sender, RoutedEventArgs e)
-    {
-        var username = this.FindControl<TextBox>("UsernameBox").Text;
-        var email = this.FindControl<TextBox>("EmailBox").Text;
-        var password = this.FindControl<TextBox>("PasswordBox").Text;
-        var fname = this.FindControl<TextBox>("FNameBox").Text;
-        var lname = this.FindControl<TextBox>("LNameBox").Text;
-        var nationality = this.FindControl<TextBox>("NationalityBox").Text;
-        var age = this.FindControl<TextBox>("AgeBox").Text;
-        var budget = this.FindControl<TextBox>("BudgetBox").Text;
-        
-        if (this.VisualRoot is Window mainWindow)
+        public TravellerSignupPage()
         {
-            ((MainWindow)mainWindow).MainContent.Content = new LoginPage();
+            InitializeComponent();
+        }
+
+        private async void OnSubmit(object? sender, RoutedEventArgs e)
+        {
+            var username = UsernameBox.Text;
+            var email = EmailBox.Text;
+            var password = PasswordBox.Text;
+            var fname = FNameBox.Text;
+            var lname = LNameBox.Text;
+            var nationality = NationalityBox.Text;
+            int.TryParse(AgeBox.Text, out int age);
+            int.TryParse(BudgetBox.Text, out int budget);
+
+            // Validate input
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) || 
+                string.IsNullOrEmpty(password) || string.IsNullOrEmpty(nationality))
+            {
+                Console.WriteLine("Missing required fields");
+                return;
+            }
+
+            try
+            {
+                bool success = _repository.RegisterTraveller(
+                    username, email, password, fname, lname, nationality, age, budget);
+
+                if (success)
+                {
+                    // Navigate back to login page
+                    if (this.VisualRoot is Window mainWindow)
+                    {
+                        ((MainWindow)mainWindow).MainContent.Content = new LoginPage();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Failed to register traveller");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Registration error: {ex.Message}");
+            }
         }
     }
 }
