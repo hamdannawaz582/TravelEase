@@ -49,12 +49,20 @@
                                            VerticalAlignment="Center"
                                            Margin="0,3,5,20"/>
 
+                                <!-- <TextBlock Grid.Row="2" Grid.Column="0"  -->
+                                <!--           Text="Hotel:"  -->
+                                <!--           Foreground="#bbb"  -->
+                                <!--           VerticalAlignment="Center"/> -->
+                                <!-- <TextBox Grid.Row="2" Grid.Column="1"  -->
+                                <!--         Watermark="Add Hotel" /> -->
                                 <TextBlock Grid.Row="2" Grid.Column="0" 
-                                          Text="Hotel:" 
-                                          Foreground="#bbb" 
-                                          VerticalAlignment="Center"/>
-                                <TextBox Grid.Row="2" Grid.Column="1" 
-                                        Watermark="Add Hotel" />
+                                           Text="Hotel:" 
+                                           Foreground="#bbb" 
+                                           VerticalAlignment="Center"/>
+                                <ComboBox Grid.Row="2" Grid.Column="1"
+                                          ItemsSource="{Binding AvailableHotels}"
+                                          SelectedItem="{Binding Hotel, Mode=TwoWay}"
+                                          PlaceholderText="Choose a Hotel"/>
 
                                 <TextBlock Grid.Row="3" Grid.Column="0" 
                                           Text="Service:" 
