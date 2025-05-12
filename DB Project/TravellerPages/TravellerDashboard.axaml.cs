@@ -244,9 +244,7 @@ namespace DB_Project.TravellerPages
             try
             {
                 if (_profile != null)
-                {
-                    // In a full implementation, you would gather edited values from UI fields
-                    bool success = await _repository.UpdateProfile(_profile);
+                {bool success = await _repository.UpdateProfile(_profile);
                     if (success)
                     {
                         Console.WriteLine("Profile updated successfully");
@@ -260,6 +258,25 @@ namespace DB_Project.TravellerPages
             catch (Exception ex)
             {
                 Console.WriteLine($"Error saving profile: {ex.Message}");
+            }
+        }
+        private async void RefreshButton_Click(object? sender, RoutedEventArgs e)
+        {
+            if (RefreshButton != null)
+                RefreshButton.IsEnabled = false;
+            try
+            {
+                LoadUserProfileAsync();
+                LoadUpcomingTripsAsync();
+                LoadTravelPassesAsync();
+                LoadItinerariesAsync();
+                LoadTravelHistoryAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error refreshing dashboard: {ex.Message}");
+                WelcomeMessage.Text = "Error refreshing. Try again.";
+        
             }
         }
     }

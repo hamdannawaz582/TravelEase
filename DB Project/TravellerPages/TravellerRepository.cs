@@ -214,87 +214,88 @@ namespace DB_Project.Repositories
             return trips;
         }
 
-        public async Task<List<Trip>> GetUpcomingTrips(string username)
-        {
-            using var connection = DatabaseService.Instance.CreateConnection();
-            await connection.OpenAsync();
+// Update this method in TravellerRepository.cs
+public async Task<List<Trip>> GetUpcomingTrips(string username)
+{
+    using var connection = DatabaseService.Instance.CreateConnection();
+    await connection.OpenAsync();
 
-            var command = new SqlCommand(@"
-                SELECT t.TripID, t.Title, t.Type, t.CancellationPolicy, 
-                       t.StartDate, t.EndDate, t.PriceRange,
-                       d.City + ', ' + d.Country AS Destination
-                FROM Trip t
-                JOIN Trip_Booking tb ON t.TripID = tb.TripID
-                JOIN Trip_Destination td ON t.TripID = td.TripID
-                JOIN Destination d ON td.DestID = d.DestID
-                WHERE tb.Username = @Username AND t.StartDate > GETDATE()",
-                connection);
-            
-            command.Parameters.AddWithValue("@Username", username);
-
-            var trips = new List<Trip>();
-            using var reader = await command.ExecuteReaderAsync();
-            
-            while (await reader.ReadAsync())
-            {
-                trips.Add(new Trip
-                {
-                    TripID = Convert.ToInt32(reader["TripID"]),
-                    Title = reader["Title"].ToString(),
-                    Type = reader["Type"].ToString(),
-                    CancellationPolicy = reader["CancellationPolicy"].ToString(),
-                    StartDate = Convert.ToDateTime(reader["StartDate"]),
-                    EndDate = Convert.ToDateTime(reader["EndDate"]),
-                    PriceRange = Convert.ToInt32(reader["PriceRange"]),
-                    Destination = reader["Destination"].ToString()
-                });
-            }
-            
-            return trips;
-        }
-        public async Task<List<TravelPass>> GetTravelPasses(string username)
-        {
-            using var connection = DatabaseService.Instance.CreateConnection();
-            await connection.OpenAsync();
-
-            var command = new SqlCommand(@"
-        SELECT t.TripID, t.Title, t.StartDate, t.EndDate, 
-               d.City + ', ' + d.Country AS Destination,
-               h.Name AS HotelName
+    var command = new SqlCommand(@"
+        SELECT DISTINCT t.TripID, t.Title, t.Type, t.CancellationPolicy, 
+               t.StartDate, t.EndDate, t.PriceRange,
+               d.City + ', ' + d.Country AS Destination
         FROM Trip t
         JOIN Trip_Booking tb ON t.TripID = tb.TripID
         JOIN Trip_Destination td ON t.TripID = td.TripID
         JOIN Destination d ON td.DestID = d.DestID
-        LEFT JOIN Trip_Hotels th ON t.TripID = th.TripID
-        LEFT JOIN Hotel h ON th.HUsername = h.HUsername
         WHERE tb.Username = @Username AND t.StartDate > GETDATE()",
-                connection);
+        connection);
     
-            command.Parameters.AddWithValue("@Username", username);
+    command.Parameters.AddWithValue("@Username", username);
+    
+    var trips = new List<Trip>();
+    using var reader = await command.ExecuteReaderAsync();
+    
+    while (await reader.ReadAsync())
+    {
+        trips.Add(new Trip
+        {
+            TripID = Convert.ToInt32(reader["TripID"]),
+            Title = reader["Title"].ToString(),
+            Type = reader["Type"].ToString(),
+            CancellationPolicy = reader["CancellationPolicy"].ToString(),
+            StartDate = Convert.ToDateTime(reader["StartDate"]),
+            EndDate = Convert.ToDateTime(reader["EndDate"]),
+            PriceRange = Convert.ToInt32(reader["PriceRange"]),
+            Destination = reader["Destination"].ToString()
+        });
+    }
+    
+    return trips;
+}
 
-            var passes = new List<TravelPass>();
-            using var reader = await command.ExecuteReaderAsync();
-    
-            while (await reader.ReadAsync())
-            {
-                string passCode = $"PASS-{Convert.ToInt32(reader["TripID"])}-{username.GetHashCode():X8}";
+public async Task<List<TravelPass>> GetTravelPasses(string username)
+{
+    using var connection = DatabaseService.Instance.CreateConnection();
+    await connection.OpenAsync();
+
+    var command = new SqlCommand(@"
+        SELECT DISTINCT t.TripID, t.Title, t.StartDate, t.EndDate, 
+               d.City + ', ' + d.Country AS Destination,
+               (SELECT TOP 1 h.Name FROM Trip_Hotels th 
+                JOIN Hotel h ON th.HUsername = h.HUsername
+                WHERE th.TripID = t.TripID) AS HotelName
+        FROM Trip t
+        JOIN Trip_Booking tb ON t.TripID = tb.TripID
+        JOIN Trip_Destination td ON t.TripID = td.TripID
+        JOIN Destination d ON td.DestID = d.DestID
+        WHERE tb.Username = @Username AND t.StartDate > GETDATE()",
+        connection);
+
+    command.Parameters.AddWithValue("@Username", username);
+
+    var passes = new List<TravelPass>();
+    using var reader = await command.ExecuteReaderAsync();
+
+    while (await reader.ReadAsync())
+    {
+        string passCode = $"PASS-{Convert.ToInt32(reader["TripID"])}-{username.GetHashCode():X8}";
         
-                passes.Add(new TravelPass
-                {
-                    TripName = reader["Title"].ToString(),
-                    ValidFrom = Convert.ToDateTime(reader["StartDate"]).ToString("MMM dd, yyyy"),
-                    ValidTo = Convert.ToDateTime(reader["EndDate"]).ToString("MMM dd, yyyy"),
-                    PassCode = passCode,
-                    HotelVoucher = !reader.IsDBNull(reader.GetOrdinal("HotelName")) 
-                        ? $"{reader["HotelName"]} - Check-in on {Convert.ToDateTime(reader["StartDate"]):MMM dd}" 
-                        : "No hotel booking",
-                    ActivityPass = $"{reader["Destination"]} Explorer Pass"
-                });
-            }
-    
-            return passes;
-        }
-        public async Task<List<Trip>> GetTripHistory(string username)
+        passes.Add(new TravelPass
+        {
+            TripName = reader["Title"].ToString(),
+            ValidFrom = Convert.ToDateTime(reader["StartDate"]).ToString("MMM dd, yyyy"),
+            ValidTo = Convert.ToDateTime(reader["EndDate"]).ToString("MMM dd, yyyy"),
+            PassCode = passCode,
+            HotelVoucher = !reader.IsDBNull(reader.GetOrdinal("HotelName")) 
+                ? $"{reader["HotelName"]} - Check-in on {Convert.ToDateTime(reader["StartDate"]):MMM dd}" 
+                : "No hotel booking",
+            ActivityPass = $"{reader["Destination"]} Explorer Pass"
+        });
+    }
+
+    return passes;
+}        public async Task<List<Trip>> GetTripHistory(string username)
         {
             using var connection = DatabaseService.Instance.CreateConnection();
             await connection.OpenAsync();

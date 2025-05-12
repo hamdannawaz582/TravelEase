@@ -21,13 +21,19 @@
             <!-- Header -->
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Name="WelcomeMessage"
                            FontSize="32" Margin="15"/>
-                <Image Grid.Column="1" Source="../Assets/User.png"
+                <Button Grid.Column="1" Name="RefreshButton"
+                        Click="RefreshButton_Click"
+                        Margin="10" Padding="10"
+                        ToolTip.Tip="Refresh Dashboard">
+                </Button>
+                <Image Grid.Column="2" Source="../Assets/User.png"
                        Width="32" Height="32" Margin="15"/>
             </Grid>
 
