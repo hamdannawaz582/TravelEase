@@ -1,0 +1,93 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DB_Project.TravellerPages.TripDetailsPage">
+    <Grid>
+        <StackPanel Margin="20" Spacing="10">
+            <Grid>
+                <Button Content="Back" 
+                        Click="OnBackClick"
+                        HorizontalAlignment="Left"
+                        Background="Transparent"/>
+                        
+                <TextBlock Text="Trip Details" 
+                         FontSize="24" 
+                         FontWeight="Bold"
+                         HorizontalAlignment="Center"/>
+            </Grid>
+
+            <!-- Trip Details -->
+            <Border Background="#2a2a3a" CornerRadius="8" Padding="15" Margin="0,10,0,0">
+                <StackPanel Spacing="8">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Title: " Width="150" Foreground="#bbb"/>
+                        <TextBlock x:Name="TitleText" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Type: " Width="150" Foreground="#bbb"/>
+                        <TextBlock x:Name="TypeText" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Cancellation Policy: " Width="150" Foreground="#bbb"/>
+                        <TextBlock x:Name="PolicyText" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Group Size: " Width="150" Foreground="#bbb"/>
+                        <TextBlock x:Name="GroupSizeText" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Start Date: " Width="150" Foreground="#bbb"/>
+                        <TextBlock x:Name="StartDateText" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="End Date: " Width="150" Foreground="#bbb"/>
+                        <TextBlock x:Name="EndDateText" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Price: $" Width="150" Foreground="#bbb"/>
+                        <TextBlock x:Name="PriceText" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Operator: " Width="150" Foreground="#bbb"/>
+                        <TextBlock x:Name="OperatorText" Foreground="White"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Refund Section -->
+            <Border Background="#1e1e2a" CornerRadius="8" Padding="15" Margin="0,15,0,0">
+                <StackPanel Spacing="15">
+                    <TextBlock x:Name="PolicyNotice" FontSize="14" TextWrapping="Wrap"/>
+                    
+                    <TextBlock x:Name="ErrorMessage" 
+                               Foreground="#FF5252" 
+                               TextWrapping="Wrap"
+                               IsVisible="False"/>
+                               
+                    <TextBlock x:Name="SuccessMessage" 
+                               Foreground="LightGreen" 
+                               TextWrapping="Wrap"
+                               IsVisible="False"/>
+                               
+                    <Button x:Name="RequestRefundButton"
+                            Content="Request Refund"
+                            Click="OnRequestRefundClick"
+                            Background="#E53935"
+                            Foreground="White"
+                            Padding="20,10"
+                            HorizontalAlignment="Center"
+                            IsVisible="False"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

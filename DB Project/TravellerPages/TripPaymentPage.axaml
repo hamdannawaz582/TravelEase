@@ -7,7 +7,7 @@
     <Grid>
         <StackPanel Margin="20" Spacing="10">
             <Grid>
-                <Button Content="← Back" 
+                <Button Content="Back" 
                         Click="OnBackClick"
                         HorizontalAlignment="Left"
                         Background="Transparent"/>

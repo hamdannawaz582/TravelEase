@@ -19,6 +19,7 @@ namespace DB_Project.TravellerPages
         private ObservableCollection<TravelPass> _travelPasses;
         private ObservableCollection<ItineraryItem> _itineraries;
         private ObservableCollection<TravelHistoryItem> _travelHistory;
+        private ContentControl _pageHost;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,7 +33,10 @@ namespace DB_Project.TravellerPages
             InitializeComponent();
             Username = username;
             WelcomeMessage.Text = $"Welcome, {username}!";
-
+            if (this.Parent is ContentControl contentControl)
+            {
+                _pageHost = contentControl;
+            }
             LoadProfile();
             LoadUpcomingTripsAsync();
             LoadTravelPassesAsync();
@@ -78,7 +82,6 @@ namespace DB_Project.TravellerPages
                     return;
                 }
 
-                // Create updated profile object
                 var updatedProfile = new TravellerProfile
                 {
                     Username = Username,
@@ -121,7 +124,7 @@ namespace DB_Project.TravellerPages
                     _trips.Add(new TripItem 
                     { 
                         TripID = trip.TripID,
-                        Destination = trip.Title, 
+                        Destination = trip.Destination, 
                         Date = $"{trip.StartDate.ToShortDateString()} - {trip.EndDate.ToShortDateString()}", 
                         Status = "Confirmed", 
                         CancellationPolicy = trip.CancellationPolicy 
@@ -264,7 +267,12 @@ namespace DB_Project.TravellerPages
             if (sender is Button button && button.DataContext is TripItem trip)
             {
                 Console.WriteLine($"Viewing details for trip: {trip.Destination}");
-                // TODO: Implement navigation to trip details page
+
+                if (this.Parent is ContentControl contentControl)
+                {
+                    _pageHost = contentControl;
+                    _pageHost.Content = new TripDetailsPage(_pageHost, trip.TripID, Username);
+                }
             }
         }
 
