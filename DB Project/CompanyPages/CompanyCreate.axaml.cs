@@ -74,7 +74,7 @@ public partial class CompanyCreate : UserControl
         try
         {
             var query =
-                "INSERT INTO Trip (Title, [Type], CancellationPolicy, GroupSize, StartDate, EndDate, PriceRange, OperatorUsername) OUTPUT inserted.TripID VALUES (@Title, @Type, @CancellationPolicy, @GroupSize, @StartDate, @EndDate, @Price, @OperatorUsername);";
+                @" DECLARE @InsertedIds TABLE (Id INT); INSERT INTO Trip (Title, [Type], CancellationPolicy, GroupSize, StartDate, EndDate, PriceRange, OperatorUsername) OUTPUT inserted.TripID INTO @InsertedIds VALUES (@Title, @Type, @CancellationPolicy, @GroupSize, @StartDate, @EndDate, @Price, @OperatorUsername); SELECT TOP 1 * FROM @InsertedIds";
             using (var connection = DatabaseService.Instance.CreateConnection())
             using (var command = new SqlCommand(query, connection))
             {
@@ -115,7 +115,9 @@ public partial class CompanyCreate : UserControl
 
             if (existingval == -1)
             {
-                string insertQuery = "INSERT INTO Destination (Location, City, Country, JoinDate) OUTPUT INSERTED.DestID VALUES (@Location, @City, @Country, @JoinDate)";
+                string insertQuery = @" DECLARE @InsertedIds TABLE (Id INT); 
+                                        INSERT INTO Destination (Location, City, Country, JoinDate) OUTPUT INSERTED.DestID INTO @InsertedIDs 
+                                        VALUES (@Location, @City, @Country, @JoinDate); SELECT TOP 1 * FROM @InsertedIds;";
                 using (var connection = DatabaseService.Instance.CreateConnection())
                 using (SqlCommand insertCmd = new SqlCommand(insertQuery, connection))
                 {
@@ -154,7 +156,9 @@ public partial class CompanyCreate : UserControl
                         insertCmd.Parameters.AddWithValue("@TID", tid);
                         insertCmd.Parameters.AddWithValue("@Action", entry.Action);
                         insertCmd.Parameters.AddWithValue("@Price", entry.Price);
+                        connection.Open();
                         insertCmd.ExecuteNonQuery();
+                        connection.Close();
                     }
                 }
                 foreach (var entry in itineraries)
@@ -166,7 +170,9 @@ public partial class CompanyCreate : UserControl
                         insertCmd.Parameters.AddWithValue("@Action", entry.Action);
                         insertCmd.Parameters.AddWithValue("@StartDate", entry.DateTime);
                         insertCmd.Parameters.AddWithValue("@EndDate", entry.DateTime);
+                        connection.Open();
                         insertCmd.ExecuteNonQuery();
+                        connection.Close();
                     }
                 }
             }
