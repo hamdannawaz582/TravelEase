@@ -1,6 +1,5 @@
 SAIM:
 //TODO: GetOperatorTrips()
-//TODO: Fix the search extending thing
 //TODO: Imeplement a payment portal for booking stuff and implement wishlist
 
 
