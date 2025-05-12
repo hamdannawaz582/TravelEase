@@ -5,7 +5,7 @@ namespace DB_Project.Services
 {
     public class DatabaseService
     {
-        private static readonly string ConnectionString = "Server=localhost;Database=TravelEase;User Id=sa;Password=SQLServer123;Encrypt=false;TrustServerCertificate=true;";
+        private static readonly string ConnectionString = "Server=localhost;Database=TravelEase;User Id=sa;Password=Admin123;Encrypt=false;TrustServerCertificate=true;";
         private static DatabaseService _instance;
         
         public static DatabaseService Instance
