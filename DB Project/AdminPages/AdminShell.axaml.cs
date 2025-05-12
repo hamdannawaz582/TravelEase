@@ -35,6 +35,8 @@ namespace DB_Project
                     var travellerDemo = new TravellerDemographicsReport();
                     var operatorPerformanceReport = new OperatorPerformanceReport();
                     var popularityReport = new PopularityReport();
+                    var growthReport = new PlatformGrowthReport();
+                    var transactionReport = new TransactionsReport();
                     Sidebar.AddTab("Analytics", analyticsPage);
                     Sidebar.AddTab("Admin Management", managementPage);
                     Sidebar.AddTab("Category Management", categoryManagement);
@@ -42,6 +44,8 @@ namespace DB_Project
                     Sidebar.AddTab("Traveller Demographics",travellerDemo);
                     Sidebar.AddTab("Operator Performance", operatorPerformanceReport);
                     Sidebar.AddTab("Popularity Report", popularityReport);
+                    Sidebar.AddTab("Platform Growth", growthReport);
+                    Sidebar.AddTab("Transactions Report", transactionReport);
                     ConfigureCommonTabs(sidebar);
                     MainContent.Content = analyticsPage;
                 }

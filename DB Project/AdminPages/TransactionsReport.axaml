@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="DB_Project.AdminPages.TransactionsReport">
+    <Grid RowDefinitions="Auto,*,*" ColumnDefinitions="*,*" Margin="20">
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Text="Payment Transaction and Fraud Report"
+                       FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+            <TextBlock Text="Monitors payment success rates and fraudulent activities"
+                       FontSize="14" Margin="0,0,0,20"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Grid.Column="0" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Text="Payment Success/Failure Rate" FontSize="16" FontWeight="SemiBold" Margin="10"/>
+                <lvc:PieChart Name="PaymentSuccessChart" Grid.Row="1"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Text="Monthly Transaction Volume" FontSize="16" FontWeight="SemiBold" Margin="10"/>
+                <lvc:CartesianChart Name="TransactionVolumeChart" Grid.Row="1"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="0" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Text="Chargeback Rate" FontSize="16" FontWeight="SemiBold" Margin="10"/>
+                <lvc:CartesianChart Name="ChargebackRateChart" Grid.Row="1"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Text="Payment Method Distribution" FontSize="16" FontWeight="SemiBold" Margin="10"/>
+                <lvc:PieChart Name="PaymentMethodChart" Grid.Row="1"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
