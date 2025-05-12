@@ -5,13 +5,18 @@ INSERT INTO [User] (Username, Email, Password, JoinDate)
 VALUES
     ('operator1', 'operator1@test.com', 'password123', '2022-01-15'),
     ('operator2', 'operator2@test.com', 'password123', '2022-02-20'),
-    ('operator3', 'operator3@test.com', 'password123', '2022-03-10');
+    ('operator3', 'operator3@test.com', 'password123', '2022-03-10'),
+    ('admin1', 'admin1@test.com', 'password123', '2022-03-10');
 
 INSERT INTO Operator (Username)
 VALUES
     ('operator1'),
     ('operator2'),
     ('operator3');
+
+INSERT INTO Admin (Username)
+VALUES 
+    ('admin1');
 
 -- 1. Insert User and Traveller profile
 INSERT INTO [User] (Username, Email, Password, JoinDate)
