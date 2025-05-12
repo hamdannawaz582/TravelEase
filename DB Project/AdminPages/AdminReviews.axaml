@@ -4,9 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:DB_Project.AdminPages"
              mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
-             x:Class="DB_Project.AdminPages.AdminReviews"
-             x:DataType="local:ReviewViewModel">
-    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+             x:Class="DB_Project.AdminPages.AdminReviews">
+    <Grid RowDefinitions="Auto,*" Margin="20">
         <!-- Header Section -->
         <StackPanel Grid.Row="0" Margin="0,0,0,20">
             <TextBlock Text="Review Management" FontSize="32" FontWeight="Bold" Margin="0,0,0,10"/>
@@ -24,52 +23,13 @@
             </Grid>
         </StackPanel>
         
-        <!-- Reviews Data Grid -->
-        <DataGrid Grid.Row="1" Name="ReviewsDataGrid" 
-                  IsReadOnly="True" 
-                  AutoGenerateColumns="False"
-                  SelectionMode="Single"
-                  SelectionChanged="ReviewsDataGrid_SelectionChanged"
-                  Background="#2d2d2d"
-                  BorderThickness="1"
-                  BorderBrush="#3c3c3c">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ReviewID}" Width="60"/>
-                <DataGridTextColumn Header="Reviewer" Binding="{Binding Reviewer}" Width="120"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding FormattedDate}" Width="120"/>
-                <DataGridTextColumn Header="Rating" Binding="{Binding Stars}" Width="70"/>
-                <DataGridTextColumn Header="Content" Binding="{Binding FeedbackSummary}" Width="*"/>
-                <DataGridTemplateColumn Header="Flags" Width="80">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type local:ReviewViewModel}">
-                            <Border CornerRadius="4" Padding="5,2" Margin="2" 
-                                    Background="{Binding FlagColor}">
-                                <TextBlock Text="{Binding FlagCount}" HorizontalAlignment="Center" FontSize="12"/>
-                            </Border>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        
-        <!-- Detail Panel -->
-        <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto" Margin="0,20,0,0" Name="DetailPanel" IsVisible="False">
-            <TextBlock Grid.Row="0" Text="Review Details" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-            
-            <Border Grid.Row="1" BorderBrush="#3c3c3c" BorderThickness="1" Margin="0,0,0,10" Padding="10" CornerRadius="4">
-                <StackPanel>
-                    <TextBlock Name="SelectedReviewContent" TextWrapping="Wrap" Margin="0,0,0,10"/>
-                    <TextBlock Name="FlaggedWordsText" Foreground="OrangeRed" FontWeight="Bold" IsVisible="False"/>
-                </StackPanel>
-            </Border>
-            
-            <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10">
-                <Button Name="DeleteButton" Content="Delete Review" Click="DeleteReview_Click" 
-                        Background="DarkRed" Foreground="White"/>
-                <Button Name="RespondButton" Content="View Response" Click="ViewResponse_Click"/>
+        <!-- Reviews List in ScrollViewer -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="ReviewsPanel" Spacing="10">
+                <!-- Reviews will be added here programmatically -->
             </StackPanel>
-        </Grid>
-
+        </ScrollViewer>
+        
         <!-- Response Dialog -->
         <Grid Name="ResponsePanel" IsVisible="False" ZIndex="100" 
               Background="#80000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">

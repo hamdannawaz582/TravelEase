@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Layout;
 
 namespace DB_Project.AdminPages
 {
@@ -16,6 +17,7 @@ namespace DB_Project.AdminPages
         private ObservableCollection<ReviewViewModel> _reviews;
         private ReviewViewModel _selectedReview;
         private AdminRepository _repository;
+        private StackPanel _reviewsPanel;
 
         // Define inappropriate words to check for
         private readonly List<string> _inappropriateWords = new List<string> {
@@ -30,19 +32,24 @@ namespace DB_Project.AdminPages
             InitializeComponent();
             _reviews = new ObservableCollection<ReviewViewModel>();
             _repository = new AdminRepository();
-            ReviewsDataGrid.ItemsSource = _reviews;
-            LoadReviewsAsync();
+            _reviewsPanel = this.FindControl<StackPanel>("ReviewsPanel");
+            
+            this.AttachedToVisualTree += (s, e) => LoadReviewsAsync();
         }
 
         private async void LoadReviewsAsync()
         {
             _reviews.Clear();
+            _reviewsPanel.Children.Clear();
 
             try
             {
                 var reviews = await _repository.GetAllReviews();
+                var flaggedCount = 0;
+
                 foreach (var review in reviews)
                 {
+                    // Process review for inappropriate words
                     if (!string.IsNullOrEmpty(review.Feedback))
                     {
                         var words = review.Feedback.ToLower().Split(new[] { ' ', '.', ',', '!', '?', ';', ':', '-', '\n', '\r' },
@@ -55,17 +62,22 @@ namespace DB_Project.AdminPages
                                 review.FlaggedWords.Add(word);
                             }
                         }
-                        
+
                         review.FlagCount = review.FlaggedWords.Count.ToString();
                         review.FlagColor = review.FlaggedWords.Count > 0 ? Brushes.OrangeRed : Brushes.Transparent;
+
+                        if (review.FlaggedWords.Count > 0)
+                            flaggedCount++;
                     }
 
                     _reviews.Add(review);
-                    Console.WriteLine(review.Feedback);
+                    
+                    // Create a review card
+                    var reviewCard = CreateReviewCard(review);
+                    _reviewsPanel.Children.Add(reviewCard);
                 }
 
-                ReviewsDataGrid.ItemsSource = _reviews;
-                ReviewCountText.Text = $"Total: {_reviews.Count} | Flagged: {_reviews.Count(r => r.FlaggedWords.Count > 0)}";
+                ReviewCountText.Text = $"Total: {reviews.Count} | Flagged: {flaggedCount}";
             }
             catch (Exception ex)
             {
@@ -73,50 +85,140 @@ namespace DB_Project.AdminPages
             }
         }
 
-        private void ReviewsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private Control CreateReviewCard(ReviewViewModel review)
         {
-            if (ReviewsDataGrid.SelectedItem is ReviewViewModel selected)
+            // Main border for the review card
+            var border = new Border
             {
-                _selectedReview = selected;
-                DetailPanel.IsVisible = true;
+                BorderBrush = new SolidColorBrush(Color.Parse("#3c3c3c")),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(4),
+                Padding = new Thickness(10),
+                Background = new SolidColorBrush(Color.Parse("#2d2d2d"))
+            };
 
-                // Format the review content
-                SelectedReviewContent.Text = $"Reviewer: {selected.Reviewer}\n" +
-                                            $"Date: {selected.ReviewDate:MM/dd/yyyy}\n" +
-                                            $"Rating: {selected.Stars} stars\n" +
-                                            $"Content: {selected.Feedback}\n\n" +
-                                            $"{(selected.Response != null ? $"Response: {selected.Response}" : "No response yet")}";
-
-                // Display flagged words if any
-                if (selected.FlaggedWords.Count > 0)
-                {
-                    FlaggedWordsText.Text = $"Flagged inappropriate words: {string.Join(", ", selected.FlaggedWords)}";
-                    FlaggedWordsText.IsVisible = true;
-                }
-                else
-                {
-                    FlaggedWordsText.IsVisible = false;
-                }
-            }
-            else
+            // Main grid for the review card layout
+            var grid = new Grid
             {
-                DetailPanel.IsVisible = false;
-                _selectedReview = null;
+                ColumnDefinitions = new ColumnDefinitions("*, Auto")
+            };
+
+            // Content panel for review details
+            var contentPanel = new StackPanel { Spacing = 5 };
+
+            // Review header with reviewer name and stars
+            var headerPanel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 10 };
+            headerPanel.Children.Add(new TextBlock
+            {
+                Text = review.Reviewer,
+                FontWeight = FontWeight.Bold,
+                FontSize = 16
+            });
+            
+            var starsText = new TextBlock
+            {
+                Text = $"{review.Stars} ★",
+                Foreground = new SolidColorBrush(Color.Parse("#FFD700")),
+                FontWeight = FontWeight.Bold
+            };
+            headerPanel.Children.Add(starsText);
+            
+            var dateText = new TextBlock
+            {
+                Text = review.FormattedDate,
+                Foreground = new SolidColorBrush(Color.Parse("#aaaaaa")),
+                FontSize = 12
+            };
+            headerPanel.Children.Add(dateText);
+            
+            contentPanel.Children.Add(headerPanel);
+
+            // Review content
+            contentPanel.Children.Add(new TextBlock
+            {
+                Text = review.Feedback,
+                TextWrapping = TextWrapping.Wrap
+            });
+
+            // Response section if available
+            if (!string.IsNullOrEmpty(review.Response))
+            {
+                var responsePanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0) };
+                responsePanel.Children.Add(new TextBlock
+                {
+                    Text = "Response:",
+                    FontWeight = FontWeight.Bold
+                });
+                responsePanel.Children.Add(new TextBlock
+                {
+                    Text = review.Response,
+                    TextWrapping = TextWrapping.Wrap,
+                    Foreground = new SolidColorBrush(Color.Parse("#aaaaaa"))
+                });
+                contentPanel.Children.Add(responsePanel);
             }
+
+            // Add flagged words indicator if any
+            if (review.FlaggedWords.Count > 0)
+            {
+                contentPanel.Children.Add(new TextBlock
+                {
+                    Text = $"Flagged words: {string.Join(", ", review.FlaggedWords)}",
+                    Foreground = new SolidColorBrush(Color.Parse("#ff6b6b")),
+                    FontWeight = FontWeight.Bold,
+                    Margin = new Thickness(0, 5, 0, 0)
+                });
+            }
+
+            grid.Children.Add(contentPanel);
+            Grid.SetColumn(contentPanel, 0);
+
+            // Button panel for actions
+            var buttonPanel = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                Spacing = 5,
+                Width = 100
+            };
+
+            var responseButton = new Button
+            {
+                Content = "Response",
+                Width = 100
+            };
+            responseButton.Click += (s, e) => ShowResponseDialog(review);
+
+            var deleteButton = new Button
+            {
+                Content = "Delete",
+                Width = 100,
+                Background = new SolidColorBrush(Color.Parse("#8b0000"))
+            };
+            deleteButton.Click += async (s, e) => await DeleteReview(review);
+
+            buttonPanel.Children.Add(responseButton);
+            buttonPanel.Children.Add(deleteButton);
+
+            grid.Children.Add(buttonPanel);
+            Grid.SetColumn(buttonPanel, 1);
+
+            border.Child = grid;
+            return border;
         }
 
         private void ApplyFilter_Click(object sender, RoutedEventArgs e)
         {
             var showOnlyFlagged = FlaggedOnlyCheckBox.IsChecked ?? false;
+            _reviewsPanel.Children.Clear();
 
-            if (showOnlyFlagged)
+            var filteredReviews = showOnlyFlagged 
+                ? _reviews.Where(r => r.FlaggedWords.Count > 0)
+                : _reviews;
+
+            foreach (var review in filteredReviews)
             {
-                ReviewsDataGrid.ItemsSource = new ObservableCollection<ReviewViewModel>(
-                    _reviews.Where(r => r.FlaggedWords.Count > 0));
-            }
-            else
-            {
-                ReviewsDataGrid.ItemsSource = _reviews;
+                var reviewCard = CreateReviewCard(review);
+                _reviewsPanel.Children.Add(reviewCard);
             }
         }
 
@@ -124,16 +226,13 @@ namespace DB_Project.AdminPages
         {
             FlaggedOnlyCheckBox.IsChecked = false;
             LoadReviewsAsync();
-            DetailPanel.IsVisible = false;
         }
 
-        private void ViewResponse_Click(object sender, RoutedEventArgs e)
+        private void ShowResponseDialog(ReviewViewModel review)
         {
-            if (_selectedReview != null)
-            {
-                ResponseTextBox.Text = _selectedReview.Response ?? "";
-                ResponsePanel.IsVisible = true;
-            }
+            _selectedReview = review;
+            ResponseTextBox.Text = review.Response ?? "";
+            ResponsePanel.IsVisible = true;
         }
 
         private void CloseResponse_Click(object sender, RoutedEventArgs e)
@@ -147,35 +246,27 @@ namespace DB_Project.AdminPages
 
             string response = ResponseTextBox?.Text?.Trim() ?? "";
             bool success = await _repository.UpdateReviewResponse(_selectedReview.ReviewID, response);
-            
+
             if (success)
             {
                 _selectedReview.Response = response;
                 _selectedReview.ResponseDate = DateTime.Now;
-                
-                // Update the review details
-                SelectedReviewContent.Text = $"Reviewer: {_selectedReview.Reviewer}\n" +
-                                           $"Date: {_selectedReview.ReviewDate:MM/dd/yyyy}\n" +
-                                           $"Rating: {_selectedReview.Stars} stars\n" +
-                                           $"Content: {_selectedReview.Feedback}\n\n" +
-                                           $"Response: {_selectedReview.Response}";
+                // Refresh the reviews display
+                LoadReviewsAsync();
             }
-            
+
             ResponsePanel.IsVisible = false;
         }
 
-        private async void DeleteReview_Click(object sender, RoutedEventArgs e)
+        private async Task DeleteReview(ReviewViewModel review)
         {
-            if (_selectedReview == null) return;
-
             try
             {
-                bool result = await _repository.DeleteReview(_selectedReview.ReviewID);
+                bool result = await _repository.DeleteReview(review.ReviewID);
                 if (result)
                 {
-                    _reviews.Remove(_selectedReview);
-                    _selectedReview = null;
-                    DetailPanel.IsVisible = false;
+                    _reviews.Remove(review);
+                    LoadReviewsAsync();
                     
                     // Update the counter
                     int flaggedCount = _reviews.Count(r => r.FlaggedWords.Count > 0);
@@ -188,6 +279,7 @@ namespace DB_Project.AdminPages
             }
         }
     }
+
     public class ReviewViewModel
     {
         public int ReviewID { get; set; }
