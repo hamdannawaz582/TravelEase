@@ -120,7 +120,7 @@ VALUES
     (@IndianTour, 'Departure from Delhi', '2025-04-30 15:00', '2025-04-30 18:00');
 
 select* from Trip
-DECLARE @ChinaTour INT = 80;
+set @ChinaTour = 80;
 select * from Trip where TripID = @ChinaTour;
 INSERT INTO Trip_Itinerary (TripID, Event, EventStartDate, EventEndDate)
 VALUES
