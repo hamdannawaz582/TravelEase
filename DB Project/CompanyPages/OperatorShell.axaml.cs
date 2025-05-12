@@ -33,12 +33,14 @@ namespace DB_Project
                     var companyManagePage = new CompanyManage(username);
                     var manageTripsPage = new CompanyViewEdit(username);
                     var hotelPartnersPage = new CompanyHotel(username);
+                    var tripBookingReportPage = new TripBookingReport(username);
 
                     sidebar.AddTab("Analytics", analyticsPage);
                     sidebar.AddTab("Create Trip", createTripPage);
                     sidebar.AddTab("Manage Bookings", companyManagePage);
                     sidebar.AddTab("Manage Trips", manageTripsPage);
                     sidebar.AddTab("Hotel Partners", hotelPartnersPage);
+                    sidebar.AddTab("Trip Booking Report", tripBookingReportPage);
 
                     ConfigureCommonTabs(sidebar);
 
