@@ -49,23 +49,44 @@
                                            VerticalAlignment="Center"
                                            Margin="0,3,5,20"/>
 
+                                <!-- <TextBlock Grid.Row="2" Grid.Column="0"  -->
+                                <!--           Text="Hotel:"  -->
+                                <!--           Foreground="#bbb"  -->
+                                <!--           VerticalAlignment="Center"/> -->
+                                <!-- <TextBox Grid.Row="2" Grid.Column="1"  -->
+                                <!--         Watermark="Add Hotel" /> -->
                                 <TextBlock Grid.Row="2" Grid.Column="0" 
-                                          Text="Hotel:" 
-                                          Foreground="#bbb" 
-                                          VerticalAlignment="Center"/>
-                                <TextBox Grid.Row="2" Grid.Column="1" 
-                                        Watermark="Add Hotel" />
+                                           Text="Hotel:" 
+                                           Foreground="#bbb" 
+                                           VerticalAlignment="Center"/>
+                                <ComboBox Grid.Row="2" Grid.Column="1"
+                                          ItemsSource="{Binding AvailableHotels}"
+                                          SelectedItem="{Binding Hotel, Mode=TwoWay}"
+                                          PlaceholderText="Choose a Hotel"/>
 
-                                <TextBlock Grid.Row="3" Grid.Column="0" 
-                                          Text="Service:" 
-                                          Foreground="#bbb" 
+                                <TextBlock Grid.Row="3" Grid.Column="0"
+                                          Text="Service:"
+                                          Foreground="#bbb"
                                           VerticalAlignment="Center"/>
-                                <TextBox Grid.Row="3" Grid.Column="1" 
-                                        Watermark="Add Service" />
+                                <!-- <TextBox Grid.Row="3" Grid.Column="1" -->
+                                <!--         Watermark="Add Service" /> -->
+                                <ComboBox Grid.Row="3" Grid.Column="1"
+                                          ItemsSource="{Binding AvailableServices}"
+                                          SelectedItem="{Binding Service, Mode=TwoWay}"
+                                          PlaceholderText="Choose a Service"/>
 
-                                <Button Grid.Row="0" Grid.RowSpan="4" Grid.Column="2"
+                                <Button Grid.Row="2" Grid.RowSpan="4" Grid.Column="2"
                                         Content="Assign"
-                                        Click="OnAssignClick"
+                                        Click="OnAssignHotelClick"
+                                        Tag="{Binding}"
+                                        VerticalAlignment="Top"
+                                        Padding="10 5"
+                                        Background="DarkGray"
+                                        Foreground="White"
+                                        Margin="7"/>
+                                <Button Grid.Row="3" Grid.RowSpan="4" Grid.Column="2"
+                                        Content="Assign"
+                                        Click="OnAssignServiceClick"
                                         Tag="{Binding}"
                                         VerticalAlignment="Top"
                                         Padding="10 5"

@@ -82,3 +82,40 @@ WHERE (d.City LIKE '%Paris%' OR d.Country LIKE '%France%') -- Example destinatio
   AND t.StartDate >= '2023-06-01'  -- Example start date
   AND t.PriceRange <= 2000         -- Example max price
   AND t.GroupSize BETWEEN 5 AND 15; -- Example group size range
+
+SELECT
+    r.ReviewID,
+    r.Stars,
+    r.Feedback,
+    r.Response,
+    r.ReviewTime,
+    r.ResponseTime,
+
+    -- Determine review type and details
+    CASE
+        WHEN tr.ReviewID IS NOT NULL THEN 'Trip'
+        WHEN hr.ReviewID IS NOT NULL THEN 'Hotel'
+        WHEN dr.ReviewID IS NOT NULL THEN 'Destination'
+        ELSE 'Unknown'
+        END as ReviewType,
+
+    -- Get entity name based on review type
+    CASE
+        WHEN tr.ReviewID IS NOT NULL THEN t.Title
+        WHEN hr.ReviewID IS NOT NULL THEN h.Name
+        WHEN dr.ReviewID IS NOT NULL THEN (d.City + ', ' + d.Country)
+        ELSE NULL
+        END as ReviewedItem
+
+FROM Review r
+         LEFT JOIN TripReview tr ON r.ReviewID = tr.ReviewID
+         LEFT JOIN HotelReview hr ON r.ReviewID = hr.ReviewID
+         LEFT JOIN DestinationReview dr ON r.ReviewID = dr.ReviewID
+
+-- Join with entity tables
+         LEFT JOIN Trip t ON tr.TripID = t.TripID
+         LEFT JOIN Hotel h ON hr.HUsername = h.HUsername
+         LEFT JOIN Destination d ON dr.DestinationID = d.DestID
+
+WHERE r.Reviewer = 'user088'  -- Replace with the username you want to check
+ORDER BY r.ReviewTime DESC;

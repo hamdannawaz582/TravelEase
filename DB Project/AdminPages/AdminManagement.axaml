@@ -34,7 +34,7 @@
                                     <TextBlock Text="{Binding Email}"
                                                Foreground="#cccccc"
                                                Margin="0 5 0 0"/>
-                                    <TextBlock Text="{Binding Role}"
+                                    <TextBlock Text="{Binding JoinDate}"
                                                Foreground="#bbbbbb"/>
                                 </StackPanel>
 

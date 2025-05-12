@@ -4,100 +4,48 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:DB_Project.AdminPages"
              mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
-             x:Class="DB_Project.AdminPages.AdminReviews"
-             x:DataType="local:ReviewViewModel">
-    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+             x:Class="DB_Project.AdminPages.AdminReviews">
+    <Grid RowDefinitions="Auto,*" Margin="20">
         <!-- Header Section -->
         <StackPanel Grid.Row="0" Margin="0,0,0,20">
-            <TextBlock Text="Review Moderation" FontSize="32" FontWeight="Bold" Margin="0,0,0,10"/>
-            <TextBlock Text="Manage and moderate user reviews for inappropriate content" FontSize="16" Margin="0,0,0,20"/>
+            <TextBlock Text="Review Management" FontSize="32" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBlock Text="View, filter, and manage user reviews" FontSize="16" Margin="0,0,0,20"/>
             
             <!-- Filter Controls -->
-            <!-- Filter Controls -->
-            <Grid ColumnDefinitions="*,*,*,*,*" Margin="0,0,0,10">
-                <ComboBox Grid.Column="0" Name="FilterComboBox" Width="150" SelectedIndex="0" Margin="0,0,10,0">
-                    <ComboBoxItem>All Reviews</ComboBoxItem>
-                    <ComboBoxItem>Flagged Reviews</ComboBoxItem>
-                    <ComboBoxItem>Pending Reviews</ComboBoxItem>
-                    <ComboBoxItem>Approved Reviews</ComboBoxItem>
-                    <ComboBoxItem>Rejected Reviews</ComboBoxItem>
-                </ComboBox>
-    
-                <ComboBox Grid.Column="1" Name="EntityTypeComboBox" Width="150" SelectedIndex="0" Margin="0,0,10,0">
-                    <ComboBoxItem>All Types</ComboBoxItem>
-                    <ComboBoxItem>Trip Reviews</ComboBoxItem>
-                    <ComboBoxItem>Hotel Reviews</ComboBoxItem>
-                </ComboBox>
-    
-                <ComboBox Grid.Column="2" Name="EntityComboBox" Width="200" Margin="0,0,10,0" IsEnabled="False"
-                          PlaceholderText="Select trip/hotel..."/>
-    
-                <TextBox Grid.Column="3" Name="SearchTextBox" Width="180" Watermark="Search reviews..." Margin="0,0,10,0"/>
-    
-                <StackPanel Grid.Column="4" Orientation="Horizontal">
-                    <Button Content="Apply Filter" Click="ApplyFilter_Click" Width="100" Margin="0,0,10,0"/>
+            <Grid ColumnDefinitions="Auto,*,Auto" Margin="0,0,0,10">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10">
+                    <CheckBox Name="FlaggedOnlyCheckBox" Content="Show only inappropriate content"/>
+                    <Button Content="Apply Filter" Click="ApplyFilter_Click" Width="100"/>
                     <Button Content="Refresh" Click="Refresh_Click" Width="80"/>
                 </StackPanel>
+                
+                <TextBlock Grid.Column="2" Name="ReviewCountText" VerticalAlignment="Center"/>
             </Grid>
         </StackPanel>
         
-        <!-- Reviews Data Grid -->
-        <DataGrid Grid.Row="1" Name="ReviewsDataGrid" 
-                  IsReadOnly="True" 
-                  AutoGenerateColumns="False"
-                  SelectionMode="Single"
-                  SelectionChanged="ReviewsDataGrid_SelectionChanged"
-                  Background="#2d2d2d"
-                  BorderThickness="1"
-                  BorderBrush="#3c3c3c">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ReviewID}" Width="60"/>
-                <DataGridTextColumn Header="Reviewer" Binding="{Binding Reviewer}" Width="120"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding FormattedDate}" Width="120"/>
-                <DataGridTextColumn Header="Rating" Binding="{Binding Stars}" Width="70"/>
-                <DataGridTextColumn Header="Review Type" Binding="{Binding ReviewType}" Width="100"/>
-                <DataGridTextColumn Header="Content" Binding="{Binding FeedbackSummary}" Width="*"/>
-                <DataGridTemplateColumn Header="Status" Width="120">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type local:ReviewViewModel}">
-                            <Border CornerRadius="4" Padding="5,2" Margin="2"
-                                    Background="{Binding StatusColor}">
-                                <TextBlock Text="{Binding Status}" HorizontalAlignment="Center" FontSize="12"/>
-                            </Border>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Flags" Width="80">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate DataType="{x:Type local:ReviewViewModel}">
-                            <Border CornerRadius="4" Padding="5,2" Margin="2" 
-                                    Background="{Binding FlagColor}">
-                                <TextBlock Text="{Binding FlagCount}" HorizontalAlignment="Center" FontSize="12"/>
-                            </Border>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <!-- Reviews List in ScrollViewer -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="ReviewsPanel" Spacing="10">
+                <!-- Reviews will be added here programmatically -->
+            </StackPanel>
+        </ScrollViewer>
         
-        <!-- Detail Panel -->
-        <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto,Auto" Margin="0,20,0,0" Name="DetailPanel" IsVisible="False">
-            <TextBlock Grid.Row="0" Text="Review Details" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-            
-            <Border Grid.Row="1" BorderBrush="#3c3c3c" BorderThickness="1" Margin="0,0,0,10" Padding="10" CornerRadius="4">
-                <TextBlock Name="SelectedReviewContent" TextWrapping="Wrap"/>
+        <!-- Response Dialog -->
+        <Grid Name="ResponsePanel" IsVisible="False" ZIndex="100" 
+              Background="#80000000" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Border Background="#333333" CornerRadius="8" Width="500" Height="350"
+                    BoxShadow="0 4 20 0 #40000000">
+                <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+                    <TextBlock Grid.Row="0" Text="Response to Review" FontSize="18" FontWeight="Bold" Margin="0,0,0,15"/>
+                    
+                    <TextBox Grid.Row="1" Name="ResponseTextBox" AcceptsReturn="True" TextWrapping="Wrap"/>
+                    
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0" Spacing="10">
+                        <Button Content="Save Response" Click="SaveResponse_Click"/>
+                        <Button Content="Cancel" Click="CloseResponse_Click"/>
+                    </StackPanel>
+                </Grid>
             </Border>
-            
-            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBox Name="ResponseTextBox" Width="500" Watermark="Enter response to this review..." AcceptsReturn="True" Height="80"/>
-            </StackPanel>
-            
-            <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="10">
-                <Button Name="ApproveButton" Content="Approve Review" Click="ApproveReview_Click" Background="DarkGreen"/>
-                <Button Name="RejectButton" Content="Reject Review" Click="RejectReview_Click" Background="DarkRed"/>
-                <Button Name="RespondButton" Content="Send Response" Click="SendResponse_Click"/>
-                <TextBlock Name="FlaggedWordsText" VerticalAlignment="Center" Margin="20,0,0,0"/>
-            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
