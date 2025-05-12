@@ -85,7 +85,6 @@
                                     <ComboBox Name="TotalBookingComboBox" Grid.Column="1" SelectedIndex="0"
                                               HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center">
                                         <ComboBoxItem>Daily</ComboBoxItem>
-                                        <ComboBoxItem>Weekly</ComboBoxItem>
                                         <ComboBoxItem>Monthly</ComboBoxItem>
                                         <ComboBoxItem>Yearly</ComboBoxItem>
                                     </ComboBox>
@@ -125,7 +124,6 @@
                                     <ComboBox Name="RevenueComboBox" Grid.Column="1" SelectedIndex="0"
                                               HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center">
                                         <ComboBoxItem>Daily</ComboBoxItem>
-                                        <ComboBoxItem>Weekly</ComboBoxItem>
                                         <ComboBoxItem>Monthly</ComboBoxItem>
                                         <ComboBoxItem>Yearly</ComboBoxItem>
                                     </ComboBox>
@@ -171,7 +169,6 @@
                                 <ComboBox Name="ReviewComboBox" Grid.Column="1" SelectedIndex="0"
                                           HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center">
                                     <ComboBoxItem>Daily</ComboBoxItem>
-                                    <ComboBoxItem>Weekly</ComboBoxItem>
                                     <ComboBoxItem>Monthly</ComboBoxItem>
                                     <ComboBoxItem>Yearly</ComboBoxItem>
                                 </ComboBox>

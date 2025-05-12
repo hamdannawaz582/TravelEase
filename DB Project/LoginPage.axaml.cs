@@ -61,7 +61,7 @@ public partial class LoginPage : UserControl
             Console.WriteLine($"Error: {ex.Message}");
         }
 
-        if (isAuthenticated)
+        if (isAuthenticated = true)
         {
             Login.Background = Brushes.Blue;
             if (this.VisualRoot is Window mainWindow)
