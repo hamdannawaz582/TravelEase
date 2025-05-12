@@ -12,26 +12,26 @@ namespace DB_Project
     {  
         private object _currentPage;
         
-        public CreateEditGenericWindow()
-        {
-            InitializeComponent();
-            DataContext = this;
-            Sidebar.SetSplitView(SplitView);
-            Sidebar.SetPageHost(MainContent);
-            Sidebar.AddTab("Home", new LoginPage());
-            Sidebar.AddTab("Settings", new UserControl());
-            Sidebar.AddTab("About", new UserControl());
-        }
-        //=================================================================================
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        private void OnCreateCardClick(object sender, RoutedEventArgs e)
-        {
-              var card = CardControl.Create(CardsContainer);
-          }
+        // public CreateEditGenericWindow()
+        // {
+        //     InitializeComponent();
+        //     DataContext = this;
+        //     Sidebar.SetSplitView(SplitView);
+        //     Sidebar.SetPageHost(MainContent);
+        //     Sidebar.AddTab("Home", new LoginPage());
+        //     Sidebar.AddTab("Settings", new UserControl());
+        //     Sidebar.AddTab("About", new UserControl());
+        // }
+        // //=================================================================================
+        // public event PropertyChangedEventHandler PropertyChanged;
+        // protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        // {
+        //     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        // }
+        // private void OnCreateCardClick(object sender, RoutedEventArgs e)
+        // {
+        //       var card = CardControl.Create(CardsContainer);
+        //   }
 
     }
 }

@@ -72,11 +72,16 @@ namespace DB_Project
             var travelEaseLogo = this.FindControl<TravelEaseLogo>("TravelEaseLogo");
             if (travelEaseLogo != null)
             {
-                travelEaseLogo.HorizontalAlignment = HorizontalAlignment.Center;
+                travelEaseLogo.HorizontalAlignment = _splitView.IsPaneOpen ? 
+                    HorizontalAlignment.Center : HorizontalAlignment.Center;
+                travelEaseLogo.Width = _splitView.IsPaneOpen ? 150 : 40;
+        
                 var travelEaseLabel = travelEaseLogo.FindControl<TextBlock>("TravelEaseLabel");
                 if (travelEaseLabel != null)
                 {
                     travelEaseLabel.IsVisible = _splitView.IsPaneOpen;
+                    travelEaseLabel.HorizontalAlignment = _splitView.IsPaneOpen ? 
+                        HorizontalAlignment.Center : HorizontalAlignment.Center;
                 }
             }
             

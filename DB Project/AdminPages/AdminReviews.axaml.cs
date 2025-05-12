@@ -17,7 +17,6 @@ namespace DB_Project.AdminPages
         private ObservableCollection<ReviewViewModel> _reviews;
         private ReviewViewModel _selectedReview;
         
-        //list of inappropriate words to check for
         private readonly List<string> _inappropriateWords = new List<string>
         {
             "awful", "terrible", "horrible", "stupid", "idiot", "hate", "crap", "garbage", 
