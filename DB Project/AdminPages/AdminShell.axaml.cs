@@ -34,13 +34,14 @@ namespace DB_Project
                     var reviewsPage = new AdminReviews();
                     var travellerDemo = new TravellerDemographicsReport();
                     var operatorPerformanceReport = new OperatorPerformanceReport();
+                    var popularityReport = new PopularityReport();
                     Sidebar.AddTab("Analytics", analyticsPage);
                     Sidebar.AddTab("Admin Management", managementPage);
                     Sidebar.AddTab("Category Management", categoryManagement);
                     Sidebar.AddTab("Reviews", reviewsPage);
                     Sidebar.AddTab("Traveller Demographics",travellerDemo);
                     Sidebar.AddTab("Operator Performance", operatorPerformanceReport);
-                    
+                    Sidebar.AddTab("Popularity Report", popularityReport);
                     ConfigureCommonTabs(sidebar);
                     MainContent.Content = analyticsPage;
                 }
