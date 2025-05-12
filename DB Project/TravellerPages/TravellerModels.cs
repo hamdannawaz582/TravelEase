@@ -43,4 +43,9 @@ namespace DB_Project.Models
         public string EventStartDate { get; set; }
         public string EventEndDate { get; set; }
     }
+    public class AccessibilityOption
+    {
+        public int AccessibilityID { get; set; }
+        public string Option { get; set; }
+    }
 }

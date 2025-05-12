@@ -29,8 +29,8 @@ namespace DB_Project
                     InitializeSidebar(splitView, sidebar, mainContent);
 
                     var dashboardPage = new TravellerDashboard(username);
-                    var searchPage = new TripSearchPage();
-                    var reviewsPage = new TravellerReview();
+                    var searchPage = new TripSearchPage(username);
+                    var reviewsPage = new TravellerReview(username);
 
                     sidebar.AddTab("Dashboard", dashboardPage);
                     sidebar.AddTab("Search Trips", searchPage);

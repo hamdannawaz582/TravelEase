@@ -3,6 +3,7 @@
 --for checking data
 SELECT * FROM [User];
 SELECT * FROM Traveller;
+SELECT * FROM Admin;
 select* from Operator;
 SELECT * FROM Trip_Booking;
 SELECT * FROM Trip_Itinerary;
@@ -70,3 +71,14 @@ FROM Trip_Itinerary ti
 ORDER BY ti.EventStartDate;
 --====================================================================
 --====================================================================
+-- Search trips with various filters
+SELECT DISTINCT t.TripID, t.Title, t.Type, t.CancellationPolicy,
+                t.GroupSize, t.StartDate, t.EndDate, t.PriceRange,
+                d.City + ', ' + d.Country AS Destination
+FROM Trip t
+         JOIN Trip_Destination td ON t.TripID = td.TripID
+         JOIN Destination d ON td.DestID = d.DestID
+WHERE (d.City LIKE '%Paris%' OR d.Country LIKE '%France%') -- Example destination
+  AND t.StartDate >= '2023-06-01'  -- Example start date
+  AND t.PriceRange <= 2000         -- Example max price
+  AND t.GroupSize BETWEEN 5 AND 15; -- Example group size range

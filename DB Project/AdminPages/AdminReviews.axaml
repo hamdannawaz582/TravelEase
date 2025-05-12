@@ -13,20 +13,31 @@
             <TextBlock Text="Manage and moderate user reviews for inappropriate content" FontSize="16" Margin="0,0,0,20"/>
             
             <!-- Filter Controls -->
-            <Grid ColumnDefinitions="*,*,*,*" Margin="0,0,0,10">
-                <ComboBox Grid.Column="0" Name="FilterComboBox" Width="200" SelectedIndex="0" Margin="0,0,10,0">
+            <!-- Filter Controls -->
+            <Grid ColumnDefinitions="*,*,*,*,*" Margin="0,0,0,10">
+                <ComboBox Grid.Column="0" Name="FilterComboBox" Width="150" SelectedIndex="0" Margin="0,0,10,0">
                     <ComboBoxItem>All Reviews</ComboBoxItem>
                     <ComboBoxItem>Flagged Reviews</ComboBoxItem>
                     <ComboBoxItem>Pending Reviews</ComboBoxItem>
                     <ComboBoxItem>Approved Reviews</ComboBoxItem>
                     <ComboBoxItem>Rejected Reviews</ComboBoxItem>
                 </ComboBox>
-                
-                <TextBox Grid.Column="1" Name="SearchTextBox" Width="200" Watermark="Search reviews..." Margin="0,0,10,0"/>
-                
-                <Button Grid.Column="2" Content="Apply Filter" Click="ApplyFilter_Click" Width="120" Margin="0,0,10,0"/>
-                
-                <Button Grid.Column="3" Content="Refresh" Click="Refresh_Click" Width="100"/>
+    
+                <ComboBox Grid.Column="1" Name="EntityTypeComboBox" Width="150" SelectedIndex="0" Margin="0,0,10,0">
+                    <ComboBoxItem>All Types</ComboBoxItem>
+                    <ComboBoxItem>Trip Reviews</ComboBoxItem>
+                    <ComboBoxItem>Hotel Reviews</ComboBoxItem>
+                </ComboBox>
+    
+                <ComboBox Grid.Column="2" Name="EntityComboBox" Width="200" Margin="0,0,10,0" IsEnabled="False"
+                          PlaceholderText="Select trip/hotel..."/>
+    
+                <TextBox Grid.Column="3" Name="SearchTextBox" Width="180" Watermark="Search reviews..." Margin="0,0,10,0"/>
+    
+                <StackPanel Grid.Column="4" Orientation="Horizontal">
+                    <Button Content="Apply Filter" Click="ApplyFilter_Click" Width="100" Margin="0,0,10,0"/>
+                    <Button Content="Refresh" Click="Refresh_Click" Width="80"/>
+                </StackPanel>
             </Grid>
         </StackPanel>
         

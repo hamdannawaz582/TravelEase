@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:DB_Project.TravellerPages"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:assist="using:Avalonia.Controls.Primitives"
              x:Class="DB_Project.TravellerPages.TripSearchPage">
 
     <Grid>
@@ -18,93 +19,160 @@
                    FontSize="28" Margin="15"/>
         
         <!-- Search Controls -->
-        <Border Grid.Row="1" Background="#2a2a3a" Margin="10" 
-                CornerRadius="8" Padding="15">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                
-                <!-- Row 1 -->
-                <TextBox Grid.Row="0" Grid.Column="0" Margin="5" 
-                         Watermark="Destination" Name="DestinationBox"/>
-                <DatePicker Grid.Row="0" Grid.Column="1" Margin="5" 
-                            Name="StartDatePicker"/>
-                <DatePicker Grid.Row="0" Grid.Column="2" Margin="5" 
-                            Name="EndDatePicker"/>
-                
-                <!-- Row 2 -->
-                <ComboBox Grid.Row="1" Grid.Column="0" Margin="5" 
-                          Name="TripTypeCombo" PlaceholderText="Trip Type">
-                    <ComboBoxItem>Adventure</ComboBoxItem>
-                    <ComboBoxItem>Cultural</ComboBoxItem>
-                    <ComboBoxItem>Leisure</ComboBoxItem>
-                </ComboBox>
-                <Slider Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
-                        Minimum="100" Maximum="10000" Name="PriceSlider" 
-                        Margin="5"/>
-                <TextBlock Grid.Row="1" Grid.Column="3" Name="PriceDisplay" 
-                           VerticalAlignment="Center"/>
-                
-                <!-- Row 3 -->
-                <Button Grid.Row="2" Grid.Column="3" Content="Search" 
-                        Click="OnSearchClicked" Margin="5"/>
-            </Grid>
-        </Border>
+        <Expander Grid.Row="1" Header="Search Options" IsExpanded="True"
+                  Background="#2a2a3a" Margin="10" CornerRadius="8" HorizontalAlignment="Stretch">
+            <Border Padding="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Row 1: Basic Search -->
+                    <TextBox Grid.Row="0" Grid.Column="0" Margin="5" 
+                             Watermark="Destination" Name="DestinationBox"/>
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
+                        <TextBlock Text="Start Date" Margin="0,0,0,5"/>
+                        <DatePicker Name="StartDatePicker"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="2" Margin="5">
+                        <TextBlock Text="End Date" Margin="0,0,0,5"/>
+                        <DatePicker Name="EndDatePicker"/>
+                    </StackPanel>
+                    
+                    <!-- Row 2: Trip Type & Price -->
+                    <ComboBox Grid.Row="1" Grid.Column="0" Margin="5" 
+                              Name="TripTypeCombo" PlaceholderText="Trip Type">
+                        <ComboBoxItem>Adventure</ComboBoxItem>
+                        <ComboBoxItem>Cultural</ComboBoxItem>
+                        <ComboBoxItem>Leisure</ComboBoxItem>
+                        <ComboBoxItem>Eco-Tourism</ComboBoxItem>
+                        <ComboBoxItem>Wildlife</ComboBoxItem>
+                    </ComboBox>
+                    
+                    <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
+                                Orientation="Vertical" Margin="5">
+                        <TextBlock Text="Price Range:" Margin="0,0,0,5"/>
+                        <Slider Minimum="100" Maximum="10000" Name="PriceSlider" 
+                                Value="5000"/>
+                        <TextBlock Name="PriceDisplay" 
+                                   HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                    </StackPanel>
+                    
+                    <!-- Row 3: Group Size & Accessibility -->
+                    <StackPanel Grid.Row="2" Grid.Column="0" Margin="5">
+                        <TextBlock Text="Group Size:" Margin="0,0,0,5"/>
+                        <ComboBox Name="GroupSizeCombo" Width="200"
+                                  PlaceholderText="Group Size">
+                            <!-- Items added in code-behind -->
+                        </ComboBox>
+                    </StackPanel>
+                    
+                    <Expander Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"
+                              Header="Accessibility Options" Margin="5">
+                        <StackPanel Name="AccessibilityOptionsPanel">
+                            <!-- Checkboxes added in code-behind -->
+                        </StackPanel>
+                    </Expander>
+                    
+                    <!-- Row 4: Search Button -->
+                    <Button Grid.Row="3" Grid.Column="3" Content="Search" 
+                            Name="SearchButton"
+                            Click="OnSearchClicked" Margin="5"
+                            Background="#3E8853"/>
+                    
+                    <!-- Loading indicator -->
+                    <ProgressBar Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                                 Name="LoadingIndicator" IsVisible="False"
+                                 IsIndeterminate="True" Margin="5"/>
+                </Grid>
+            </Border>
+        </Expander>
         
         <!-- Search Results -->
-        <ScrollViewer Grid.Row="2">
-            <ItemsControl Name="SearchResultsControl" Margin="10">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate  DataType="{x:Type local:TripSearchResult}">
-                        <Border Background="#2a2a3a" Margin="0,0,0,10" 
-                                CornerRadius="8" Padding="15">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                
-                                <Image Grid.Column="0" Width="150" Height="100"
-                                       Source="{Binding ImagePath}" Margin="0,0,15,0"/>
-                                
-                                <StackPanel Grid.Column="1">
-                                    <TextBlock Text="{Binding Name}"
-                                               FontSize="20" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Destination}"
-                                               Margin="0,5,0,0"/>
-                                    <TextBlock Text="{Binding Description}"
-                                               TextWrapping="Wrap" Opacity="0.7"/>
-                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                        <TextBlock Text="Duration: "/>
-                                        <TextBlock Text="{Binding Duration}" Margin="5,0,0,0"/>
-                                    </StackPanel>
-                                </StackPanel>
-                                
-                                <StackPanel Grid.Column="2" Width="120">
-                                    <TextBlock Text="{Binding Price}"
-                                               FontSize="18" FontWeight="Bold"
-                                               HorizontalAlignment="Right"/>
-                                    <Button Content="View Details" Margin="0,10"
-                                            HorizontalAlignment="Right"/>
-                                    <Button Content="Book"
-                                            HorizontalAlignment="Right"
-                                            Background="#3E8853"/>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+        <Grid Grid.Row="2">
+            <ScrollViewer>
+                <StackPanel>
+                    <!-- No results message -->
+                    <TextBlock Name="NoResultsMessage" IsVisible="False"
+                               Text="No trips found matching your criteria. Try adjusting your search."
+                               HorizontalAlignment="Center" Margin="0,20"
+                               FontSize="16" Foreground="#AAA"/>
+                    
+                    <!-- Error message -->
+                    <TextBlock Name="ErrorMessage" IsVisible="False"
+                               HorizontalAlignment="Center" Margin="0,20"
+                               FontSize="16" Foreground="Red"/>
+                    
+                    <!-- Results list -->
+                    <ItemsControl Name="SearchResultsControl" Margin="10">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type local:TripSearchResult}">
+                                <Border Background="#2a2a3a" Margin="0,0,0,10" 
+                                        CornerRadius="8" Padding="15">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <Image Grid.Column="0" Width="150" Height="100"
+                                               Source="{Binding ImagePath}" Margin="0,0,15,0"/>
+                                        
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontSize="20" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Destination}"
+                                                       Margin="0,5,0,0"/>
+                                            <TextBlock Text="{Binding Description}"
+                                                       TextWrapping="Wrap" Opacity="0.7"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                                <TextBlock Text="Duration: "/>
+                                                <TextBlock Text="{Binding Duration}" Margin="5,0,0,0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                                <TextBlock Text="Group Size: "/>
+                                                <TextBlock Text="{Binding GroupSize}" Margin="5,0,0,0"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        
+                                        <StackPanel Grid.Column="2" Width="120">
+                                            <TextBlock Text="{Binding Price}"
+                                                       FontSize="18" FontWeight="Bold"
+                                                       HorizontalAlignment="Right"/>
+                                                       
+                                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0"
+                                                      HorizontalAlignment="Right">
+                                                <TextBlock Text="Date: "/>
+                                                <TextBlock Text="{Binding StartDate, StringFormat=\{0:MMM dd\}}" Margin="5,0,0,0"/>
+                                            </StackPanel>
+                                            
+                                            <Button Content="Add to Wishlist" Margin="0,10,0,5"
+                                                    HorizontalAlignment="Right"
+                                                    Click="OnWishlistButtonClicked"/>
+                                                    
+                                            <Button Content="Book Now"
+                                                    HorizontalAlignment="Right"
+                                                    Background="#3E8853"
+                                                    Click="OnBookButtonClicked"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

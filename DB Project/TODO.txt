@@ -1,5 +1,7 @@
 SAIM:
-//TODO: change authenticateUser to authenticate traveller
+//TODO: GetOperatorTrips()
+//TODO: Imeplement a payment portal for booking stuff and implement wishlist
+
 
 AREEB:
 //TODO: User & tour management- AdminManagement axaml
