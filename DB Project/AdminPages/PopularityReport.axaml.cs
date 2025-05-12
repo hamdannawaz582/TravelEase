@@ -105,7 +105,8 @@ public partial class PopularityReport : UserControl, INotifyPropertyChanged
                 new Axis
                 {
                     Labels = labels.ToArray(),
-                    LabelsRotation = 45
+                    LabelsRotation = 45,
+                    TextSize = 8
                 }
             };
             _mostBookedChart.YAxes = new Axis[]
@@ -267,7 +268,8 @@ public partial class PopularityReport : UserControl, INotifyPropertyChanged
                 new Axis
                 {
                     Labels = labels.ToArray(),
-                    LabelsRotation = 45
+                    LabelsRotation = 45,
+                    TextSize = 8
                 }
             };
             _satisfactionChart.YAxes = new Axis[]
@@ -275,8 +277,9 @@ public partial class PopularityReport : UserControl, INotifyPropertyChanged
                 new Axis
                 {
                     Name = "Rating (1-5 stars)",
-                    MinLimit = 0,
-                    MaxLimit = 5
+                    MinLimit = 3.8,
+                    MaxLimit = 4.5
+                    
                 }
             };
         }
@@ -349,7 +352,8 @@ public partial class PopularityReport : UserControl, INotifyPropertyChanged
                 new Axis
                 {
                     Labels = labels.ToArray(),
-                    LabelsRotation = 45
+                    LabelsRotation = 45,
+                    TextSize = 8
                 }
             };
             _emergingChart.YAxes = new Axis[]
