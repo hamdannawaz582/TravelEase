@@ -1,12 +1,7 @@
 SAIM:
-//TODO: GetOperatorTrips()
-//TODO: Imeplement a payment portal for booking stuff and implement wishlist
-//testing signed commit
 
 AREEB:
-//TODO: User & tour management- AdminManagement axaml
-//TODO: trips listing-companyViewEdit axaml
-//TODO: resource coordination- Company Hotel axaml
-//TODO: Booking Management- Company Create axaml
 
 HAMDAN:
+
+//SAB KHATAM HOGAYA
