@@ -28,7 +28,7 @@ namespace DB_Project
 
                     InitializeSidebar(splitView, sidebar, mainContent);
 
-                    var analyticsPage = new CompanyAnalytics();
+                    var analyticsPage = new CompanyAnalytics(username);
                     var createTripPage = new CompanyCreate();
                     var companyManagePage = new CompanyManage();
                     var manageTripsPage = new CompanyViewEdit();
