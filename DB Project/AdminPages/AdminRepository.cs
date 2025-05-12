@@ -64,7 +64,7 @@ namespace DB_Project.Repositories
                 return false;
             }
         }
-        // Add to AdminRepository.cs
+
         public async Task<List<ReviewViewModel>> GetAllReviews()
         {
             var reviews = new List<ReviewViewModel>();
@@ -153,7 +153,6 @@ public async Task<bool> DeleteReview(int reviewId)
     
     try
     {
-        // First delete from child tables
         var tripReviewCommand = new SqlCommand("DELETE FROM TripReview WHERE ReviewID = @ReviewID", 
             connection, transaction);
         tripReviewCommand.Parameters.AddWithValue("@ReviewID", reviewId);
@@ -164,7 +163,6 @@ public async Task<bool> DeleteReview(int reviewId)
         hotelReviewCommand.Parameters.AddWithValue("@ReviewID", reviewId);
         await hotelReviewCommand.ExecuteNonQueryAsync();
         
-        // Then delete from the Review table
         var reviewCommand = new SqlCommand("DELETE FROM Review WHERE ReviewID = @ReviewID", 
             connection, transaction);
         reviewCommand.Parameters.AddWithValue("@ReviewID", reviewId);

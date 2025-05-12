@@ -26,7 +26,7 @@
         <!-- Reviews List in ScrollViewer -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Name="ReviewsPanel" Spacing="10">
-                <!-- Reviews will be added here programmatically -->
+                <!-- Reviews added here -->
             </StackPanel>
         </ScrollViewer>
         

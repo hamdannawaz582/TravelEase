@@ -127,7 +127,6 @@ public partial class TripPaymentPage : UserControl
 
     private void OnMakePaymentClick(object? sender, RoutedEventArgs e)
     {
-        // Begin transaction to update budget and create booking
         string bookingQuery = @"
             BEGIN TRANSACTION;
 
@@ -157,7 +156,6 @@ public partial class TripPaymentPage : UserControl
                 if (rowsAffected > 0)
                 {
                     Console.WriteLine("Trip booking confirmed and payment processed successfully.");
-                    // Navigate back to the search page
                     if (this.Parent is ContentControl contentControl)
                     {
                         contentControl.Content = new TripSearchPage(TravellerUsername);
@@ -191,7 +189,6 @@ public partial class TripPaymentPage : UserControl
     {
         if (this.Parent is ContentControl contentControl)
         {
-            // Go back to the search page
             contentControl.Content = new TripSearchPage(TravellerUsername);
         }
     }

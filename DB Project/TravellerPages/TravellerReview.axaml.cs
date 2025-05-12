@@ -11,15 +11,15 @@ namespace DB_Project.TravellerPages
 {
     public partial class TravellerReview : UserControl
     {
-        private string _username;
-        private TravellerRepository _repository;
-        private List<Trip> _pastTrips;
+        private string Username;
+        private TravellerRepository repo;
+        private List<Trip> pastTrips;
         
         public TravellerReview(string username)
         {
             InitializeComponent();
-            _username = username;
-            _repository = new TravellerRepository();
+            Username = username;
+            repo = new TravellerRepository();
             
             LoadAsync();
         }
@@ -34,11 +34,11 @@ namespace DB_Project.TravellerPages
         {
             try
             {
-                _pastTrips = await _repository.GetTripHistory(_username);
+                pastTrips = await repo.GetTripHistory(Username);
                 
                 // Populate trip dropdown
                 var tripComboBox = this.FindControl<ComboBox>("TripComboBox");
-                tripComboBox.ItemsSource = _pastTrips;
+                tripComboBox.ItemsSource = pastTrips;
                 tripComboBox.DisplayMemberBinding = new Avalonia.Data.Binding("Title");
                 
                 // Get and populate hotels from past bookings
@@ -49,7 +49,7 @@ namespace DB_Project.TravellerPages
                       WHERE rb.Username = @Username", 
                     DB_Project.Services.DatabaseService.Instance.CreateConnection());
                 
-                hotelCommand.Parameters.AddWithValue("@Username", _username);
+                hotelCommand.Parameters.AddWithValue("@Username", Username);
                 
                 var hotels = new List<Hotel>();
                 using (var connection = hotelCommand.Connection)
@@ -96,7 +96,7 @@ namespace DB_Project.TravellerPages
                       ORDER BY r.ReviewTime DESC", 
                     DB_Project.Services.DatabaseService.Instance.CreateConnection());
                 
-                tripReviewsCommand.Parameters.AddWithValue("@Username", _username);
+                tripReviewsCommand.Parameters.AddWithValue("@Username", Username);
                 
                 // Get hotel reviews
                 var hotelReviewsCommand = new Microsoft.Data.SqlClient.SqlCommand(
@@ -109,7 +109,7 @@ namespace DB_Project.TravellerPages
                       ORDER BY r.ReviewTime DESC", 
                     DB_Project.Services.DatabaseService.Instance.CreateConnection());
                 
-                hotelReviewsCommand.Parameters.AddWithValue("@Username", _username);
+                hotelReviewsCommand.Parameters.AddWithValue("@Username", Username);
                 
                 var reviews = new List<ReviewDisplay>();
                 
@@ -309,8 +309,8 @@ namespace DB_Project.TravellerPages
             
             try
             {
-                bool result = await _repository.AddTripReview(
-                    _username, 
+                bool result = await repo.AddTripReview(
+                    Username, 
                     selectedTrip.TripID, 
                     stars, 
                     tripFeedbackTextBox.Text
@@ -370,8 +370,8 @@ namespace DB_Project.TravellerPages
             
             try
             {
-                bool result = await _repository.AddHotelReview(
-                    _username, 
+                bool result = await repo.AddHotelReview(
+                    Username, 
                     selectedHotel.HUsername, 
                     stars, 
                     hotelFeedbackTextBox.Text

@@ -102,18 +102,15 @@
         <Grid Grid.Row="2">
             <ScrollViewer>
                 <StackPanel>
-                    <!-- No results message -->
                     <TextBlock Name="NoResultsMessage" IsVisible="False"
                                Text="No trips found matching your criteria. Try adjusting your search."
                                HorizontalAlignment="Center" Margin="0,20"
                                FontSize="16" Foreground="#AAA"/>
                     
-                    <!-- Error message -->
                     <TextBlock Name="ErrorMessage" IsVisible="False"
                                HorizontalAlignment="Center" Margin="0,20"
                                FontSize="16" Foreground="Red"/>
                     
-                    <!-- Results list -->
                     <ItemsControl Name="SearchResultsControl" Margin="10">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type local:TripSearchResult}">

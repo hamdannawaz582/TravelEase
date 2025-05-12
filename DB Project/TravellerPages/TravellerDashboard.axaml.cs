@@ -87,7 +87,6 @@ namespace DB_Project.TravellerPages
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading upcoming trips: {ex.Message}");
-                // Fallback to demo data if database fails
                 _trips = new ObservableCollection<TripItem>
                 {
                     new TripItem { Destination = "Paris Adventure", Date = "May 15-20, 2025", Status = "Confirmed", CancellationPolicy = "Refundable" },
@@ -234,9 +233,7 @@ namespace DB_Project.TravellerPages
 
         private void EditProfile_Click(object sender, RoutedEventArgs e)
         {
-            // Enable editing of profile fields
             Console.WriteLine("Editing profile");
-            // In a full implementation, you would make the profile fields editable here
         }
 
         private async void SaveProfile_Click(object sender, RoutedEventArgs e)

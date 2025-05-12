@@ -17,18 +17,18 @@ namespace DB_Project.AdminPages;
 
 public partial class OperatorPerformanceReport : UserControl, INotifyPropertyChanged
 {
-    private CartesianChart _operatorRatingsChart;
-    private CartesianChart _operatorRevenueChart;
-    private CartesianChart _responseTimeChart;
+    private CartesianChart RatingsChart;
+    private CartesianChart RevenueChart;
+    private CartesianChart TimeChart;
     
     public OperatorPerformanceReport()
     {
         InitializeComponent();
         DataContext = this;
         
-        _operatorRatingsChart = this.FindControl<CartesianChart>("OperatorRatingsChart");
-        _operatorRevenueChart = this.FindControl<CartesianChart>("OperatorRevenueChart");
-        _responseTimeChart = this.FindControl<CartesianChart>("ResponseTimeChart");
+        RatingsChart = this.FindControl<CartesianChart>("OperatorRatingsChart");
+        RevenueChart = this.FindControl<CartesianChart>("OperatorRevenueChart");
+        TimeChart = this.FindControl<CartesianChart>("ResponseTimeChart");
         
         LoadOperatorRatings();
         LoadOperatorRevenue();
@@ -90,8 +90,8 @@ public partial class OperatorPerformanceReport : UserControl, INotifyPropertyCha
                 MaxBarWidth = 30
             };
             
-            _operatorRatingsChart.Series = new ISeries[] { columnSeries };
-            _operatorRatingsChart.XAxes = new Axis[] 
+            RatingsChart.Series = new ISeries[] { columnSeries };
+            RatingsChart.XAxes = new Axis[] 
             { 
                 new Axis 
                 { 
@@ -99,7 +99,7 @@ public partial class OperatorPerformanceReport : UserControl, INotifyPropertyCha
                     LabelsRotation = 45
                 } 
             };
-            _operatorRatingsChart.YAxes = new Axis[] 
+            RatingsChart.YAxes = new Axis[] 
             { 
                 new Axis 
                 { 
@@ -162,8 +162,8 @@ public partial class OperatorPerformanceReport : UserControl, INotifyPropertyCha
                 MaxBarWidth = 30
             };
             
-            _operatorRevenueChart.Series = new ISeries[] { columnSeries };
-            _operatorRevenueChart.XAxes = new Axis[] 
+            RevenueChart.Series = new ISeries[] { columnSeries };
+            RevenueChart.XAxes = new Axis[] 
             { 
                 new Axis 
                 { 
@@ -171,7 +171,7 @@ public partial class OperatorPerformanceReport : UserControl, INotifyPropertyCha
                     LabelsRotation = 45
                 } 
             };
-            _operatorRevenueChart.YAxes = new Axis[] 
+            RevenueChart.YAxes = new Axis[] 
             { 
                 new Axis 
                 { 
@@ -235,8 +235,8 @@ public partial class OperatorPerformanceReport : UserControl, INotifyPropertyCha
                 MaxBarWidth = 40
             };
             
-            _responseTimeChart.Series = new ISeries[] { columnSeries };
-            _responseTimeChart.XAxes = new Axis[] 
+            TimeChart.Series = new ISeries[] { columnSeries };
+            TimeChart.XAxes = new Axis[] 
             { 
                 new Axis 
                 { 
@@ -244,7 +244,7 @@ public partial class OperatorPerformanceReport : UserControl, INotifyPropertyCha
                     LabelsRotation = 45
                 } 
             };
-            _responseTimeChart.YAxes = new Axis[] 
+            TimeChart.YAxes = new Axis[] 
             { 
                 new Axis 
                 { 

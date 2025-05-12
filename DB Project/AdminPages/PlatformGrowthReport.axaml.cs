@@ -17,20 +17,20 @@ namespace DB_Project.AdminPages;
 
 public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
 {
-    private CartesianChart _userRegistrationsChart;
-    private CartesianChart _activeUsersChart;
-    private CartesianChart _partnershipGrowthChart;
-    private CartesianChart _regionalExpansionChart;
+    private CartesianChart RegistrationsChart;
+    private CartesianChart ActiveUsers;
+    private CartesianChart GrowthChart;
+    private CartesianChart ExpansionChart;
 
     public PlatformGrowthReport()
     {
         InitializeComponent();
         DataContext = this;
 
-        _userRegistrationsChart = this.FindControl<CartesianChart>("UserRegistrationsChart");
-        _activeUsersChart = this.FindControl<CartesianChart>("ActiveUsersChart");
-        _partnershipGrowthChart = this.FindControl<CartesianChart>("PartnershipGrowthChart");
-        _regionalExpansionChart = this.FindControl<CartesianChart>("RegionalExpansionChart");
+        RegistrationsChart = this.FindControl<CartesianChart>("UserRegistrationsChart");
+        ActiveUsers = this.FindControl<CartesianChart>("ActiveUsersChart");
+        GrowthChart = this.FindControl<CartesianChart>("PartnershipGrowthChart");
+        ExpansionChart = this.FindControl<CartesianChart>("RegionalExpansionChart");
 
         LoadUserRegistrationsData();
         LoadActiveUsersData();
@@ -90,7 +90,6 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
 
             if (months.Count == 0)
             {
-                // Fallback demo data for the last 6 months
                 months = new List<string> { "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11" };
                 travellerCounts = new List<double> { 45, 62, 78, 95, 120, 145 };
                 operatorCounts = new List<double> { 5, 8, 10, 12, 15, 18 };
@@ -128,8 +127,8 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
                 }
             };
 
-            _userRegistrationsChart.Series = series;
-            _userRegistrationsChart.XAxes = new Axis[]
+            RegistrationsChart.Series = series;
+            RegistrationsChart.XAxes = new Axis[]
             {
                 new Axis
                 {
@@ -137,7 +136,7 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
                     LabelsRotation = 45
                 }
             };
-            _userRegistrationsChart.YAxes = new Axis[]
+            RegistrationsChart.YAxes = new Axis[]
             {
                 new Axis
                 {
@@ -155,8 +154,6 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
     {
         try
         {
-            // Since there's no direct "active users" data in the schema,
-            // we'll use trip bookings and room bookings to simulate active users
             string query = @"
                 SELECT
                     FORMAT(t.StartDate, 'yyyy-MM') AS Month,
@@ -217,8 +214,8 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
                 }
             };
 
-            _activeUsersChart.Series = series;
-            _activeUsersChart.XAxes = new Axis[]
+            ActiveUsers.Series = series;
+            ActiveUsers.XAxes = new Axis[]
             {
                 new Axis
                 {
@@ -226,7 +223,7 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
                     LabelsRotation = 45
                 }
             };
-            _activeUsersChart.YAxes = new Axis[]
+            ActiveUsers.YAxes = new Axis[]
             {
                 new Axis
                 {
@@ -280,7 +277,6 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
 
             if (months.Count == 0)
             {
-                // Fallback demo data
                 months = new List<string> { "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11" };
                 newHotels = new List<double> { 3, 5, 4, 7, 6, 9 };
                 newOperators = new List<double> { 2, 3, 5, 4, 6, 7 };
@@ -308,8 +304,8 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
                 }
             };
 
-            _partnershipGrowthChart.Series = series;
-            _partnershipGrowthChart.XAxes = new Axis[]
+            GrowthChart.Series = series;
+            GrowthChart.XAxes = new Axis[]
             {
                 new Axis
                 {
@@ -317,7 +313,7 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
                     LabelsRotation = 45
                 }
             };
-            _partnershipGrowthChart.YAxes = new Axis[]
+            GrowthChart.YAxes = new Axis[]
             {
                 new Axis
                 {
@@ -379,12 +375,10 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
 
             if (months.Count == 0)
             {
-                // Fallback demo data
                 months = new List<string> { "2023-06", "2023-07", "2023-08", "2023-09", "2023-10", "2023-11" };
                 newCountries = new List<double> { 2, 3, 1, 4, 2, 3 };
                 newCities = new List<double> { 5, 7, 6, 9, 8, 10 };
                 
-                // Calculate cumulative values
                 int totalCountries = 0;
                 int totalCities = 0;
                 for (int i = 0; i < newCountries.Count; i++)
@@ -432,8 +426,8 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
                 }
             };
 
-            _regionalExpansionChart.Series = series;
-            _regionalExpansionChart.XAxes = new Axis[]
+            ExpansionChart.Series = series;
+            ExpansionChart.XAxes = new Axis[]
             {
                 new Axis
                 {
@@ -441,7 +435,7 @@ public partial class PlatformGrowthReport : UserControl, INotifyPropertyChanged
                     LabelsRotation = 45
                 }
             };
-            _regionalExpansionChart.YAxes = new Axis[]
+            ExpansionChart.YAxes = new Axis[]
             {
                 new Axis
                 {

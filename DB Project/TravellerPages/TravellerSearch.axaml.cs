@@ -180,21 +180,18 @@ namespace DB_Project.TravellerPages
         
         private string GetImageForDestination(string destination)
         {
-            // Simple mapping of destinations to images
             if (destination.Contains("Paris"))
                 return "../Assets/paris.png";
             if (destination.Contains("Rome"))
                 return "../Assets/rome.png";
             if (destination.Contains("Tokyo"))
                 return "../Assets/tokyo.png";
-                
-            // Default image
+            
             return "../Assets/default_destination.png";
         }
         
         private void LoadSearchResults()
         {
-            // This is just for initial display until a search is performed
             var results = new ObservableCollection<TripSearchResult>
             {
                 new TripSearchResult {
@@ -236,8 +233,7 @@ namespace DB_Project.TravellerPages
                     return;
                 }
                 var paymentPage = new TripPaymentPage(trip.TripID.ToString(), _username);
-        
-                // (which should be ContentControl in MainWindow)
+                
                 if (this.Parent is ContentControl contentControl)
                 {
                     contentControl.Content = paymentPage;

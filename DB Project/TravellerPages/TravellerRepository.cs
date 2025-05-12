@@ -213,8 +213,7 @@ namespace DB_Project.Repositories
             
             return trips;
         }
-
-// Update this method in TravellerRepository.cs
+        
 public async Task<List<Trip>> GetUpcomingTrips(string username)
 {
     using var connection = DatabaseService.Instance.CreateConnection();
@@ -334,7 +333,6 @@ public async Task<List<TravelPass>> GetTravelPasses(string username)
             return trips;
         }
 
-        // Get trip itineraries
         public async Task<List<ItineraryItem>> GetTripItineraries(int tripId)
         {
             using var connection = DatabaseService.Instance.CreateConnection();
@@ -472,8 +470,7 @@ public async Task<List<TravelPass>> GetTravelPasses(string username)
             int rowsAffected = await command.ExecuteNonQueryAsync();
             return rowsAffected > 0;
         }
-
-        // Get available hotels
+        //
         // public async Task<List<HotelReviewItem>> GetAvailableHotels()
         // {
         //     using var connection = DatabaseService.Instance.CreateConnection();
@@ -495,7 +492,6 @@ public async Task<List<TravelPass>> GetTravelPasses(string username)
         //     
         //     return hotels;
         // }
-        // Add this method to TravellerRepository class
 public async Task<List<Trip>> SearchTrips(string destination, DateTime? startDate, 
     DateTime? endDate, string tripType, int maxPrice, int? minGroupSize = null, 
     int? maxGroupSize = null, List<int> accessibilityIds = null)

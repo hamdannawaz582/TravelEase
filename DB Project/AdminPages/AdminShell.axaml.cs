@@ -15,7 +15,6 @@ namespace DB_Project
             {
                 try
                 {
-                    //find controls
                     var splitView = this.FindControl<SplitView>("SplitView");
                     var sidebar = this.FindControl<SidebarControl>("Sidebar");
                     var mainContent = this.FindControl<ContentControl>("MainContent");

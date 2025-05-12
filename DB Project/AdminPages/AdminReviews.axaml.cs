@@ -14,12 +14,11 @@ namespace DB_Project.AdminPages
 {
     public partial class AdminReviews : UserControl
     {
-        private ObservableCollection<ReviewViewModel> _reviews;
-        private ReviewViewModel _selectedReview;
-        private AdminRepository _repository;
-        private StackPanel _reviewsPanel;
-
-        // Define inappropriate words to check for
+        private ObservableCollection<ReviewViewModel> Reviews;
+        private ReviewViewModel SelectedReview;
+        private AdminRepository Repository;
+        private StackPanel ReviewsStackPanel;
+        
         private readonly List<string> _inappropriateWords = new List<string> {
             "awful", "terrible", "hate", "stupid", "idiot", "dumb", "ridiculous",
             "sucks", "worst", "garbage", "trash", "crap", "rubbish", "horrible",
@@ -30,26 +29,25 @@ namespace DB_Project.AdminPages
         public AdminReviews()
         {
             InitializeComponent();
-            _reviews = new ObservableCollection<ReviewViewModel>();
-            _repository = new AdminRepository();
-            _reviewsPanel = this.FindControl<StackPanel>("ReviewsPanel");
+            Reviews = new ObservableCollection<ReviewViewModel>();
+            Repository = new AdminRepository();
+            ReviewsStackPanel = this.FindControl<StackPanel>("ReviewsPanel");
             
             this.AttachedToVisualTree += (s, e) => LoadReviewsAsync();
         }
 
         private async void LoadReviewsAsync()
         {
-            _reviews.Clear();
-            _reviewsPanel.Children.Clear();
+            Reviews.Clear();
+            ReviewsStackPanel.Children.Clear();
 
             try
             {
-                var reviews = await _repository.GetAllReviews();
+                var reviews = await Repository.GetAllReviews();
                 var flaggedCount = 0;
 
                 foreach (var review in reviews)
                 {
-                    // Process review for inappropriate words
                     if (!string.IsNullOrEmpty(review.Feedback))
                     {
                         var words = review.Feedback.ToLower().Split(new[] { ' ', '.', ',', '!', '?', ';', ':', '-', '\n', '\r' },
@@ -70,11 +68,9 @@ namespace DB_Project.AdminPages
                             flaggedCount++;
                     }
 
-                    _reviews.Add(review);
-                    
-                    // Create a review card
+                    Reviews.Add(review);
                     var reviewCard = CreateReviewCard(review);
-                    _reviewsPanel.Children.Add(reviewCard);
+                    ReviewsStackPanel.Children.Add(reviewCard);
                 }
 
                 ReviewCountText.Text = $"Total: {reviews.Count} | Flagged: {flaggedCount}";
@@ -87,7 +83,6 @@ namespace DB_Project.AdminPages
 
         private Control CreateReviewCard(ReviewViewModel review)
         {
-            // Main border for the review card
             var border = new Border
             {
                 BorderBrush = new SolidColorBrush(Color.Parse("#3c3c3c")),
@@ -96,17 +91,11 @@ namespace DB_Project.AdminPages
                 Padding = new Thickness(10),
                 Background = new SolidColorBrush(Color.Parse("#2d2d2d"))
             };
-
-            // Main grid for the review card layout
             var grid = new Grid
             {
                 ColumnDefinitions = new ColumnDefinitions("*, Auto")
             };
-
-            // Content panel for review details
             var contentPanel = new StackPanel { Spacing = 5 };
-
-            // Review header with reviewer name and stars
             var headerPanel = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 10 };
             headerPanel.Children.Add(new TextBlock
             {
@@ -130,17 +119,13 @@ namespace DB_Project.AdminPages
                 FontSize = 12
             };
             headerPanel.Children.Add(dateText);
-            
             contentPanel.Children.Add(headerPanel);
-
-            // Review content
             contentPanel.Children.Add(new TextBlock
             {
                 Text = review.Feedback,
                 TextWrapping = TextWrapping.Wrap
             });
 
-            // Response section if available
             if (!string.IsNullOrEmpty(review.Response))
             {
                 var responsePanel = new StackPanel { Margin = new Thickness(0, 10, 0, 0) };
@@ -157,8 +142,6 @@ namespace DB_Project.AdminPages
                 });
                 contentPanel.Children.Add(responsePanel);
             }
-
-            // Add flagged words indicator if any
             if (review.FlaggedWords.Count > 0)
             {
                 contentPanel.Children.Add(new TextBlock
@@ -173,7 +156,6 @@ namespace DB_Project.AdminPages
             grid.Children.Add(contentPanel);
             Grid.SetColumn(contentPanel, 0);
 
-            // Button panel for actions
             var buttonPanel = new StackPanel
             {
                 Orientation = Orientation.Vertical,
@@ -209,16 +191,16 @@ namespace DB_Project.AdminPages
         private void ApplyFilter_Click(object sender, RoutedEventArgs e)
         {
             var showOnlyFlagged = FlaggedOnlyCheckBox.IsChecked ?? false;
-            _reviewsPanel.Children.Clear();
+            ReviewsStackPanel.Children.Clear();
 
             var filteredReviews = showOnlyFlagged 
-                ? _reviews.Where(r => r.FlaggedWords.Count > 0)
-                : _reviews;
+                ? Reviews.Where(r => r.FlaggedWords.Count > 0)
+                : Reviews;
 
             foreach (var review in filteredReviews)
             {
                 var reviewCard = CreateReviewCard(review);
-                _reviewsPanel.Children.Add(reviewCard);
+                ReviewsStackPanel.Children.Add(reviewCard);
             }
         }
 
@@ -230,7 +212,7 @@ namespace DB_Project.AdminPages
 
         private void ShowResponseDialog(ReviewViewModel review)
         {
-            _selectedReview = review;
+            SelectedReview = review;
             ResponseTextBox.Text = review.Response ?? "";
             ResponsePanel.IsVisible = true;
         }
@@ -242,16 +224,15 @@ namespace DB_Project.AdminPages
 
         private async void SaveResponse_Click(object sender, RoutedEventArgs e)
         {
-            if (_selectedReview == null) return;
+            if (SelectedReview == null) return;
 
             string response = ResponseTextBox?.Text?.Trim() ?? "";
-            bool success = await _repository.UpdateReviewResponse(_selectedReview.ReviewID, response);
+            bool success = await Repository.UpdateReviewResponse(SelectedReview.ReviewID, response);
 
             if (success)
             {
-                _selectedReview.Response = response;
-                _selectedReview.ResponseDate = DateTime.Now;
-                // Refresh the reviews display
+                SelectedReview.Response = response;
+                SelectedReview.ResponseDate = DateTime.Now;
                 LoadReviewsAsync();
             }
 
@@ -262,15 +243,15 @@ namespace DB_Project.AdminPages
         {
             try
             {
-                bool result = await _repository.DeleteReview(review.ReviewID);
+                bool result = await Repository.DeleteReview(review.ReviewID);
                 if (result)
                 {
-                    _reviews.Remove(review);
+                    Reviews.Remove(review);
                     LoadReviewsAsync();
                     
                     // Update the counter
-                    int flaggedCount = _reviews.Count(r => r.FlaggedWords.Count > 0);
-                    ReviewCountText.Text = $"Total: {_reviews.Count} | Flagged: {flaggedCount}";
+                    int flaggedCount = Reviews.Count(r => r.FlaggedWords.Count > 0);
+                    ReviewCountText.Text = $"Total: {Reviews.Count} | Flagged: {flaggedCount}";
                 }
             }
             catch (Exception ex)

@@ -54,7 +54,6 @@ public partial class AdminAnalytics : UserControl
 
     private void UserTrafficButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        //check ComboBox value and set chart data accordingly
         if (UserTrafficComboBox.SelectedIndex == 0)
         {
             string query = "SELECT DAY(JoinDate) AS D, COUNT(Username) AS C FROM [User] GROUP BY DAY(JoinDate);";
@@ -181,7 +180,6 @@ public partial class AdminAnalytics : UserControl
 
     private void RevenueButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        //check ComboBox value and set chart data accordingly
         if (RevenueComboBox.SelectedIndex == 0)
         {
             string query = "SELECT DAY(StartDate) as StartDay, SUM(t.PriceRange) as C FROM [User] u JOIN Trip_Booking tb ON tb.Username = u.Username JOIN Trip t ON t.TripID = tb.TripID GROUP BY DAY(StartDate) ORDER BY DAY(StartDate);";
@@ -308,7 +306,6 @@ public partial class AdminAnalytics : UserControl
 
     private void BookingButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        //check ComboBox value and set chart data accordingly
         if (BookingComboBox.SelectedIndex == 0)
         {
             string query = "SELECT DAY(StartDate) as StartDay, COUNT(u.Username) as C FROM [User] u JOIN Trip_Booking tb ON tb.Username = u.Username RIGHT JOIN Trip t ON t.TripID = tb.TripID GROUP BY DAY(StartDate) ORDER BY DAY(StartDate);";
