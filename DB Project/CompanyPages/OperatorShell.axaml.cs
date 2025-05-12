@@ -34,6 +34,7 @@ namespace DB_Project
                     var manageTripsPage = new CompanyViewEdit(username);
                     var hotelPartnersPage = new CompanyHotel(username);
                     var tripBookingReportPage = new TripBookingReport(username);
+                    var bookingAnalysisReportPage = new BookingAnalysisReport(username);
 
                     sidebar.AddTab("Analytics", analyticsPage);
                     sidebar.AddTab("Create Trip", createTripPage);
@@ -41,6 +42,7 @@ namespace DB_Project
                     sidebar.AddTab("Manage Trips", manageTripsPage);
                     sidebar.AddTab("Hotel Partners", hotelPartnersPage);
                     sidebar.AddTab("Trip Booking Report", tripBookingReportPage);
+                    sidebar.AddTab("Booking Analysis Report", bookingAnalysisReportPage);
 
                     ConfigureCommonTabs(sidebar);
 

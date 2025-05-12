@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="DB_Project.CompanyPages.BookingAnalysisReport">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <StackPanel Margin="15" Spacing="10">
+            <TextBlock Text="Abandoned Booking Analysis Report"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       Margin="0 0 0 10"/>
+
+            <!-- Abandonment Rate -->
+            <TextBlock x:Name="AbandonmentRateTextBlock"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       Margin="0 20 0 0" />
+            <TextBlock Text="Abandonment Rate Chart" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0 20 0 0" />
+            <avalonia:PieChart x:Name="AbandonmentRateChart" Height="300" />
+
+            <!-- Potential Revenue Loss -->
+            <TextBlock x:Name="PotentialRevenueLossTextBlock"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       Margin="0 20 0 0" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
