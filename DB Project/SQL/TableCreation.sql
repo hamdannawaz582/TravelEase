@@ -39,6 +39,9 @@ CREATE TABLE [User](
     Password VARCHAR(128) NOT NULL, -- Hashed Password (sha512)
     JoinDate DATETIME NOT NULL
 )
+ALTER TABLE [User]
+    ADD Status VARCHAR(10) DEFAULT 'Pending'
+    CHECK (Status IN ('Pending', 'Approved', 'Rejected'));
 
 CREATE TABLE Operator(
     Username VARCHAR(30) PRIMARY KEY
@@ -107,6 +110,9 @@ CREATE TABLE Trip_Booking(
 )
 
 ALTER TABLE Trip_Booking ADD CONSTRAINT PK_Trip_Booking PRIMARY KEY (Username, TripID)
+ALTER TABLE Trip_Booking
+    ADD Status VARCHAR(10) DEFAULT 'Pending'
+        CHECK (Status IN ('Pending', 'Approved', 'Rejected'));
 
 CREATE TABLE Trip_Itinerary (
     TripID INT NOT NULL FOREIGN KEY REFERENCES Trip(TripID),
@@ -130,8 +136,10 @@ CREATE TABLE Trip_Accessibility(
 ALTER TABLE Trip_Accessibility ADD CONSTRAINT PK_Trip_Accessibility PRIMARY KEY (TripID, AccessibilityID)
 
 CREATE TABLE Trip_Categories(
-    TripID INT NOT NULL FOREIGN KEY REFERENCES Trip(TripID),
-    CatID INT NOT NULL FOREIGN KEY REFERENCES Categories(CatID)
+    TripID INT NOT NULL,
+    CatID INT NOT NULL,
+    FOREIGN KEY (TripID) REFERENCES Trip(TripID) ON DELETE CASCADE,
+    FOREIGN KEY (CatID) REFERENCES Categories(CatID) ON DELETE CASCADE
 )
 
 ALTER TABLE Trip_Categories ADD CONSTRAINT PK_Trip_Categories PRIMARY KEY (TripID, CatID)
