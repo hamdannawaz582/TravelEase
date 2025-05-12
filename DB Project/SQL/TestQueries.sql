@@ -119,3 +119,12 @@ FROM Review r
 
 WHERE r.Reviewer = 'user088'  -- Replace with the username you want to check
 ORDER BY r.ReviewTime DESC;
+--====================================================================
+SELECT DISTINCT t.TripID, t.Title, t.Type, t.CancellationPolicy,
+                t.StartDate, t.EndDate, t.PriceRange,
+                d.City + ', ' + d.Country AS Destination
+FROM Trip t
+         JOIN Trip_Booking tb ON t.TripID = tb.TripID
+         JOIN Trip_Destination td ON t.TripID = td.TripID
+         JOIN Destination d ON td.DestID = d.DestID
+WHERE tb.Username = 'IbnBatuta' AND t.StartDate > GETDATE()

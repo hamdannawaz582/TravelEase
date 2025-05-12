@@ -27,6 +27,7 @@ namespace DB_Project
         public void SetSplitView(SplitView splitView)
         {
             _splitView = splitView;
+            _splitView.IsPaneOpen = _isPaneOpen;
             DataContext = this;
         }
         public bool IsPaneOpen
@@ -82,6 +83,17 @@ namespace DB_Project
                     travelEaseLabel.IsVisible = _splitView.IsPaneOpen;
                     travelEaseLabel.HorizontalAlignment = _splitView.IsPaneOpen ? 
                         HorizontalAlignment.Center : HorizontalAlignment.Center;
+                }
+            }
+            foreach (var child in TabPanel.Children)
+            {
+                if (child is SidebarTab tab)
+                {
+                    var textBlock = tab.FindControl<TextBlock>("TabText");
+                    if (textBlock != null)
+                    {
+                        textBlock.IsVisible = _splitView.IsPaneOpen;
+                    }
                 }
             }
             

@@ -155,38 +155,50 @@
             </Border>
 
             <!-- Profile Summary -->
-            <Border Grid.Row="4" Background="#2a2a3a" Margin="10"
-                    CornerRadius="8" Padding="15">
+
+            <Border Grid.Row="4" Background="#2a2a3a" Margin="10" CornerRadius="8" Padding="15">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Profile Summary"
-                               FontSize="24" Margin="0,0,0,10"/>
                     
-                    <StackPanel Grid.Row="1" Grid.Column="0">
-                        <TextBlock Name="UsernameBlock" Margin="0,5"/>
-                        <TextBlock Name="EmailBlock" Margin="0,5"/>
-                        <TextBlock Name="FNameBlock" Margin="0,5"/>
-                        <TextBlock Name="LNameBlock" Margin="0,5"/>
-                        <TextBlock Name="NationalityBlock" Margin="0,5"/>
-                        <TextBlock Name="AgeBlock" Margin="0,5"/>
-                        <TextBlock Name="BudgetBlock" Margin="0,5"/>
-                        <TextBlock Name="JoinDateBlock" Margin="0,5"/>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Profile Summary" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                        
+                        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                              ColumnDefinitions="120,*">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Email:" Foreground="#bbb" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" x:Name="EmailTextBox" Margin="0,2"/>
+                            
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="First Name:" Foreground="#bbb" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" x:Name="FirstNameTextBox" Margin="0,2"/>
+                            
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Last Name:" Foreground="#bbb" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" x:Name="LastNameTextBox" Margin="0,2"/>
+                            
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Nationality:" Foreground="#bbb" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" x:Name="NationalityTextBox" Margin="0,2"/>
+                            
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Age:" Foreground="#bbb" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" x:Name="AgeTextBox" Margin="0,2"/>
+                            
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Budget:" Foreground="#bbb" VerticalAlignment="Center"/>
+                            <TextBox Grid.Row="5" Grid.Column="1" x:Name="BudgetTextBox" Margin="0,2"/>
+                            
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Member Since:" Foreground="#bbb" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Row="6" Grid.Column="1" x:Name="JoinDateText" Margin="0,2"/>
+                        </Grid>
                     </StackPanel>
                     
-                    <StackPanel Grid.Row="1" Grid.Column="1">
-                        <Button Content="Edit Profile" Margin="0,5"
-                                Click="EditProfile_Click"/>
-                        <Button Content="Save Profile" Margin="0,5"
-                                Click="SaveProfile_Click"/>
-                    </StackPanel>
+                    <Button Grid.Column="1"
+                            Content="Save Changes"
+                            Click="SaveProfileChanges_Click"
+                            VerticalAlignment="Top"
+                            Padding="10,5"
+                            Background="#0078D7"
+                            Foreground="White"
+                            Margin="10,0,0,0"/>
                 </Grid>
             </Border>
             <!-- Travel History -->
