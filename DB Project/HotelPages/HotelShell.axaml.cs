@@ -27,7 +27,7 @@ namespace DB_Project
                         throw new InvalidOperationException("MainContent control not found in HotelShell");
                     
                     InitializeSidebar(splitView, sidebar, mainContent);
-                    var analyticsPage = new HotelAnalytics();
+                    var analyticsPage = new HotelAnalytics(username);
                     var managementPage = new HotelManagement();
                     sidebar.AddTab("Analytics", analyticsPage);
                     sidebar.AddTab("Room Management", managementPage);
