@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avalonia="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+             x:Class="DB_Project.CompanyPages.TripBookingReport">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+    <StackPanel Margin="15" Spacing="10">
+        <TextBlock Text="Trip Booking and Revenue Report"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="White"
+                   Margin="0 0 0 10"/>
+
+        <!-- Total Bookings Bar Chart -->
+        <TextBlock Text="Total Bookings by Trip" FontSize="16" FontWeight="Bold" Foreground="White" />
+        <avalonia:CartesianChart x:Name="TotalBookingsChart" Height="300" />
+
+        <!-- Revenue by Category Pie Chart -->
+        <TextBlock Text="Revenue by Category" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0 20 0 0" />
+        <avalonia:PieChart x:Name="RevenueByCategoryChart" Height="300" />
+
+        <!-- Cancellation Rate -->
+        <TextBlock Text="Cancellation Rate" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0 20 0 0" />
+        <avalonia:PieChart x:Name="CancellationRateChart" Height="300" />
+
+        <!-- Peak Booking Periods -->
+        <TextBlock Text="Peak Booking Periods" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0 20 0 0" />
+        <avalonia:CartesianChart x:Name="PeakBookingPeriodsChart" Height="300" />
+        
+        <TextBlock x:Name="AverageBookingValueTextBlock" FontSize="16" Margin="10" />
+    </StackPanel>
+    </ScrollViewer>
+
+</UserControl>
