@@ -30,9 +30,9 @@ namespace DB_Project
 
                     var analyticsPage = new CompanyAnalytics(username);
                     var createTripPage = new CompanyCreate();
-                    var companyManagePage = new CompanyManage();
-                    var manageTripsPage = new CompanyViewEdit();
-                    var hotelPartnersPage = new CompanyHotel();
+                    var companyManagePage = new CompanyManage(username);
+                    var manageTripsPage = new CompanyViewEdit(username);
+                    var hotelPartnersPage = new CompanyHotel(username);
 
                     sidebar.AddTab("Analytics", analyticsPage);
                     sidebar.AddTab("Create Trip", createTripPage);
