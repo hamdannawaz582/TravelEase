@@ -6,6 +6,7 @@ using System;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using DB_Project.CompanyPages;
 using DB_Project.Repositories;
 using Microsoft.Data.SqlClient;
 
@@ -40,8 +41,8 @@ public partial class LoginPage : UserControl
                     isAuthenticated = Travellerrepo.AuthenticateTraveller(UserName, Password);
                     break;
                 case "Operator":
-                    //repo = new OperatorRepository();
-                    //isAuthenticated = repo.AuthenticateOperator(UserName, Password);
+                    var oporepo = new OperatorRepository();
+                    isAuthenticated = oporepo.AuthenticateOperator(UserName, Password);
                     break;
                 case "Hotel":
                     var repo = new HotelRepository();
@@ -61,7 +62,7 @@ public partial class LoginPage : UserControl
             Console.WriteLine($"Error: {ex.Message}");
         }
 
-        if (isAuthenticated = true)
+        if (isAuthenticated)
         {
             Login.Background = Brushes.Blue;
             if (this.VisualRoot is Window mainWindow)
