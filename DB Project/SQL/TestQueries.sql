@@ -3,6 +3,7 @@
 --for checking data
 SELECT * FROM [User];
 SELECT * FROM Traveller;
+SELECT * FROM Admin;
 select* from Operator;
 SELECT * FROM Trip_Booking;
 SELECT * FROM Trip_Itinerary;
