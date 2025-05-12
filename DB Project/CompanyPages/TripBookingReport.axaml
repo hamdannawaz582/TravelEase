@@ -26,6 +26,8 @@
         <!-- Peak Booking Periods -->
         <TextBlock Text="Peak Booking Periods" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0 20 0 0" />
         <avalonia:CartesianChart x:Name="PeakBookingPeriodsChart" Height="300" />
+        
+        <TextBlock x:Name="AverageBookingValueTextBlock" FontSize="16" Margin="10" />
     </StackPanel>
     </ScrollViewer>
 

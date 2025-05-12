@@ -59,6 +59,12 @@ public partial class TripBookingReport : UserControl
             }
         };
         PeakBookingPeriodsChart.XAxes = new[] { new Axis { Labels = peakBookingData.Keys.ToArray() } };
+        
+        var averageBookingValue = GetAverageBookingValue(operatorUsername);
+
+        // Display Average Booking Value
+        AverageBookingValueTextBlock.Text = $"Average Booking Value: {averageBookingValue:C}";
+
     }
 
     private Dictionary<string, int> GetTotalBookings(string operatorUsername)
@@ -132,10 +138,9 @@ public partial class TripBookingReport : UserControl
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine(reader["CancelStatus"]);
-                    if (reader["CancelStatus"].ToString() == "0")
+                    if (reader["CancelStatus"] == DBNull.Value)
                         confirmed = Convert.ToDouble(reader["Count"]);
-                    else if (reader["CancelStatus"].ToString() == "1")
+                    else 
                         canceled = Convert.ToDouble(reader["Count"]);
                 }
             }
@@ -143,6 +148,30 @@ public partial class TripBookingReport : UserControl
         return (confirmed, canceled);
     }
 
+    private decimal GetAverageBookingValue(string operatorUsername)
+    {
+        decimal averageBookingValue = 0;
+        string query = @"
+        SELECT AVG(t.PriceRange) AS AverageBookingValue
+        FROM Trip_Booking tb
+        JOIN Trip t ON tb.TripID = t.TripID
+        WHERE t.OperatorUsername = @OperatorUsername";
+
+        using (var connection = DatabaseService.Instance.CreateConnection())
+        using (var command = new SqlCommand(query, connection))
+        {
+            command.Parameters.AddWithValue("@OperatorUsername", operatorUsername);
+            connection.Open();
+            using (var reader = command.ExecuteReader())
+            {
+                if (reader.Read() && reader["AverageBookingValue"] != DBNull.Value)
+                {
+                    averageBookingValue = Convert.ToDecimal(reader["AverageBookingValue"]);
+                }
+            }
+        }
+        return averageBookingValue;
+    }
     private Dictionary<string, int> GetPeakBookingPeriods(string operatorUsername)
     {
         var data = new Dictionary<string, int>();
