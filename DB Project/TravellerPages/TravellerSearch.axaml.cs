@@ -28,25 +28,19 @@ namespace DB_Project.TravellerPages
             
             InitializeControls();
             UpdatePriceLabel();
-            // We'll load default results on startup
             LoadSearchResults();
         }
         
         private void InitializeControls()
         {
-            // Initialize group size options
             GroupSizeCombo.Items.Clear();
             GroupSizeCombo.Items.Add("Any Size");
             GroupSizeCombo.Items.Add("Small (1-5)");
             GroupSizeCombo.Items.Add("Medium (6-15)");
             GroupSizeCombo.Items.Add("Large (16+)");
             GroupSizeCombo.SelectedIndex = 0;
-            
-            // Initialize date pickers with meaningful defaults
             StartDatePicker.SelectedDate = DateTime.Now.Date;
             EndDatePicker.SelectedDate = DateTime.Now.Date.AddDays(7);
-            
-            // Initialize accessibility options
             LoadAccessibilityOptions();
         }
         
@@ -93,7 +87,6 @@ namespace DB_Project.TravellerPages
                 string tripType = (TripTypeCombo.SelectedItem as ComboBoxItem)?.Content?.ToString();
                 int maxPrice = (int)PriceSlider.Value;
                 
-                // Process group size selection
                 int? minGroupSize = null;
                 int? maxGroupSize = null;
                 string groupSizeSelection = GroupSizeCombo.SelectedItem?.ToString();
@@ -242,26 +235,15 @@ namespace DB_Project.TravellerPages
                     await ShowMessageDialog("Please log in to book a trip");
                     return;
                 }
-                
-                try
+                var paymentPage = new TripPaymentPage(trip.TripID.ToString(), _username);
+        
+                // (which should be ContentControl in MainWindow)
+                if (this.Parent is ContentControl contentControl)
                 {
-                    bool success = await _repository.BookTrip(_username, trip.TripID);
-                    if (success)
-                    {
-                        await ShowMessageDialog($"Successfully booked: {trip.Name}");
-                    }
-                    else
-                    {
-                        await ShowMessageDialog("Failed to book the trip. Please try again.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    await ShowMessageDialog($"Error booking trip: {ex.Message}");
+                    contentControl.Content = paymentPage;
                 }
             }
         }
-        
         private async void OnWishlistButtonClicked(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.DataContext is TripSearchResult trip)

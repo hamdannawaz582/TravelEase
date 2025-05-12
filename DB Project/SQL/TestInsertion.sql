@@ -306,3 +306,19 @@ VALUES ('admin1', 'admin@travelease.com', 'adminpass123', '2022-01-01');
 
 INSERT INTO Admin (Username)
 VALUES ('admin1');
+
+
+
+-- delete all upcoming trips for IbnBatuta
+DELETE FROM Trip_Booking
+WHERE Username = 'IbnBatuta'
+  AND TripID IN (
+    SELECT TripID FROM Trip
+    WHERE StartDate > GETDATE()
+);
+
+-- Confirm that the trips were deleted
+SELECT tb.Username, tb.TripID, t.Title, t.StartDate, t.EndDate
+FROM Trip_Booking tb
+         JOIN Trip t ON tb.TripID = t.TripID
+WHERE tb.Username = 'IbnBatuta' AND t.StartDate > GETDATE();
