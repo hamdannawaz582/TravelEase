@@ -110,9 +110,9 @@ CREATE TABLE Trip_Booking(
 )
 
 ALTER TABLE Trip_Booking ADD CONSTRAINT PK_Trip_Booking PRIMARY KEY (Username, TripID)
-ALTER TABLE Trip_Booking
-    ADD Status VARCHAR(10) DEFAULT 'Pending'
-        CHECK (Status IN ('Pending', 'Approved', 'Rejected'));
+ALTER TABLE Trip_Booking ADD Status VARCHAR(10) DEFAULT 'Pending' CHECK (Status IN ('Pending', 'Approved', 'Rejected'));
+ALTER TABLE Trip_Booking ADD PaymentStatus VARCHAR(10) DEFAULT 'Pending' Check(PaymentStatus in ('Pending', 'Paid'));
+
 
 CREATE TABLE Trip_Itinerary (
     TripID INT NOT NULL FOREIGN KEY REFERENCES Trip(TripID),

@@ -800,3 +800,26 @@ BEGIN
 		)
 		SET @i += 1
 END
+
+set @i=0
+WHILE @i <= 20
+BEGIN
+Update Trip
+set CancelStatus=1 where TripID in(Select top 1 TripID from Trip order by NEWID())
+    SET @i += 1
+END
+
+declare @num1 int
+set @num1 = 0
+WHILE @num1 <= 60
+BEGIN
+Update Trip_Booking
+set Trip_Booking.PaymentStatus=(
+    Case (ABS(CHECKSUM(NEWID())) % 3)
+        when 0 then 'Pending'
+        when 1 then 'Paid'
+        when 2 then 'Paid'
+        end
+    ) where TripID in(Select top 1 TripID from Trip_Booking order by NEWID())
+    SET @num1 += 1
+END
