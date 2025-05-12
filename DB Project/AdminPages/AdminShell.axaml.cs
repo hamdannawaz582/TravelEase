@@ -32,10 +32,13 @@ namespace DB_Project
                     var managementPage = new AdminManagement();
                     var catergoryManagement = new CategoryManagement();
                     var reviewsPage = new AdminReviews();
+                    var TravellerDemo = new TravellerDemographicsReport();
                     Sidebar.AddTab("Analytics", analyticsPage);
                     Sidebar.AddTab("Admin Management", managementPage);
                     Sidebar.AddTab("Category Management", catergoryManagement);
                     Sidebar.AddTab("Reviews", reviewsPage);
+                    Sidebar.AddTab("TravellerDemo",TravellerDemo);
+                    
                     ConfigureCommonTabs(sidebar);
                     MainContent.Content = analyticsPage;
                 }
