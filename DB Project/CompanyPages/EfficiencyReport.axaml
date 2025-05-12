@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lvc="using:LiveChartsCore.SkiaSharpView.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="DB_Project.CompanyPages.EfficiencyReport">
+    <Grid RowDefinitions="Auto,*,*" ColumnDefinitions="*,*" Margin="20">
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock Text="Service Provider Efficiency Report"
+                       FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+            <TextBlock Text="Measures performance of hotels, guides, and transport services"
+                       FontSize="14" Margin="0,0,0,20"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Grid.Column="0" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Text="Hotel Occupancy Rates" FontSize="16" FontWeight="SemiBold" Margin="10"/>
+                <lvc:CartesianChart Name="HotelOccupancyChart" Grid.Row="1"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Text="Guide Ratings" FontSize="16" FontWeight="SemiBold" Margin="10"/>
+                <lvc:PieChart Name="GuideRatingsChart" Grid.Row="1"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Margin="5">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Text="Transport On-Time Performance" FontSize="16" FontWeight="SemiBold" Margin="10"/>
+                <lvc:CartesianChart Name="TransportPerformanceChart" Grid.Row="1"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
