@@ -70,6 +70,11 @@ public partial class CompanyCreate : UserControl
 
         InclusionsItemsControl.ItemsSource = results;
     }
+
+    private void SubmitButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public class ItineraryEntry

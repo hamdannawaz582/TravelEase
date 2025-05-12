@@ -180,6 +180,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -187,27 +189,59 @@
                         <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    
+                    <TextBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Name="TypeTextBox"
+                             VerticalAlignment="Center" Margin="10" Watermark="Type"/>
+                    
+                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Text="Title"
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" />
+                    
+                    <TextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" Name="TitleTextBox"
+                             VerticalAlignment="Center" Margin="10"/>
+                    
+                    <Button Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10" Name="SubmitButton" Click="SubmitButton_OnClick"> Create Trip </Button>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Text="Start"
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" />
+                    <!-- <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Name="DurationTextBox" -->
+                    <!--          VerticalAlignment="Center" Margin="10" /> -->
+                    <DatePicker Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Name="StartDatePicker" VerticalAlignment="Center" Margin="10"/>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Text="Duration"
+                    <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="GroupSize"
                                FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
                                VerticalAlignment="Center" Margin="10" />
-                    <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Name="DurationTextBox"
+                    <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" Name="GroupSizeTextBox"
                              VerticalAlignment="Center" Margin="10" />
-
-                    <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Text="GroupSize"
+                    <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Text="Destination"
                                FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
                                VerticalAlignment="Center" Margin="10" />
-                    <TextBox Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" Name="GroupSizeTextBox"
-                             VerticalAlignment="Center" Margin="10" />
-                    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Text="Destination"
-                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
-                               VerticalAlignment="Center" Margin="10" />
-                    <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Name="CityTextBox"
+                    <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Name="CityTextBox"
                              VerticalAlignment="Center" Margin="10" Watermark="City" />
-                    <TextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" Name="LocationTextBox"
+                    <TextBox Grid.Row="2" Grid.Column="2" HorizontalAlignment="Stretch" Name="LocationTextBox"
                              VerticalAlignment="Center" Margin="10" Watermark="Location" />
-                    <TextBox Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" Name="CountryTextBox"
+                    <TextBox Grid.Row="2" Grid.Column="3" HorizontalAlignment="Stretch" Name="CountryTextBox"
                              VerticalAlignment="Center" Margin="10" Watermark="Country" />
+                    
+                    <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" Text="End"
+                               FontFamily="Assets/Fonts/IBMPlexSans-Regular.ttf" FontSize="18"
+                               VerticalAlignment="Center" Margin="10" />
+                    <!-- <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Name="DurationTextBox" -->
+                    <!--          VerticalAlignment="Center" Margin="10" /> -->
+                    <DatePicker Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Name="EndDatePicker" VerticalAlignment="Center" Margin="10"/>
+
+                    
+                    <ComboBox Name="CancelPolicyComboBox" Grid.Row="3" Grid.Column="2" SelectedIndex="0"
+                              HorizontalAlignment="Stretch" Margin="10" VerticalAlignment="Center">
+                        <ComboBoxItem>Refundable</ComboBoxItem>
+                        <ComboBoxItem>Non-Refundable</ComboBoxItem>
+                    </ComboBox>
+                    
+                    <TextBox Grid.Row="3" Grid.Column="3" HorizontalAlignment="Stretch" Name="PriceTextBox"
+                             VerticalAlignment="Center" Margin="10" Watermark="Price" />
+
+                    
                 </Grid>
             </Border>
         </Grid>
