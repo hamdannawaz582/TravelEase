@@ -30,14 +30,16 @@ namespace DB_Project
                     InitializeSidebar(splitView, sidebar, mainContent);
                     var analyticsPage = new AdminAnalytics();
                     var managementPage = new AdminManagement();
-                    var catergoryManagement = new CategoryManagement();
+                    var categoryManagement = new CategoryManagement();
                     var reviewsPage = new AdminReviews();
-                    var TravellerDemo = new TravellerDemographicsReport();
+                    var travellerDemo = new TravellerDemographicsReport();
+                    var operatorPerformanceReport = new OperatorPerformanceReport();
                     Sidebar.AddTab("Analytics", analyticsPage);
                     Sidebar.AddTab("Admin Management", managementPage);
-                    Sidebar.AddTab("Category Management", catergoryManagement);
+                    Sidebar.AddTab("Category Management", categoryManagement);
                     Sidebar.AddTab("Reviews", reviewsPage);
-                    Sidebar.AddTab("TravellerDemo",TravellerDemo);
+                    Sidebar.AddTab("Traveller Demographics",travellerDemo);
+                    Sidebar.AddTab("Operator Performance", operatorPerformanceReport);
                     
                     ConfigureCommonTabs(sidebar);
                     MainContent.Content = analyticsPage;
