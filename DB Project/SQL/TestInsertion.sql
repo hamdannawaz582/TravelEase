@@ -10,9 +10,9 @@ VALUES
 
 INSERT INTO Operator (Username)
 VALUES
-    ('operator1'),
-    ('operator2'),
-    ('operator3');
+    ('operator43'),
+    ('operator42'),
+    ('operator41');
 
 INSERT INTO Admin (Username)
 VALUES 

@@ -4,7 +4,12 @@
 SELECT * FROM [User];
 SELECT * FROM Traveller;
 SELECT * FROM Admin;
+select * from trip;
 select* from Operator;
+select* from TripAudit;
+select*from TripBookingAudit;
+select*from TravellerAudit;
+select*from OperatorAudit;
 SELECT * FROM Trip_Booking;
 SELECT * FROM Trip_Itinerary;
 --IbnBatuta's password = 'worldtraveller123'
